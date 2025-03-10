@@ -1,7 +1,5 @@
 package com.justme8code.utterfresh_production_gathering_sys.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +18,6 @@ public class Staff extends BaseEntity {
     private Long id;
     @OneToOne(mappedBy = "staff", cascade = CascadeType.ALL)
     private User user;
+    private String profession;
+    private String companyRole;
 }

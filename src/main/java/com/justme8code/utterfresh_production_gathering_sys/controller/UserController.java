@@ -1,5 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.StaffDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
 import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.StaffService;
@@ -28,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/staffs")
-    public ResponseEntity<Staff> createStaffReq(@PathVariable Long userId) {
-        staffService.createStaff(userId);
+    public ResponseEntity<Staff> createStaffReq(@PathVariable Long userId,@RequestBody Staff staff) {
+        staffService.createStaff(userId,staff);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -37,5 +38,10 @@ public class UserController {
     public ResponseEntity<Staff> getStaff(@PathVariable Long userId){
         Staff staff = staffService.getStaffById(userId);
         return new ResponseEntity<>(staff, HttpStatus.OK);
+    }
+
+    @GetMapping("/staffs")
+    public ResponseEntity<List<StaffDto>> getAllStaffs() {
+         return new ResponseEntity<>(staffService.getAllStaffs(), HttpStatus.OK);
     }
 }

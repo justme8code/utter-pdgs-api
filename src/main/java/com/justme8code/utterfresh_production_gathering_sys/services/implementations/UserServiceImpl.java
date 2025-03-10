@@ -6,7 +6,10 @@ import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepos
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.UserService;
 import jakarta.transaction.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        return userRepository.findUserByEmail(email).orElse(null);
     }
 
     @Override
@@ -29,17 +32,20 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void createUser(User user) {
         User u = userRepository.save(user);
         userRepository.save(u);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void updateUser(User user) {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void deleteUser(Long id) {
 
