@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class ProductionServiceImpl implements ProductionService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     @Transactional
     public ProductionDto createProduction(Production production, Long staffId) {
         Staff staffExists = staffRepository.findById(staffId).orElseThrow(() -> new UsernameNotFoundException("Staff not found"));
@@ -62,10 +64,12 @@ public class ProductionServiceImpl implements ProductionService {
     }
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void updateProduction(Production production) {}
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void deleteProduction(Long id) {}
 
     private String productionNumberGenerator() {

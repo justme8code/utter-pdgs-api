@@ -20,9 +20,5 @@ public class Ingredient extends BaseEntity {
 
     @ManyToMany(mappedBy = "ingredients")
     @ToString.Exclude
-    private List<ProductMix> productMixes;
-
-    @ManyToMany(mappedBy = "ingredients")
-    @ToString.Exclude
     private List<RawMaterial> rawMaterials;
 }

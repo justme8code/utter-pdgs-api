@@ -1,9 +1,11 @@
 package com.justme8code.utterfresh_production_gathering_sys.configs;
 
 import com.justme8code.utterfresh_production_gathering_sys.models.Role;
+import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
 import com.justme8code.utterfresh_production_gathering_sys.models.UserRole;
 import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.repository.RoleRepository;
+import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
@@ -16,10 +18,12 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private static final String ADMIN_EMAIL = "t@utterfresh.com"; // Default admin username
+    private final StaffRepository staffRepository;
 
-    public DataInitializer(UserRepository userRepository, RoleRepository roleRepository) {
+    public DataInitializer(UserRepository userRepository, RoleRepository roleRepository, StaffRepository staffRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.staffRepository = staffRepository;
     }
 
     @Transactional
@@ -52,10 +56,18 @@ public class DataInitializer implements CommandLineRunner {
             }
         } else {
             User admin = new User();
+            admin.setFullName("Bolaji Oretan");
             admin.setEmail(ADMIN_EMAIL);
             admin.setRoles(new HashSet<>());
             admin.getRoles().add(adminRole);
-            userRepository.save(admin);
+            User user =userRepository.save(admin);
+            Staff staff = new Staff();
+            staff.setProfession("Software Engineer");
+            staff.setCompanyRole("Software Engineer");
+            staff.setUser(user);
+            staffRepository.save(staff);
+            user.setStaff(staff);
+            userRepository.save(user);
         }
     }
 }

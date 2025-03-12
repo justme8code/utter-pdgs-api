@@ -1,8 +1,11 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.IngredientsPayload;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.IngredientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +21,28 @@ public class IngredientController {
     }
 
     @PostMapping
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
-        ingredientService.storeIngredient(ingredient);
-        return ResponseEntity.ok(ingredient);
+    public ResponseEntity<String> createIngredient(@RequestBody Ingredient ingredient) {
+        ingredientService.createIngredient(ingredient);
+        return new ResponseEntity<>("Ingredient created", HttpStatus.OK);
     }
 
+    @PostMapping("/batch")
+    public ResponseEntity<String> createIngredients(@RequestBody IngredientsPayload payload) {
+        ingredientService.createIngredients(payload.getIngredients());
+        return ResponseEntity.ok("Ingredient created");
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Ingredient> getIngredientById(@PathVariable Long id) {
         Ingredient ingredient = ingredientService.getIngredientById(id);
         return ingredient != null ? ResponseEntity.ok(ingredient) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<IngredientDto> getIngredientByName(@RequestParam String name) {
+        IngredientDto ingredient = ingredientService.getIngredientByName(name);
+        return ingredient != null ? ResponseEntity.ok(ingredient) : ResponseEntity.notFound().build();
+    }
+
 
     @GetMapping
     public ResponseEntity<List<Ingredient>> getAllIngredients() {

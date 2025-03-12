@@ -1,5 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
+import com.justme8code.utterfresh_production_gathering_sys.mappers.RawMaterialMapper;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RawMaterialDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
 import com.justme8code.utterfresh_production_gathering_sys.repository.IngredientRepository;
@@ -9,15 +11,19 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RawMaterialServiceImpl implements RawMaterialService {
     private final RawMaterialRepository rawMaterialRepository;
     private final IngredientRepository ingredientRepository;
+    private final RawMaterialMapper rawMaterialMapper;
 
-    public RawMaterialServiceImpl(RawMaterialRepository rawMaterialRepository, IngredientRepository ingredientRepository) {
+    public RawMaterialServiceImpl(RawMaterialRepository rawMaterialRepository, IngredientRepository ingredientRepository,
+                                  RawMaterialMapper rawMaterialMapper) {
         this.rawMaterialRepository = rawMaterialRepository;
         this.ingredientRepository = ingredientRepository;
+        this.rawMaterialMapper = rawMaterialMapper;
     }
 
     @Override
@@ -32,8 +38,14 @@ public class RawMaterialServiceImpl implements RawMaterialService {
     }
 
     @Override
-    public List<RawMaterial> getAllRawMaterials() {
-        return rawMaterialRepository.findAll();
+    public void createRawMaterials(List<RawMaterial> rawMaterials) {
+        rawMaterialRepository.saveAll(rawMaterials);
+    }
+
+    @Override
+    public List<RawMaterialDto> getAllRawMaterials() {
+        return rawMaterialRepository.findAll().stream().map(rawMaterialMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
