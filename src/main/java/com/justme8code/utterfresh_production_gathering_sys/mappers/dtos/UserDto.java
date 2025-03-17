@@ -1,6 +1,5 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers.dtos;
 
-import com.justme8code.utterfresh_production_gathering_sys.models.UserRole;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -10,19 +9,21 @@ import java.util.Set;
  * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.User}
  */
 @Value
-public class UserDto2 implements Serializable {
+public class UserDto implements Serializable {
     Long id;
     String fullName;
+    StaffDto1 staff;
     String email;
     String phone;
     Set<RoleDto> roles;
 
     /**
-     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Role}
+     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Staff}
      */
     @Value
-    public static class RoleDto implements Serializable {
+    public static class StaffDto1 implements Serializable {
         Long id;
-        UserRole userRole;
+        String profession;
+        String companyRole;
     }
 }

@@ -1,14 +1,14 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.UserMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.UserDto2;
 import com.justme8code.utterfresh_production_gathering_sys.models.Role;
 import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
 import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.repository.RoleRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.CreateUserRequest;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.CreateUserRequestDto;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.UserResponseDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,17 +25,17 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final StaffRepository staffRepository;
-    private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, StaffRepository staffRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
-                           UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, StaffRepository staffRepository, RoleRepository roleRepository,
+                           UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.staffRepository = staffRepository;
-        this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -49,35 +49,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     @Override
-    public void createUser(CreateUserRequest createUserRequest) {
-        // Encode password before saving
-        User user = userMapper.toEntity(createUserRequest);
+    public void createUser(CreateUserRequestDto createUserRequest) {
+        User user = new User();
+        user.setEmail(createUserRequest.getEmail());
+        user.setFullName(createUserRequest.getFullName());
 
+        // ✅ Make sure to encode only the actual password
+        user.setPwd(passwordEncoder.encode(createUserRequest.getPwd()));
 
-        // Fetch roles by their IDs to ensure they exist
-        Set<Role> userRoles = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            roleRepository.findById(role.getId()).ifPresent(userRoles::add);
-        }
+        Set<Role> roles = createUserRequest.getRoles().stream().map(
+                roleDto -> {
+                    Role role = new Role();
+                    role.setUserRole(roleDto.getUserRole());
+                    role.setId(roleDto.getId());
+                    return role;
+                }
+        ).collect(Collectors.toSet());
 
+        user.setRoles(roles);
 
-        // Set roles to the user
-        user.setRoles(userRoles);
-
-        // Save the user with assigned roles
         User userSaved = userRepository.save(user);
 
         Staff staff = new Staff();
         staff.setUser(userSaved);
-        staff.setCompanyRole(user.getStaff().getCompanyRole());
-        staff.setProfession(user.getStaff().getProfession());
+        staff.setCompanyRole(createUserRequest.getStaff().getCompanyRole()); // Use request data
+        staff.setProfession(createUserRequest.getStaff().getProfession());  // Use request data
         staffRepository.save(staff);
+
+        user.setStaff(staff);
+        userRepository.save(userSaved);
     }
 
     @Override
-    public List<UserDto2> getAllUsers() {
-        return userRepository.findAll().stream().map(userMapper::toDto2).collect(Collectors.toList());
+    public List<UserResponseDto> getAllUsers() {
+        return userRepository.findAll().stream().map(userMapper::toDto1).collect(Collectors.toList());
     }
 
 

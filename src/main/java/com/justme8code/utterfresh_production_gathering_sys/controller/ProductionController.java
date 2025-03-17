@@ -2,7 +2,7 @@ package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
-import com.justme8code.utterfresh_production_gathering_sys.models.Production;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,9 @@ public class ProductionController {
         this.productionService = productionService;
     }
 
-    @PostMapping("/staffs/{staffId}")
-    public ResponseEntity<ProductionDto> createProductionReq(@RequestBody Production production, @PathVariable Long staffId) {
-        ProductionDto createdProduction = productionService.createProduction(production,staffId);
+    @PostMapping()
+    public ResponseEntity<ProductionDto> createProductionReq(@RequestBody ProductionPayload productionPayload) {
+        ProductionDto createdProduction = productionService.createProduction(productionPayload);
         return new ResponseEntity<>(createdProduction, HttpStatus.CREATED);
     }
 

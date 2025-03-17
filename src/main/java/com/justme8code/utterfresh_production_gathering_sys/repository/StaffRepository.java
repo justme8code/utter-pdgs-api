@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface StaffRepository extends JpaRepository<Staff, Long>, JpaSpecificationExecutor<Staff> {
-    Staff existsStaffById(Long id);
+    boolean existsStaffById(Long id);
+    Staff findStaffByUser_Email(String email);
+
 }

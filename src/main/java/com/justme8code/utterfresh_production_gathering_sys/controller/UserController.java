@@ -1,10 +1,9 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.StaffDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.UserDto2;
 import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
-import com.justme8code.utterfresh_production_gathering_sys.models.User;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.CreateUserRequest;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.CreateUserRequestDto;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.UserResponseDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.StaffService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUserReq(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<Void> createUserReq(@RequestBody CreateUserRequestDto createUserRequest) {
         userService.createUser(createUserRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -37,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<UserDto2>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 

@@ -32,7 +32,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests.requestMatchers("/health","/api/auth/**","/h2-console/**").permitAll();
                     authorizeRequests.anyRequest().authenticated();
-                }).headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)).sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                }).headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)).sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        .exceptionHandling(ex -> ex
+                    .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    throw accessDeniedException; // Let GlobalExceptionHandler handle it
+                }));
+
         //HttpMethod.OPTIONS, "/**",
         http.cors(Customizer.withDefaults());
 

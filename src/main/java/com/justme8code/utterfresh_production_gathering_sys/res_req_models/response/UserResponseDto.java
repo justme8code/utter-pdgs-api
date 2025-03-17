@@ -1,5 +1,6 @@
-package com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests;
+package com.justme8code.utterfresh_production_gathering_sys.res_req_models.response;
 
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RoleDto;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -9,13 +10,11 @@ import java.util.Set;
  * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.User}
  */
 @Value
-public class CreateUserRequest implements Serializable {
+public class UserResponseDto implements Serializable {
     Long id;
     String fullName;
     StaffDto staff;
-    String pwd;
     String email;
-    String phone;
     Set<RoleDto> roles;
 
     /**
@@ -23,15 +22,8 @@ public class CreateUserRequest implements Serializable {
      */
     @Value
     public static class StaffDto implements Serializable {
+        Long id;
         String profession;
         String companyRole;
-    }
-
-    /**
-     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Role}
-     */
-    @Value
-    public static class RoleDto implements Serializable {
-        Long id;
     }
 }

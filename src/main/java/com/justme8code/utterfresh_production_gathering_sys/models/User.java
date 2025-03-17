@@ -28,6 +28,7 @@ public class User extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)  // Cascade to save Staff automatically
     @JoinColumn(name = "staff_id", referencedColumnName = "id")
     @JsonIgnore
+    @ToString.Exclude
     private Staff staff;
 
     private String pwd;

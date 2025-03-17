@@ -65,8 +65,10 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setJwtToken(token);
+
         userRepository.findUserByEmail(user.getEmail())
                 .ifPresent(user1 -> loginResponse.setUser(userMapper.toDto(user1)));
+
         return loginResponse;
     }
 
