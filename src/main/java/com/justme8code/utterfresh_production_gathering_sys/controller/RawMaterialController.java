@@ -5,10 +5,12 @@ import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.RawMaterialsPayload;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.RawMaterialService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/raw-materials")
@@ -20,14 +22,22 @@ public class RawMaterialController {
     }
 
     @PostMapping
-    public ResponseEntity<RawMaterial> createRawMaterial(@RequestBody RawMaterial rawMaterial) {
+    public ResponseEntity<RawMaterial> createRawMaterial(@RequestBody Map<String,String> rM) {
+        RawMaterial rawMaterial = new RawMaterial();
+        rawMaterial.setName(rM.get("name"));
         rawMaterialService.storeRawMaterial(rawMaterial);
-        return ResponseEntity.ok(rawMaterial);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/batch")
-    public ResponseEntity<String> createRawMaterials(@RequestBody RawMaterialsPayload payload) {
-        rawMaterialService.createRawMaterials(payload.getRawMaterials());
+    @PostMapping("/list")
+    public ResponseEntity<String> createRawMaterials(@RequestBody List<Map<String,String >> rawMaterials) {
+        List<RawMaterial> rMS = rawMaterials.stream().map(stringStringMap -> {
+            RawMaterial rawMaterial = new RawMaterial();
+            rawMaterial.setName(stringStringMap.get("name"));
+            return rawMaterial;
+        }).toList();
+
+        rawMaterialService.createRawMaterials(rMS);
         return ResponseEntity.ok("Raw material created");
     }
 

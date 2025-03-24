@@ -20,5 +20,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("You do not have permission to perform this action.", HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(EntityException.class)
+    public ResponseEntity<Object> handleEntityException(EntityException e) {
+        return new ResponseEntity<>(e.getMessage(),e.getHttpStatus());
+    }
+
 
 }

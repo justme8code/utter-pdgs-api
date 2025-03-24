@@ -39,11 +39,14 @@ public class Production extends BaseEntity {
     private ProductionStatus status;
 
     public enum ProductionStatus {
-        RUNNING, COMPLETED
+        RUNNING, COMPLETED, PAUSE
     }
 
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @JsonManagedReference
     private List<ProductionBatch> productionBatches = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DynamicData> dynamicData = new ArrayList<>();
 }

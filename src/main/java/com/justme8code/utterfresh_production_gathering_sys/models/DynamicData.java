@@ -4,6 +4,7 @@ import com.justme8code.utterfresh_production_gathering_sys.utils.JsonUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import java.util.Map;
 
@@ -19,8 +20,7 @@ public class DynamicData {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Lob  // H2 supports LOB for large JSON storage
-    @Column(columnDefinition = "CLOB")
+    @Column(name = "description", columnDefinition="TEXT")
     private String jsonData;
 
     @Transient // Don't store in DB, used for JSON parsing
@@ -37,4 +37,5 @@ public class DynamicData {
         }
         return this.dataMap;
     }
+
 }

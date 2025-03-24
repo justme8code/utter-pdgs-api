@@ -42,7 +42,6 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults());
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
