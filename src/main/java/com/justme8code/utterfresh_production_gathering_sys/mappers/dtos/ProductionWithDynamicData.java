@@ -1,7 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers.dtos;
 
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
-import com.justme8code.utterfresh_production_gathering_sys.models.ProductionBatch;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import java.util.List;
  * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Production}
  */
 @Value
-public class ProductionDtoWithDynamicData implements Serializable {
+public class ProductionWithDynamicData implements Serializable {
     Long id;
     String productionNumber;
     String name;
@@ -20,24 +19,31 @@ public class ProductionDtoWithDynamicData implements Serializable {
     LocalDate endDate;
     StaffDto1 staff;
     Production.ProductionStatus status;
-    List<ProductionBatch> productionBatches;
-    List<DynamicDataDto> dynamicData;
+    List<ProductionBatchDto> productionBatches;
+    DynamicDataDto dynamicData;
 
     /**
      * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Staff}
      */
     @Value
     public static class StaffDto1 implements Serializable {
+        Long id;
         UserDto1 user;
+    }
 
-        /**
-         * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.User}
-         */
-        @Value
-        public static class UserDto1 implements Serializable {
-            Long id;
-            String fullName;
-        }
+    @Value
+    public static class UserDto1 implements Serializable {
+        Long id;
+        String fullName;
+    }
+
+    /**
+     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.ProductionBatch}
+     */
+    @Value
+    public static class ProductionBatchDto implements Serializable {
+        Long id;
+        String name;
     }
 
     /**

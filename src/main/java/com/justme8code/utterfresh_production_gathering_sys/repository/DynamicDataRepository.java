@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface DynamicDataRepository extends JpaRepository<DynamicData, Long>, JpaSpecificationExecutor<DynamicData> {
     Optional<DynamicData> findByName(String name);
+    Optional<DynamicData> findById(long id);
 }

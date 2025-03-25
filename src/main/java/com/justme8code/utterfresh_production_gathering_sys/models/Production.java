@@ -47,6 +47,6 @@ public class Production extends BaseEntity {
     @JsonManagedReference
     private List<ProductionBatch> productionBatches = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DynamicData> dynamicData = new ArrayList<>();
+    @OneToOne
+    private  DynamicData dynamicData;
 }

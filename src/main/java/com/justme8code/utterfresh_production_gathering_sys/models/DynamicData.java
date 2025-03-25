@@ -17,13 +17,13 @@ public class DynamicData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(name = "description", columnDefinition="TEXT")
     private String jsonData;
 
-    @Transient // Don't store in DB, used for JSON parsing
+    @Transient
     private Map<String, Object> dataMap;
 
     public void setDataMap(Map<String, Object> map) throws Exception {
@@ -37,5 +37,7 @@ public class DynamicData {
         }
         return this.dataMap;
     }
+
+
 
 }

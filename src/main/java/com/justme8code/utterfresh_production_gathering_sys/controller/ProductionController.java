@@ -1,17 +1,22 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
+import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDtoWithDynamicData;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
 import com.justme8code.utterfresh_production_gathering_sys.models.DynamicData;
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.ProductionDtoWithDataResponse;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionService;
+import com.justme8code.utterfresh_production_gathering_sys.utils.JsonUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/productions")
@@ -57,14 +62,48 @@ public class ProductionController {
     }
 
     @GetMapping("/{id}/dynamic")
-    public ResponseEntity<ProductionDtoWithDynamicData> getProductionWithDynamicData(@PathVariable long id) {
-        ProductionDtoWithDynamicData productionDtoWithDynamicData = productionService.getProductionWithDynamicData(id);
-        return new ResponseEntity<>(productionDtoWithDynamicData, HttpStatus.OK);
+    public ResponseEntity<ProductionDtoWithDataResponse> getProductionWithDynamicData(@PathVariable long id) {
+       try{
+           ProductionWithDynamicData productionDtoWithDynamicData = productionService.getProductionWithDynamicData(id);
+           ProductionDtoWithDataResponse dataResponse = withDataResponse(productionDtoWithDynamicData);
+           return new ResponseEntity<>(dataResponse, HttpStatus.OK);
+       } catch (Exception e) {
+           System.out.println(e);
+           throw new EntityException("Could not get production",HttpStatus.NOT_FOUND);
+       }
+
     }
 
     @PostMapping("/{id}/dynamic")
-    public ResponseEntity<Void> addProductionDynamicData(@PathVariable long id, @RequestBody DynamicData dynamicData) {
+    public ResponseEntity<Void> addProductionDynamicData(@PathVariable long id, @RequestBody Map<String,Object> dynamicData) {
         productionService.createProductionDynamicData(id,dynamicData);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}/dynamic")
+    public ResponseEntity<Void> updateProductionWithDynamicData(@PathVariable long id, @RequestBody Map<String,Object> dynamicData) {
+        productionService.updateProductionDynamicData(id,dynamicData);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    private ProductionDtoWithDataResponse withDataResponse(ProductionWithDynamicData productionWithDynamicData) throws Exception {
+        ProductionDtoWithDataResponse withDataResponse = new ProductionDtoWithDataResponse();
+        ProductionWithDynamicData.DynamicDataDto dD = productionWithDynamicData.getDynamicData();
+        withDataResponse.setId(productionWithDynamicData.getId());
+        withDataResponse.setName(productionWithDynamicData.getName());
+        withDataResponse.setStartDate(productionWithDynamicData.getStartDate());
+        withDataResponse.setStaff(productionWithDynamicData.getStaff());
+        withDataResponse.setEndDate(productionWithDynamicData.getEndDate());
+        withDataResponse.setProductionNumber(productionWithDynamicData.getProductionNumber());
+        withDataResponse.setStatus(productionWithDynamicData.getStatus());
+        withDataResponse.setStatus(productionWithDynamicData.getStatus());
+        withDataResponse.setProductionBatches(productionWithDynamicData.getProductionBatches());
+        withDataResponse.setDynamicDataId(productionWithDynamicData.getDynamicData().getId());
+        withDataResponse.setDynamicDataName(productionWithDynamicData.getDynamicData().getName());
+        String jsonData = dD.getJsonData();
+        withDataResponse.setDynamicData(jsonData==null?new HashMap<>():JsonUtils.fromJson(jsonData));
+        System.out.println(withDataResponse);
+        return withDataResponse;
     }
 }
