@@ -4,7 +4,7 @@ import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RawMater
 import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {IngredientMapper.class})
 public interface RawMaterialMapper {
     RawMaterial toEntity(RawMaterialDto rawMaterialDto);
 

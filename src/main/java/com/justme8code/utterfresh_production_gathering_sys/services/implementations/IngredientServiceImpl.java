@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -30,28 +31,15 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public void createIngredient(Ingredient ingredient) {
-        List<RawMaterial> processedMaterials = new ArrayList<>();
-
-        for (RawMaterial rawMaterial : ingredient.getRawMaterials()) {
-            Optional<RawMaterial> existingMaterial = rawMaterialRepository.findRawMaterialByName(rawMaterial.getName());
-
-            if (existingMaterial.isPresent()) {
-                processedMaterials.add(existingMaterial.get()); // Use existing material
-            } else {
-                RawMaterial newMaterial = rawMaterialRepository.save(rawMaterial); // Save new material
-                processedMaterials.add(newMaterial);
-            }
-        }
-
-        ingredient.setRawMaterials(processedMaterials);
-        ingredientRepository.save(ingredient); // Save ingredient with materials
+    public IngredientDto createIngredient(IngredientDto ingredient) {
+       return ingredientMapper.toDto(ingredientRepository
+               .save(ingredientMapper.toEntity(ingredient)));
     }
 
 
     @Override
-    public Ingredient getIngredientById(Long id) {
-        return ingredientRepository.findById(id).orElse(null);
+    public IngredientDto getIngredientById(Long id) {
+        return ingredientMapper.toDto(ingredientRepository.findById(id).orElse(null));
     }
 
     @Override
@@ -61,13 +49,15 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void createIngredients(List<Ingredient> ingredients) {
-
+    public List<IngredientDto> createIngredients(List<IngredientDto> ingredients) {
+        return ingredientRepository.saveAll(ingredients.stream()
+                        .map(ingredientMapper::toEntity).collect(Collectors.toList()))
+                .stream().map(ingredientMapper::toDto).toList();
     }
 
     @Override
-    public List<Ingredient> getAllIngredients() {
-        return ingredientRepository.findAll();
+    public List<IngredientDto> getAllIngredients() {
+        return ingredientRepository.findAll().stream().map(ingredientMapper::toDto).collect(Collectors.toList());
     }
 
     @Override

@@ -6,8 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ActiveProfiles("test")
-@ContextConfiguration(classes = UtterfreshProductionGatheringSysApplication.class)
+@ActiveProfiles()
 class UtterfreshProductionGatheringSysApplicationTests {
 
     @Test

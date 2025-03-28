@@ -20,20 +20,13 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createIngredient(@RequestBody Ingredient ingredient) {
-        ingredientService.createIngredient(ingredient);
-        return new ResponseEntity<>("Ingredient created", HttpStatus.OK);
-    }
-
-    @PostMapping("/batch")
-    public ResponseEntity<String> createIngredients(@RequestBody IngredientsPayload payload) {
-        ingredientService.createIngredients(payload.getIngredients());
-        return ResponseEntity.ok("Ingredient created");
+    @PostMapping()
+    public ResponseEntity<List<IngredientDto>> createIngredient(@RequestBody List<IngredientDto> ingredients) {
+        return new ResponseEntity<>(ingredientService.createIngredients(ingredients), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Ingredient> getIngredientById(@PathVariable Long id) {
-        Ingredient ingredient = ingredientService.getIngredientById(id);
+    public ResponseEntity<IngredientDto> getIngredientById(@PathVariable Long id) {
+        IngredientDto ingredient = ingredientService.getIngredientById(id);
         return ingredient != null ? ResponseEntity.ok(ingredient) : ResponseEntity.notFound().build();
     }
 
@@ -45,8 +38,8 @@ public class IngredientController {
 
 
     @GetMapping
-    public ResponseEntity<List<Ingredient>> getAllIngredients() {
-        List<Ingredient> ingredients = ingredientService.getAllIngredients();
+    public ResponseEntity<List<IngredientDto>> getAllIngredients() {
+        List<IngredientDto> ingredients = ingredientService.getAllIngredients();
         return ResponseEntity.ok(ingredients);
     }
 

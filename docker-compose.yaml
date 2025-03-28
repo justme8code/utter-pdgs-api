@@ -1,4 +1,3 @@
-
 services:
   postgres_db:
     image: postgres:latest
@@ -14,9 +13,9 @@ services:
     networks:
       - utterfresh_network
 
-  utterfresh_production_gathering_sys-app:
-    container_name: utterfresh-container
-    image: utterfresh_production_gathering_sys-app:latest
+  utter-pdgs-api:
+    container_name: utter-pdgs-api-container
+    image: utter-pdgs-api:latest
     depends_on:
       - postgres_db
     ports:

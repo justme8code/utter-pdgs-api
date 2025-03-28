@@ -4,8 +4,8 @@ LABEL authors="Thompson"
 
 WORKDIR /app
 
-# Copy the pre-built JAR file into the container
-COPY build/libs/utterfresh_production_gathering_sys-0.0.1-SNAPSHOT.jar app.jar
+# Copy the pre-built JAR file into the container (updated for Maven)
+COPY target/utter-pdgs-api-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose application port
 EXPOSE 8080

@@ -86,8 +86,6 @@ public class AuthServiceImpl implements AuthService {
     public void resetPassword(ResetPasswordRequest resetPasswordRequest) {
         User user = retreiveUser(resetPasswordRequest);
         if (user.getPwd() == null) {  // Only reset if password is NULL
-            System.out.println(user.getEmail());
-            System.out.println(user.getPwd());
             user.setPwd(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
             userRepository.save(user);
         } else {

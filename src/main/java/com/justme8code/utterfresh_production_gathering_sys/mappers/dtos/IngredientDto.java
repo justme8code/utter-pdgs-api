@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  */
 @Value
 public class IngredientDto implements Serializable {
-    LocalDateTime createdAt;
     Long id;
     String name;
+    LocalDateTime createdAt;
 }
