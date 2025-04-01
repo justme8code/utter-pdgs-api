@@ -12,5 +12,4 @@ import java.time.LocalDateTime;
 public class IngredientDto implements Serializable {
     Long id;
     String name;
-    LocalDateTime createdAt;
 }

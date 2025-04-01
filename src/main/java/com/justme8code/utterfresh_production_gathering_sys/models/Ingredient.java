@@ -18,7 +18,12 @@ public class Ingredient extends BaseEntity {
 
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
+    @ManyToMany
+    @JoinTable(
+            name = "ingredient_raw_material",
+            joinColumns = @JoinColumn(name = "ingredient_id"),
+            inverseJoinColumns = @JoinColumn(name = "raw_material_id")
+    )
     @ToString.Exclude
     private List<RawMaterial> rawMaterials;
 }

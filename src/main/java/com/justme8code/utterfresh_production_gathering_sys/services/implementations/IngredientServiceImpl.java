@@ -1,19 +1,17 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
+import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.IngredientMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto1;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
 import com.justme8code.utterfresh_production_gathering_sys.repository.IngredientRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.RawMaterialRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.IngredientService;
-import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.RawMaterialService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,33 +29,41 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public IngredientDto createIngredient(IngredientDto ingredient) {
-       return ingredientMapper.toDto(ingredientRepository
-               .save(ingredientMapper.toEntity(ingredient)));
-    }
-
-
-    @Override
-    public IngredientDto getIngredientById(Long id) {
-        return ingredientMapper.toDto(ingredientRepository.findById(id).orElse(null));
+    public IngredientDto1 createIngredient(IngredientDto1 ingredient) {
+       return ingredientMapper.toDto1(ingredientMapper.toEntity(ingredientMapper
+               .toDto1(ingredientRepository.save(ingredientMapper.toEntity(ingredient)))));
     }
 
     @Override
-    public IngredientDto getIngredientByName(String name) {
-        Optional<Ingredient> ingredient = ingredientRepository.findIngredientByName(name);
-        return ingredientMapper.toDto(ingredient.orElse(null));
+    public IngredientDto1 getIngredientById(Long id) {
+        return null;
     }
 
     @Override
-    public List<IngredientDto> createIngredients(List<IngredientDto> ingredients) {
-        return ingredientRepository.saveAll(ingredients.stream()
-                        .map(ingredientMapper::toEntity).collect(Collectors.toList()))
-                .stream().map(ingredientMapper::toDto).toList();
+    public IngredientDto1 getIngredientByName(String name) {
+       Ingredient ingredient = ingredientRepository.findIngredientByName(name)
+               .orElseThrow(()-> new EntityException("Not Found", HttpStatus.NOT_FOUND));
+       return ingredientMapper.toDto1(ingredient);
     }
 
     @Override
-    public List<IngredientDto> getAllIngredients() {
-        return ingredientRepository.findAll().stream().map(ingredientMapper::toDto).collect(Collectors.toList());
+    public List<IngredientDto1> createIngredients(List<IngredientDto1> ingredients) {
+        ingredientRepository.saveAll(ingredients.stream().map(ingredientMapper::toEntity).collect(Collectors.toList()));
+        return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IngredientDto1> getAllIngredients() {
+        return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());
+    }
+
+    @Override
+    public IngredientDto1 updateIngredient(long ingredientId,IngredientDto1 ingredient) {
+         Ingredient retreivedIngredient = ingredientRepository.findById(ingredientId).orElseThrow(()-> new EntityException("Not Found", HttpStatus.NOT_FOUND));
+         Ingredient ingredient2 = ingredientMapper.toEntity(ingredient);
+         retreivedIngredient.setName(ingredient2.getName());
+         retreivedIngredient.setRawMaterials(ingredient2.getRawMaterials());
+         return ingredientMapper.toDto1(ingredientRepository.save(retreivedIngredient));
     }
 
     @Override

@@ -67,8 +67,19 @@ public class RawMaterialServiceImpl implements RawMaterialService {
     @Override
     @Transactional
     public void addIngredientToRawMaterial(Long rawMaterialId, List<IngredientDto> ingredients) {
-        RawMaterial rawMaterial = rawMaterialRepository.findById(rawMaterialId).orElseThrow(() -> new IllegalArgumentException("RawMaterial not found"));
-        rawMaterial.getIngredients().addAll(ingredients.stream().map(ingredientMapper::toEntity).toList());
+        RawMaterial rawMaterial = rawMaterialRepository.findById(rawMaterialId)
+                .orElseThrow(() -> new IllegalArgumentException("RawMaterial not found"));
+
+        // Convert DTOs to entity objects
+        List<Ingredient> newIngredients = ingredients.stream()
+                .map(ingredientMapper::toEntity)
+                .toList();
+
+        // Clear existing ingredients and replace them with the new ones
+        rawMaterial.getIngredients().clear();
+        rawMaterial.getIngredients().addAll(newIngredients);
+
+        // Save the updated entity
         rawMaterialRepository.save(rawMaterial);
     }
 

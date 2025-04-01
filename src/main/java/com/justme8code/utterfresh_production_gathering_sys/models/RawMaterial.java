@@ -18,12 +18,7 @@ public class RawMaterial extends BaseEntity {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "raw_material_ingredients",
-            joinColumns = @JoinColumn(name = "raw_material_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
+    @ManyToMany(mappedBy = "rawMaterials")
     @ToString.Exclude
     private List<Ingredient> ingredients;
 }
