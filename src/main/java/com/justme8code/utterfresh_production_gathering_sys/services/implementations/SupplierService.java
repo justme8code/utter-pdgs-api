@@ -10,6 +10,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SupplierService {
 
@@ -22,7 +25,14 @@ public class SupplierService {
         this.supplierMapper = supplierMapper;
     }
 
-
+    public List<SupplierDto> createSuppliers(List<SupplierDtoPayload> suppliers){
+        supplierRepository.saveAll(suppliers.stream().map(supplierMapper::toEntity).collect(Collectors.toList()));
+        return getSuppliers();
+    }
+    public List<SupplierDto> getSuppliers() {
+        List<Supplier> suppliers = supplierRepository.findAll();
+        return suppliers.stream().map(supplierMapper::toDto).collect(Collectors.toList());
+    }
     // Create a supplier
     public SupplierDto createSupplier(SupplierDtoPayload newSupplier) {
         return supplierMapper.toDto(supplierRepository

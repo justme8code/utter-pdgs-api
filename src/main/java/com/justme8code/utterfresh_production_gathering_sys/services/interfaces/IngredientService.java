@@ -10,6 +10,7 @@ public interface IngredientService {
     IngredientDto1 createIngredient(IngredientDto1 ingredient);
     IngredientDto1 getIngredientById(Long id);
     IngredientDto1 getIngredientByName(String name);
+    List<IngredientDto1> getIngredientsByNames(List<String> names);
     List<IngredientDto1> createIngredients(List<IngredientDto1> ingredientDtoList);
     List<IngredientDto1> getAllIngredients();
     IngredientDto1 updateIngredient(long ingredientId,IngredientDto1 ingredient);

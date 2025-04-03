@@ -20,9 +20,6 @@ public class ProductMix extends BaseEntity {
     private Production production;
 
     @OneToOne
-    private ProductionBatch productionBatch;
-
-    @OneToOne
     private Product product;
 
     @ManyToMany

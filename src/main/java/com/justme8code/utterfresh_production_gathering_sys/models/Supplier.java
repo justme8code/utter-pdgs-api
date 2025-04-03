@@ -15,7 +15,6 @@ public class Supplier extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String fullName;
     private String address;
     private String phoneNumber;

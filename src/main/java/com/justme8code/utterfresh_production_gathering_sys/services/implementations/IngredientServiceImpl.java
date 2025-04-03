@@ -47,6 +47,13 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    public List<IngredientDto1> getIngredientsByNames(List<String> names) {
+        return ingredientRepository.findByRawMaterials_NameIn(names)
+                .stream().map(ingredientMapper::toDto1)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<IngredientDto1> createIngredients(List<IngredientDto1> ingredients) {
         ingredientRepository.saveAll(ingredients.stream().map(ingredientMapper::toEntity).collect(Collectors.toList()));
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());

@@ -1,9 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto1;
-import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
-import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.IngredientsPayload;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.IngredientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +21,13 @@ public class IngredientController {
     public ResponseEntity<List<IngredientDto1>> createIngredient(@RequestBody List<IngredientDto1> ingredients) {
         return new ResponseEntity<>(ingredientService.createIngredients(ingredients), HttpStatus.OK);
     }
+
+    @GetMapping("/search/by-raw-material-names")
+    public ResponseEntity<List<IngredientDto1>> getIngredientsByNames(@RequestParam(required = false) List<String> rawMaterialNames) {
+        List<IngredientDto1> ingredients = ingredientService.getIngredientsByNames(rawMaterialNames);
+        return ingredients.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(ingredients);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<IngredientDto1> getIngredientById(@PathVariable Long id) {
         IngredientDto1 ingredient = ingredientService.getIngredientById(id);
