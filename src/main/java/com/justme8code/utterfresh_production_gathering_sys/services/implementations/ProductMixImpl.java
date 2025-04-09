@@ -4,9 +4,7 @@ import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityExce
 import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMixMapper;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.*;
-import com.justme8code.utterfresh_production_gathering_sys.repository.ProductMixRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.ProductionRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.VariantRepository;
+import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductMixService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,13 +18,16 @@ public class ProductMixImpl implements ProductMixService {
     private final ProductRepository productRepository;
     private final ProductionRepository productionRepository;
     private final VariantRepository variantRepository;
+    private final IngredientUsageRepository ingredientUsageRepository;
 
-    public ProductMixImpl(ProductMixRepository productMixRepository, ProductMixMapper productMixMapper, ProductRepository productRepository, ProductionRepository productionRepository, VariantRepository variantRepository) {
+    public ProductMixImpl(ProductMixRepository productMixRepository, ProductMixMapper productMixMapper, ProductRepository productRepository, ProductionRepository productionRepository,
+                          VariantRepository variantRepository, IngredientUsageRepository ingredientUsageRepository) {
         this.productMixRepository = productMixRepository;
         this.productMixMapper = productMixMapper;
         this.productRepository = productRepository;
         this.productionRepository = productionRepository;
         this.variantRepository = variantRepository;
+        this.ingredientUsageRepository = ingredientUsageRepository;
     }
 
     @Override
@@ -36,20 +37,30 @@ public class ProductMixImpl implements ProductMixService {
         Production production = productionRepository.findProductionById(productMixDto.getProductionId())
                 .orElseThrow(() -> new EntityException("You can't make a production mix without being in a production", HttpStatus.FORBIDDEN));
 
+        // Load managed Product entity
         Product product = productRepository.findById(productMix.getProduct().getId())
                 .orElseThrow(() -> new EntityException("Product not found", HttpStatus.NOT_FOUND));
 
         productMix.setProduction(production);
+        productMix.setProduct(product);
 
+        // Save the product mix FIRST so it becomes a managed entity
+        ProductMix savedMix = productMixRepository.save(productMix);
 
+        // Set the managed ProductMix to each IngredientUsage (to fix transient error)
+        productMix.getIngredientUsages().forEach(usage -> usage.setProductMix(savedMix));
 
-        // Let the product handle the relationship update
-        product.addProductMix(productMix);
+        // Save the ingredient usages
+        List<IngredientUsage> savedUsages = ingredientUsageRepository.saveAll(productMix.getIngredientUsages());
 
-        // Optional: save product instead of productMix to persist both
-        productRepository.save(product); // because cascade will save the mix too
+        savedMix.getIngredientUsages().clear();
+        savedMix.getIngredientUsages().addAll(savedUsages);
 
-        return productMixMapper.toDto(productMix);
+        // Update Product with the new mix
+        product.addProductMix(savedMix);
+        productRepository.save(product);
+
+        return productMixMapper.toDto(savedMix);
     }
 
 

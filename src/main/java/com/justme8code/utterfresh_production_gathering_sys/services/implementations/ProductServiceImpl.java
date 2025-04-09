@@ -4,7 +4,7 @@ import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityExce
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMapper;
 import com.justme8code.utterfresh_production_gathering_sys.models.Product;
-import com.justme8code.utterfresh_production_gathering_sys.models.ProductRepository;
+import com.justme8code.utterfresh_production_gathering_sys.repository.ProductRepository;
 import com.justme8code.utterfresh_production_gathering_sys.models.Variant;
 import com.justme8code.utterfresh_production_gathering_sys.repository.VariantRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
