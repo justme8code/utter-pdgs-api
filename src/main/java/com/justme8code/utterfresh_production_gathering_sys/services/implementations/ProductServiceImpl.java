@@ -5,6 +5,8 @@ import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductD
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMapper;
 import com.justme8code.utterfresh_production_gathering_sys.models.Product;
 import com.justme8code.utterfresh_production_gathering_sys.models.ProductRepository;
+import com.justme8code.utterfresh_production_gathering_sys.models.Variant;
+import com.justme8code.utterfresh_production_gathering_sys.repository.VariantRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,13 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final VariantRepository variantRepository;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ProductMapper productMapper) {
+                              ProductMapper productMapper, VariantRepository variantRepository) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
+        this.variantRepository = variantRepository;
     }
 
     @Override
@@ -31,13 +35,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> fetchAllProducts() {
-        List<ProductDto> productDtos = productRepository.findAll().stream().map(productMapper::toDto).collect(Collectors.toList());
-        return productDtos;
+        return productRepository.findAll().stream().map(productMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
     public ProductDto createANewProduct(ProductDto productDto) {
         Product product = productMapper.toEntity(productDto);
+        Variant variant = product.getVariant();
+        Variant rv = variantRepository.save(variant);
+        product.setVariant(rv);
         return productMapper.toDto(productRepository.save(product));
     }
 

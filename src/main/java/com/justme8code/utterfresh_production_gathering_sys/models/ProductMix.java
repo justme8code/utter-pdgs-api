@@ -2,6 +2,8 @@ package com.justme8code.utterfresh_production_gathering_sys.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,23 +17,12 @@ public class ProductMix extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
+    @ManyToOne
     private Production production;
-
-    @OneToOne
+    @ManyToOne
     private Product product;
-
-    @ManyToMany
-    @JoinTable(
-            name = "product_mix_ingredients",
-            joinColumns = @JoinColumn(name = "product_mix_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
-    @ToString.Exclude
-    private List<Ingredient> ingredients;
-
-    private Double litresUsed;
+    @OneToMany(mappedBy = "productMix", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<IngredientUsage> ingredientUsages = new ArrayList<>();
     private Double totalLitersUsed;
     private Integer qty;
     private Double brixOnDiluent;
@@ -40,4 +31,13 @@ public class ProductMix extends BaseEntity {
     private Double finalBrix;
     private Double initialPH;
     private Double finalPH;
+
+    public void addIngredientUsage(Ingredient ingredient, Double litres) {
+        IngredientUsage usage = new IngredientUsage();
+        usage.setIngredient(ingredient);
+        usage.setLitresUsed(litres);
+        usage.setProductMix(this);
+        this.ingredientUsages.add(usage);
+    }
+
 }

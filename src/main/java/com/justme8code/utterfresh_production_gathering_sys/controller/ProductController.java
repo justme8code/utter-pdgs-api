@@ -34,22 +34,22 @@ public class ProductController {
 
     // create a product
     @PostMapping
-    public ResponseEntity<ProductDto> create(ProductDto productDto) {
+    public ResponseEntity<ProductDto> create(@RequestBody  ProductDto productDto) {
         ProductDto p = productService.createANewProduct(productDto);
         return new ResponseEntity<>(p, HttpStatus.CREATED);
     }
 
     // update this product
-    @PutMapping
-    public ResponseEntity<ProductDto> update(Long id, ProductDto productDto) {
-        ProductDto p = productService.updateThisProduct(id, productDto);
+    @PutMapping("/{productId}")
+    public ResponseEntity<ProductDto> update(@PathVariable  Long productId, @RequestBody ProductDto productDto) {
+        ProductDto p = productService.updateThisProduct(productId, productDto);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     // delete this product
-    @DeleteMapping
-    public ResponseEntity<Void> delete(Long id) {
-        productService.deleteThisProduct(id);
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> delete(@PathVariable Long productId) {
+        productService.deleteThisProduct(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

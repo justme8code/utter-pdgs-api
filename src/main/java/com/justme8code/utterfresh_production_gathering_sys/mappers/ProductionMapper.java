@@ -12,34 +12,34 @@ import org.mapstruct.*;
         componentModel = MappingConstants.ComponentModel.SPRING,
         uses = {StaffMapper.class})
 public interface ProductionMapper {
-  Production toEntity(ProductionDto productionDto);
+    Production toEntity(ProductionDto productionDto);
 
-  ProductionDto toDto(Production production);
+    ProductionDto toDto(Production production);
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Production partialUpdate(ProductionDto productionDto, @MappingTarget Production production);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Production partialUpdate(ProductionDto productionDto, @MappingTarget Production production);
 
-  Production toEntity(ProductionInfo productionInfo);
+    Production toEntity(ProductionInfo productionInfo);
 
-  ProductionInfo toDto1(Production production);
+    ProductionInfo toDto1(Production production);
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Production partialUpdate(ProductionInfo productionInfo, @MappingTarget Production production);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Production partialUpdate(ProductionInfo productionInfo, @MappingTarget Production production);
 
-  Production toEntity(ProductionPayload productionPayload);
+    Production toEntity(ProductionPayload productionPayload);
 
-  ProductionPayload toDto2(Production production);
+    ProductionPayload toDto2(Production production);
 
 
-  Production toEntity(ProductionWithDynamicData productionWithDynamicData);
+    Production toEntity(ProductionWithDynamicData productionWithDynamicData);
 
-  @AfterMapping
-  default void linkProductionBatches(@MappingTarget Production production) {
-    production.getProductionBatches().forEach(productionBatch -> productionBatch.setProduction(production));
-  }
+    @AfterMapping
+    default void linkProductionBatches(@MappingTarget Production production) {
+        production.getProductionBatches().forEach(productionBatch -> productionBatch.setProduction(production));
+    }
 
-  ProductionWithDynamicData toDto3(Production production);
+    ProductionWithDynamicData toDto3(Production production);
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Production partialUpdate(ProductionWithDynamicData productionWithDynamicData, @MappingTarget Production production);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Production partialUpdate(ProductionWithDynamicData productionWithDynamicData, @MappingTarget Production production);
 }

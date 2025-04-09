@@ -22,7 +22,6 @@ public class ProductDto implements Serializable {
     @Value
     public static class VariantDto implements Serializable {
         Long id;
-        Long productId;
         String name;
         String description;
     }

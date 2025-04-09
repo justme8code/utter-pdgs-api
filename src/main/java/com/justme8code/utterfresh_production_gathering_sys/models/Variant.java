@@ -16,8 +16,6 @@ public class Variant extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long productId;
-
     private String name;
     private String description;
 }
