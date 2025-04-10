@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProductMixService {
 
     ProductMixDto createANewProductMix(ProductMixDto productMixDto);
-    ProductMixDto updateThisProductMix(ProductMixDto productMixDto);
+    ProductMixDto updateThisProductMix(ProductMixDto productMixDto,long productMixId);
     ProductMixDto findThisProductMix(long id);
     List<ProductMixDto> findAllProductMix();
     void deleteThisProductMix(long productMixId);

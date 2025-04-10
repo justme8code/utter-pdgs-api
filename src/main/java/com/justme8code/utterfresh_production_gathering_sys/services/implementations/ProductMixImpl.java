@@ -6,10 +6,12 @@ import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductM
 import com.justme8code.utterfresh_production_gathering_sys.models.*;
 import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductMixService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductMixImpl implements ProductMixService {
@@ -65,8 +67,41 @@ public class ProductMixImpl implements ProductMixService {
 
 
     @Override
-    public ProductMixDto updateThisProductMix(ProductMixDto productMixDto) {
-        return null;
+    public ProductMixDto updateThisProductMix(ProductMixDto productMixDto,long productMixId) {
+
+        ProductMix productMix = productMixMapper.toEntity(productMixDto);
+
+        ProductMix retreivedProductMix = productMixRepository.findProductMixById(productMixId).orElseThrow(() ->
+                new EntityException("Product mix not found", HttpStatus.NOT_FOUND));
+
+        retreivedProductMix.setQty(productMix.getQty());
+        retreivedProductMix.setBrixOnDiluent(productMix.getBrixOnDiluent());
+        retreivedProductMix.setInitialBrix(productMix.getInitialBrix());
+        retreivedProductMix.setFinalBrix(productMix.getFinalBrix());
+        retreivedProductMix.setTotalLitersUsed(productMix.getTotalLitersUsed());
+        retreivedProductMix.setInitialPH(productMix.getInitialPH());
+        retreivedProductMix.setFinalPH(productMix.getFinalPH());
+
+        productMix.getIngredientUsages().forEach(usage -> usage.setProductMix(retreivedProductMix));
+        retreivedProductMix.getIngredientUsages().clear();
+        retreivedProductMix.getIngredientUsages().addAll(productMix.getIngredientUsages());
+
+        if(!Objects.equals(productMix.getProduct().getId(), retreivedProductMix.getProduct().getId())) {
+            // Load managed Product entity
+            Product product = productRepository.findById(productMix.getProduct().getId())
+                    .orElseThrow(() -> new EntityException("Product not found", HttpStatus.NOT_FOUND));
+            retreivedProductMix.setProduct(product);
+
+            ProductMix prmx =productMixRepository.save(retreivedProductMix);
+            product.addProductMix(prmx);
+            productRepository.save(product);
+            return productMixMapper.toDto(prmx);
+        }
+
+
+        ProductMix prmx = productMixRepository.save(retreivedProductMix);
+
+        return productMixMapper.toDto(prmx);
     }
 
     @Override
@@ -80,8 +115,11 @@ public class ProductMixImpl implements ProductMixService {
     }
 
     @Override
+    @Transactional
     public void deleteThisProductMix(long productMixId) {
-        productMixRepository.findProductMixById(productMixId).orElseThrow(() -> new EntityException("Product Mix not found", HttpStatus.NOT_FOUND));
+        ProductMix retreivedProductMix = productMixRepository.findProductMixById(productMixId).orElseThrow(() ->
+                new EntityException("Product mix not found", HttpStatus.NOT_FOUND));
+        productMixRepository.delete(retreivedProductMix);
     }
 
 }

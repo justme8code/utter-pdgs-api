@@ -1,5 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.interfaces;
 
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
@@ -22,5 +23,7 @@ public interface ProductionService {
     void setProductionStatus(long productionId,Production.ProductionStatus productionStatus);
     void updateProduction(Production production);
     void deleteProduction(Long id);
+
+    List<ProductMixDto> getProductMix(long productId);
 
 }

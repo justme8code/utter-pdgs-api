@@ -1,17 +1,17 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMixMapper;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductionMapper;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
 import com.justme8code.utterfresh_production_gathering_sys.models.DynamicData;
+import com.justme8code.utterfresh_production_gathering_sys.models.ProductMix;
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
 import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
-import com.justme8code.utterfresh_production_gathering_sys.repository.DynamicDataRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.ProductionRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
+import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JsonUtils;
@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -38,15 +39,20 @@ public class ProductionServiceImpl implements ProductionService {
     private final ProductionMapper productionMapper;
     private final UserRepository userRepository;
     private final DynamicDataRepository dynamicDataRepository;
+    private final ProductMixRepository productMixRepository;
+    private final ProductMixMapper productMixMapper;
 
     public ProductionServiceImpl(ProductionRepository productionRepository, StaffRepository staffRepository,
-                                 ProductionMapper productionMapper, UserRepository userRepository, DynamicDataRepository dynamicDataRepository)
+                                 ProductionMapper productionMapper, UserRepository userRepository, DynamicDataRepository dynamicDataRepository, ProductMixRepository productMixRepository,
+                                 ProductMixMapper productMixMapper)
                            {
         this.productionRepository = productionRepository;
         this.staffRepository = staffRepository;
         this.productionMapper = productionMapper;
         this.userRepository = userRepository;
                                this.dynamicDataRepository = dynamicDataRepository;
+                               this.productMixRepository = productMixRepository;
+                               this.productMixMapper = productMixMapper;
                            }
 
     @Override
@@ -146,6 +152,15 @@ public class ProductionServiceImpl implements ProductionService {
     @Transactional
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void deleteProduction(Long id) {}
+
+    @Override
+    public List<ProductMixDto> getProductMix(long productionId) {
+        List<ProductMix> mixes = productMixRepository.findProductMixByProduction_Id(productionId);
+        if(mixes == null || mixes.isEmpty()){
+            return new ArrayList<>();
+        }
+        return mixes.stream().map(productMixMapper::toDto).collect(Collectors.toList());
+    }
 
     private String productionNumberGenerator() {
         Random random = new Random();

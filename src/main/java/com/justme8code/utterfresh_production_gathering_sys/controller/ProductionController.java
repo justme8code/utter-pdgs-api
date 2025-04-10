@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
@@ -84,6 +85,13 @@ public class ProductionController {
     public ResponseEntity<Void> updateProductionWithDynamicData(@PathVariable long id, @RequestBody Map<String,Object> dynamicData) {
         productionService.updateProductionDynamicData(id,dynamicData);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // production to product mix controller
+    @GetMapping("/{productionId}/product-mixes")
+    public ResponseEntity<List<ProductMixDto>> fetchProductionMixes(@PathVariable long productionId) {
+        List<ProductMixDto> productMixDtos = productionService.getProductMix(productionId);
+        return ResponseEntity.ok(productMixDtos);
     }
 
 

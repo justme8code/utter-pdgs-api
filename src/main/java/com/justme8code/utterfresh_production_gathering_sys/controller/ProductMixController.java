@@ -29,6 +29,12 @@ public class ProductMixController {
         return new ResponseEntity<>(pmx, HttpStatus.OK);
     }
 
+    @PutMapping("/{productMixId}")
+    public ResponseEntity<ProductMixDto> updateProductMix(@RequestBody ProductMixDto productMixDto, @PathVariable long productMixId) {
+        ProductMixDto pmx = productMixService.updateThisProductMix(productMixDto,productMixId);
+        return new ResponseEntity<>(pmx, HttpStatus.OK);
+    }
+
     // Delete a product mix
     // fetch a product mix
     @DeleteMapping("/{productMixId}")
