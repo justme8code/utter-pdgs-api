@@ -32,5 +32,8 @@ public interface ProductionRepository extends JpaRepository<Production, Long>, J
         """)
     List<ProductionInfo> findProductionsByStartDate(@Param("startDate") LocalDate startDate);
 
+    @Query("SELECT COUNT(p) FROM Production p WHERE DATE(p.createdAt) = :date")
+    long countByCreatedDate(LocalDate date);
+
     Optional<Production> findProductionById(long id);
 }

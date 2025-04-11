@@ -21,5 +21,7 @@ public abstract class BaseEntity {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-}
 
+    @Column(name = "deleted")
+    private boolean deleted = false;  // Soft delete flag
+}

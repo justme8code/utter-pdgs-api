@@ -10,6 +10,7 @@ import com.justme8code.utterfresh_production_gathering_sys.repository.RawMateria
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.IngredientService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public IngredientDto1 createIngredient(IngredientDto1 ingredient) {
        return ingredientMapper.toDto1(ingredientMapper.toEntity(ingredientMapper
                .toDto1(ingredientRepository.save(ingredientMapper.toEntity(ingredient)))));
@@ -65,6 +67,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public IngredientDto1 updateIngredient(long ingredientId,IngredientDto1 ingredient) {
          Ingredient retreivedIngredient = ingredientRepository.findById(ingredientId).orElseThrow(()-> new EntityException("Not Found", HttpStatus.NOT_FOUND));
          Ingredient ingredient2 = ingredientMapper.toEntity(ingredient);
@@ -75,12 +78,14 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void deleteIngredientById(Long id) {
         ingredientRepository.deleteById(id);
     }
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void addRawMaterialToIngredient(Long ingredientId, RawMaterial rawMaterial) {
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(() -> new IllegalArgumentException("Ingredient not found"));
         ingredient.getRawMaterials().add(rawMaterial);
@@ -89,6 +94,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void removeRawMaterialFromIngredient(Long ingredientId, Long rawMaterialId) {
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(() -> new IllegalArgumentException("Ingredient not found"));
         RawMaterial rawMaterial = rawMaterialRepository.findById(rawMaterialId).orElseThrow(() -> new IllegalArgumentException("RawMaterial not found"));

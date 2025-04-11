@@ -11,7 +11,7 @@ import java.util.Map;
 @Entity
 @Getter
 @Setter
-public class DynamicData {
+public class DynamicData extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,11 +5,14 @@ import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMixMap
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.*;
 import com.justme8code.utterfresh_production_gathering_sys.repository.*;
+import com.justme8code.utterfresh_production_gathering_sys.services.RecentActivityService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductMixService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,18 +24,21 @@ public class ProductMixImpl implements ProductMixService {
     private final ProductionRepository productionRepository;
     private final VariantRepository variantRepository;
     private final IngredientUsageRepository ingredientUsageRepository;
+    private final RecentActivityService recentActivityService;
 
     public ProductMixImpl(ProductMixRepository productMixRepository, ProductMixMapper productMixMapper, ProductRepository productRepository, ProductionRepository productionRepository,
-                          VariantRepository variantRepository, IngredientUsageRepository ingredientUsageRepository) {
+                          VariantRepository variantRepository, IngredientUsageRepository ingredientUsageRepository, RecentActivityService recentActivityService) {
         this.productMixRepository = productMixRepository;
         this.productMixMapper = productMixMapper;
         this.productRepository = productRepository;
         this.productionRepository = productionRepository;
         this.variantRepository = variantRepository;
         this.ingredientUsageRepository = ingredientUsageRepository;
+        this.recentActivityService = recentActivityService;
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public ProductMixDto createANewProductMix(ProductMixDto productMixDto) {
         ProductMix productMix = productMixMapper.toEntity(productMixDto);
 
@@ -62,11 +68,17 @@ public class ProductMixImpl implements ProductMixService {
         product.addProductMix(savedMix);
         productRepository.save(product);
 
+        // Log the recent activity
+        recentActivityService.addActivity(
+                "ProductionMix",
+                "Production Mix " + production.getName() + " created in " + production.getName() + " at " + LocalDateTime.now()
+        );
         return productMixMapper.toDto(savedMix);
     }
 
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public ProductMixDto updateThisProductMix(ProductMixDto productMixDto,long productMixId) {
 
         ProductMix productMix = productMixMapper.toEntity(productMixDto);
@@ -101,6 +113,11 @@ public class ProductMixImpl implements ProductMixService {
 
         ProductMix prmx = productMixRepository.save(retreivedProductMix);
 
+        // Log the recent activity
+        recentActivityService.addActivity(
+                "Production",
+                "Production Mix  "+ prmx.getId()+ " in production " + prmx.getProduction().getName() + " updated at" + LocalDateTime.now()
+        );
         return productMixMapper.toDto(prmx);
     }
 
@@ -116,10 +133,16 @@ public class ProductMixImpl implements ProductMixService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void deleteThisProductMix(long productMixId) {
         ProductMix retreivedProductMix = productMixRepository.findProductMixById(productMixId).orElseThrow(() ->
                 new EntityException("Product mix not found", HttpStatus.NOT_FOUND));
         productMixRepository.delete(retreivedProductMix);
+        // Log the recent activity
+        recentActivityService.addActivity(
+                "ProductionMix",
+                "Production Mix  " + retreivedProductMix.getId() + " in Production " + retreivedProductMix.getProduction().getName() + " deleted at " + LocalDateTime.now()
+        );
     }
 
 }

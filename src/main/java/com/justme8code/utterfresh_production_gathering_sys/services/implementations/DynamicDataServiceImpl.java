@@ -4,12 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.justme8code.utterfresh_production_gathering_sys.models.DynamicData;
 import com.justme8code.utterfresh_production_gathering_sys.repository.DynamicDataRepository;
+import com.justme8code.utterfresh_production_gathering_sys.services.RecentActivityService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.DynamicDataService;
 import jakarta.transaction.Transactional;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
@@ -17,10 +20,12 @@ import java.util.Optional;
 public class DynamicDataServiceImpl implements DynamicDataService {
 
     private final DynamicDataRepository repository;
+    private final RecentActivityService recentActivityService;
 
     @Autowired
-    public DynamicDataServiceImpl(DynamicDataRepository repository) {
+    public DynamicDataServiceImpl(DynamicDataRepository repository, RecentActivityService recentActivityService) {
         this.repository = repository;
+        this.recentActivityService = recentActivityService;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class DynamicDataServiceImpl implements DynamicDataService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public Long createData(String name, Map<String, Object> data) throws JsonProcessingException {
         try{
             DynamicData dynamicData = new DynamicData();
@@ -57,6 +63,7 @@ public class DynamicDataServiceImpl implements DynamicDataService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void updateData(Long id, Map<String, Object> data) throws JsonProcessingException {
          try{
              Optional<DynamicData> optionalData = repository.findById(id);
@@ -73,6 +80,7 @@ public class DynamicDataServiceImpl implements DynamicDataService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void deleteData(Long id) {
         repository.deleteById(id);
     }

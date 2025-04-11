@@ -7,6 +7,7 @@ import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.StaffService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void createStaff(Long userId,Staff staff) {
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {

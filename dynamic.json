@@ -1,0 +1,29 @@
+{
+  "populateEditPurchases": [
+    {
+      "id": 1,
+      "rawMaterials": "Pineapple",
+      "supplier": "Fruty Store",
+      "uom": "kg",
+      "qty": "50",
+      "weight": "100",
+      "productionLost": "20",
+      "usable": 80,
+      "cost": "400",
+      "avgCost": 4,
+      "avgWeightPerUOM": 2
+    }
+  ],
+  "rawMaterialsToIngredients": [
+    {
+      "id": 1,
+      "rawMaterials": "Pineapple",
+      "totalUsable": 80,
+      "productionLost": "20",
+      "batch": 1,
+      "litres/kg": 0,
+      "cost/litre": 0,
+      "ingredient": "Pulped Pineapple,Pressed Pineapple"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import com.justme8code.utterfresh_production_gathering_sys.models.Variant;
 import com.justme8code.utterfresh_production_gathering_sys.repository.VariantRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public ProductDto createANewProduct(ProductDto productDto) {
         Product product = productMapper.toEntity(productDto);
         Variant variant = product.getVariant();
@@ -48,11 +50,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void deleteThisProduct(Long id) {
         productRepository.deleteById(id);
     }
 
     @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public ProductDto updateThisProduct(long productId,ProductDto productDto) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new EntityException("Product not found", HttpStatus.NOT_FOUND));
         product = productMapper.partialUpdate(productDto, product );

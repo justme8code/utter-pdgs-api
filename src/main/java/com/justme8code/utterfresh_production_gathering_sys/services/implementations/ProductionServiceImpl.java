@@ -13,6 +13,7 @@ import com.justme8code.utterfresh_production_gathering_sys.models.Production;
 import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
 import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
+import com.justme8code.utterfresh_production_gathering_sys.services.RecentActivityService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JsonUtils;
 import com.justme8code.utterfresh_production_gathering_sys.utils.SecurityUtils;
@@ -41,10 +42,11 @@ public class ProductionServiceImpl implements ProductionService {
     private final DynamicDataRepository dynamicDataRepository;
     private final ProductMixRepository productMixRepository;
     private final ProductMixMapper productMixMapper;
+    private final RecentActivityService recentActivityService;
 
     public ProductionServiceImpl(ProductionRepository productionRepository, StaffRepository staffRepository,
                                  ProductionMapper productionMapper, UserRepository userRepository, DynamicDataRepository dynamicDataRepository, ProductMixRepository productMixRepository,
-                                 ProductMixMapper productMixMapper)
+                                 ProductMixMapper productMixMapper, RecentActivityService recentActivityService)
                            {
         this.productionRepository = productionRepository;
         this.staffRepository = staffRepository;
@@ -53,6 +55,7 @@ public class ProductionServiceImpl implements ProductionService {
                                this.dynamicDataRepository = dynamicDataRepository;
                                this.productMixRepository = productMixRepository;
                                this.productMixMapper = productMixMapper;
+                               this.recentActivityService = recentActivityService;
                            }
 
     @Override
@@ -76,6 +79,12 @@ public class ProductionServiceImpl implements ProductionService {
         production.setDynamicData(retrieved); // Attach it to production
         Production p = productionRepository.save(production);
 
+
+        // Log the recent activity
+        recentActivityService.addActivity(
+                "Production",
+                "Production " + p.getName() + " created at " + LocalDateTime.now()
+        );
         return productionMapper.toDto(p);
     }
 
@@ -113,6 +122,7 @@ public class ProductionServiceImpl implements ProductionService {
 
     @Override
     @Transactional
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void createProductionDynamicData(long id, Map<String,Object> data) {
         Production production = productionRepository.findProductionById(id).orElseThrow(() -> new EntityException("Production not found",HttpStatus.NOT_FOUND));
         if(data == null){
@@ -123,7 +133,12 @@ public class ProductionServiceImpl implements ProductionService {
        }catch (Exception e){
            throw new EntityException("Could not store data",HttpStatus.BAD_REQUEST);
        }
-        productionRepository.save(production);
+        Production p = productionRepository.save(production);
+        // Log the recent activity
+        recentActivityService.addActivity(
+                "Production",
+                "Production " + p.getName() + " created at " + LocalDateTime.now()
+        );
     }
 
     @Override
