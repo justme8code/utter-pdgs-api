@@ -3,6 +3,7 @@ package com.justme8code.utterfresh_production_gathering_sys.mappers.dtos;
 import lombok.Value;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Product}
@@ -13,16 +14,6 @@ public class ProductDto implements Serializable {
     String name;
     String description;
     String unitOfMeasure;
-    String category;
-    VariantDto variant;
-
-    /**
-     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Variant}
-     */
-    @Value
-    public static class VariantDto implements Serializable {
-        Long id;
-        String name;
-        String description;
-    }
+    Long totalProductMixCount;
+    List<IngredientDto> ingredients;
 }

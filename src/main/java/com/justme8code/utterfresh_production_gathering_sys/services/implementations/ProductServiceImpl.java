@@ -3,15 +3,16 @@ package com.justme8code.utterfresh_production_gathering_sys.services.implementat
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMapper;
+import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.Product;
+import com.justme8code.utterfresh_production_gathering_sys.repository.IngredientRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.ProductRepository;
-import com.justme8code.utterfresh_production_gathering_sys.models.Variant;
-import com.justme8code.utterfresh_production_gathering_sys.repository.VariantRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +20,13 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
-    private final VariantRepository variantRepository;
+    private final IngredientRepository ingredientRepository;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ProductMapper productMapper, VariantRepository variantRepository) {
+                              ProductMapper productMapper,IngredientRepository ingredientRepository) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
-        this.variantRepository = variantRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
@@ -43,9 +44,23 @@ public class ProductServiceImpl implements ProductService {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public ProductDto createANewProduct(ProductDto productDto) {
         Product product = productMapper.toEntity(productDto);
-        Variant variant = product.getVariant();
-        Variant rv = variantRepository.save(variant);
-        product.setVariant(rv);
+
+        List<Long> ingredientIds = product.getIngredients().stream()
+                .map(Ingredient::getId)
+                .collect(Collectors.toList());
+
+        List<Ingredient> existingIngredients;
+        if(product.getIngredients().isEmpty()) {
+            existingIngredients = new ArrayList<>();
+        }else{
+            // Fetch all existing ingredients in a single query
+            existingIngredients = ingredientRepository.findAllById(ingredientIds);
+            // Validate that all ingredients exist
+            if (existingIngredients.size() != ingredientIds.size()) {
+                throw new EntityException("Some ingredients do not exist in the database", HttpStatus.NOT_FOUND);
+            }
+        }
+        product.setIngredients(existingIngredients);
         return productMapper.toDto(productRepository.save(product));
     }
 

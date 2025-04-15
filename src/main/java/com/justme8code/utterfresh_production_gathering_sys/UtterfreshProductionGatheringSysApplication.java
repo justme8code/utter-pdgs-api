@@ -11,5 +11,4 @@ public class UtterfreshProductionGatheringSysApplication {
     public static void main(String[] args) {
         SpringApplication.run(UtterfreshProductionGatheringSysApplication.class, args);
     }
-
 }
