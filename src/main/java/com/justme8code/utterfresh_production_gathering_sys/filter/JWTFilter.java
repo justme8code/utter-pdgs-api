@@ -1,5 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.filter;
 
+import com.justme8code.utterfresh_production_gathering_sys.exceptions.JWTAuthenticationException;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.JWTException;
 import com.justme8code.utterfresh_production_gathering_sys.services.implementations.CustomUserDetailsService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JwtAuthorizer;
@@ -39,6 +40,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         if(request.getRequestURI().contains("/api/auth")){
             filterChain.doFilter(request, response);
+            return ;
         }
 
         String jwtToken = JwtFilterUtil.tryGetJwtTokenFromAuthorizationHeaderOrCookieListsRequest(request);
@@ -48,8 +50,7 @@ public class JWTFilter extends OncePerRequestFilter {
                 JwtFilterUtil.isTokenExpired(claims);
                 setSecurityContextAfterJwtTokenAuthentication(claims,request);
             } catch (JWTException | UsernameNotFoundException e) {
-                JwtFilterUtil.writeMessageToResponse(response, e);
-                return;
+                throw new JWTAuthenticationException(e.getMessage(), e);
             }
         }
 

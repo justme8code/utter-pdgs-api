@@ -1,14 +1,11 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
-import com.justme8code.utterfresh_production_gathering_sys.models.DynamicData;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.*;
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.ProductionDtoWithDataResponse;
+import com.justme8code.utterfresh_production_gathering_sys.services.implementations.PurchaseEntryService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JsonUtils;
 import org.springframework.http.HttpStatus;
@@ -23,9 +20,11 @@ import java.util.Map;
 @RequestMapping("/api/productions")
 public class ProductionController {
     private final ProductionService productionService;
-    public ProductionController(ProductionService productionService) {
+    public ProductionController(ProductionService productionService, PurchaseEntryService purchaseEntryService) {
         this.productionService = productionService;
+        this.purchaseEntryService = purchaseEntryService;
     }
+    private final PurchaseEntryService purchaseEntryService;
 
     @PostMapping()
     public ResponseEntity<ProductionDto> createProductionReq(@RequestBody ProductionPayload productionPayload) {
@@ -33,15 +32,19 @@ public class ProductionController {
         return new ResponseEntity<>(createdProduction, HttpStatus.CREATED);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductionDto> getProduction(@PathVariable long id) {
         ProductionDto productionDto = productionService.getProductionById(id);
         return new ResponseEntity<>(productionDto, HttpStatus.OK);
     }
+
+
     @GetMapping
     public ResponseEntity<List<ProductionDto>> getProductions(@RequestParam int page, @RequestParam int size) {
         return new ResponseEntity<>(productionService.getProductions(page,size), HttpStatus.OK);
     }
+
 
     @GetMapping("/search")
     public ResponseEntity<List<ProductionInfo>> searchProductions(@RequestParam String name) {
@@ -95,6 +98,40 @@ public class ProductionController {
     }
 
 
+
+    @GetMapping("/{id}/entries")
+    public ResponseEntity<ProductionDtoNew> fetchEntries(@PathVariable long id) {
+        ProductionDtoNew p = purchaseEntryService.getProductionEntries(id);
+        return new ResponseEntity<>(p, HttpStatus.OK);
+    }
+
+    @PutMapping("/{productId}/entries/purchase-entries")
+    public ResponseEntity<Void> updatePurchaseEntries(@PathVariable long productId, @RequestBody List<PurchaseEntryDto> purchaseEntryDtos) {
+        purchaseEntryService.updatePurchaseEntries(productId, purchaseEntryDtos);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/{productId}/entries/material-to-ingredients")
+    public ResponseEntity<Void> updateMaterialsToIngredients(@PathVariable long productId, @RequestBody List<MaterialToIngredientDto> materialToIngredientDtos) {
+        purchaseEntryService.updateMaterialToIngredients(productId, materialToIngredientDtos);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // DELETE endpoints
+    @DeleteMapping("/{productionId}/entries/purchase-entries")
+    public ResponseEntity<Void> deletePurchaseEntries(@PathVariable long productionId, @RequestBody List<Long> purchaseEntryIds) {
+        purchaseEntryService.deletePurchaseEntries(productionId, purchaseEntryIds);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{productionId}/entries/material-to-ingredients")
+    public ResponseEntity<Void> deleteMaterialToIngredients(@PathVariable long productionId, @RequestBody List<Long> materialToIngredientIds) {
+        purchaseEntryService.deleteMaterialToIngredients(productionId, materialToIngredientIds);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
     private ProductionDtoWithDataResponse withDataResponse(ProductionWithDynamicData productionWithDynamicData) throws Exception {
         ProductionDtoWithDataResponse withDataResponse = new ProductionDtoWithDataResponse();
         ProductionWithDynamicData.DynamicDataDto dD = productionWithDynamicData.getDynamicData();
@@ -115,3 +152,4 @@ public class ProductionController {
         return withDataResponse;
     }
 }
+

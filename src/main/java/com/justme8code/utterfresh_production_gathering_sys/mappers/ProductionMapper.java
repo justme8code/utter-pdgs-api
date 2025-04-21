@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDtoNew;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
@@ -42,4 +43,21 @@ public interface ProductionMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Production partialUpdate(ProductionWithDynamicData productionWithDynamicData, @MappingTarget Production production);
+
+    Production toEntity(ProductionDtoNew productionDtoNew);
+
+    @AfterMapping
+    default void linkPurchaseEntries(@MappingTarget Production production) {
+        production.getPurchaseEntries().forEach(purchaseEntry -> purchaseEntry.setProduction(production));
+    }
+
+    @AfterMapping
+    default void linkMaterialToIngredients(@MappingTarget Production production) {
+        production.getMaterialToIngredients().forEach(materialToIngredient -> materialToIngredient.setProduction(production));
+    }
+
+    ProductionDtoNew toDto4(Production production);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Production partialUpdate(ProductionDtoNew productionDtoNew, @MappingTarget Production production);
 }

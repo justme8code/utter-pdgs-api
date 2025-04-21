@@ -18,6 +18,8 @@ public class RawMaterial extends BaseEntity {
 
     private String name;
 
+    private String uom;
+
     @ManyToMany(mappedBy = "rawMaterials")
     @ToString.Exclude
     private List<Ingredient> ingredients;

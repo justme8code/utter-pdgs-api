@@ -13,6 +13,7 @@ import java.util.Map;
 public interface ProductionService {
 
     ProductionDto createProduction(ProductionPayload productionPayload);
+    ProductionDto createProductionWithDynamicData(ProductionPayload productionPayload);
     ProductionDto getProductionById(long id);
     List<ProductionDto> getProductions(int page,int size);
     List<ProductionInfo> getProductionsByName(String name);

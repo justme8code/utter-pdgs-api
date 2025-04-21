@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.configs;
 
 import com.justme8code.utterfresh_production_gathering_sys.filter.JWTFilter;
+import com.justme8code.utterfresh_production_gathering_sys.filter.JwtAuthenticationEntryPoint;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JWTFilter jwtFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,7 +38,9 @@ public class SecurityConfig {
                         .exceptionHandling(ex -> ex
                     .accessDeniedHandler((request, response, accessDeniedException) -> {
                     throw accessDeniedException; // Let GlobalExceptionHandler handle it
-                }));
+                })).exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint) // <-- tell Spring to use yours
+                );
 
         //HttpMethod.OPTIONS, "/**",
         http.cors(Customizer.withDefaults());

@@ -1,8 +1,11 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
-import com.justme8code.utterfresh_production_gathering_sys.models.Product;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.MaterialToIngredientDto;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.PurchaseEntryDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
+import com.justme8code.utterfresh_production_gathering_sys.services.implementations.PurchaseEntryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +16,11 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
+    private final PurchaseEntryService purchaseEntryService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, PurchaseEntryService purchaseEntryService) {
         this.productService = productService;
+        this.purchaseEntryService = purchaseEntryService;
     }
 
     // fetch this product
@@ -52,5 +57,13 @@ public class ProductController {
         productService.deleteThisProduct(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // Get product mixes
+    @GetMapping("/{productId}/product-mixes")
+    public ResponseEntity<List<ProductMixDto>> productMixesByProductId(@PathVariable String productId) {
+        List<ProductMixDto> productMixDtos = productService.fetchAllProductMixesByProductId(Long.parseLong(productId));
+        return new ResponseEntity<>(productMixDtos, HttpStatus.OK);
+    }
+
 
 }

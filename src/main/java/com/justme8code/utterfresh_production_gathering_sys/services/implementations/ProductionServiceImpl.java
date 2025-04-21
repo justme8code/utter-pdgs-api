@@ -72,6 +72,24 @@ public class ProductionServiceImpl implements ProductionService {
 
         production.setProductionNumber(productionNumberGenerator());
         production.setStaff(staff);
+        Production p = productionRepository.save(production);
+        return productionMapper.toDto(p);
+    }
+
+    @Override
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
+    @Transactional
+    public ProductionDto createProductionWithDynamicData(ProductionPayload productionPayload) {
+        Production production = productionMapper.toEntity(productionPayload);
+        production.setStatus(Production.ProductionStatus.RUNNING);
+
+        String staffEmail = SecurityUtils.getCurrentUserId();
+        Staff staff = userRepository.findUserByEmail(staffEmail)
+                .orElseThrow(() -> new EntityException("Staff not found", HttpStatus.NOT_FOUND))
+                .getStaff();
+
+        production.setProductionNumber(productionNumberGenerator());
+        production.setStaff(staff);
 
         DynamicData dynamicData = new DynamicData();
         dynamicData.setName(production.getProductionNumber()); // Set name

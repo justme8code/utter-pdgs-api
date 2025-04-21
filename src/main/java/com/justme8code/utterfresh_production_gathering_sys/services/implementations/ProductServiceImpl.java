@@ -1,11 +1,15 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMixMapper;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMapper;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.Product;
+import com.justme8code.utterfresh_production_gathering_sys.models.ProductMix;
 import com.justme8code.utterfresh_production_gathering_sys.repository.IngredientRepository;
+import com.justme8code.utterfresh_production_gathering_sys.repository.ProductMixRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.ProductRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
 import org.springframework.http.HttpStatus;
@@ -21,12 +25,17 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
     private final IngredientRepository ingredientRepository;
+    private final ProductMixRepository productMixRepository;
+    private final ProductMixMapper productMixMapper;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ProductMapper productMapper,IngredientRepository ingredientRepository) {
+                              ProductMapper productMapper, IngredientRepository ingredientRepository, ProductMixRepository productMixRepository,
+                              ProductMixMapper productMixMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
         this.ingredientRepository = ingredientRepository;
+        this.productMixRepository = productMixRepository;
+        this.productMixMapper = productMixMapper;
     }
 
     @Override
@@ -76,5 +85,11 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(productId).orElseThrow(() -> new EntityException("Product not found", HttpStatus.NOT_FOUND));
         product = productMapper.partialUpdate(productDto, product );
         return productMapper.toDto(productRepository.save(product));
+    }
+
+    @Override
+    public List<ProductMixDto> fetchAllProductMixesByProductId(long productId) {
+        List<ProductMix> productMixes = productMixRepository.findProductMixByProduct_Id(productId);
+        return productMixes.stream().map(productMixMapper::toDto).collect(Collectors.toList());
     }
 }

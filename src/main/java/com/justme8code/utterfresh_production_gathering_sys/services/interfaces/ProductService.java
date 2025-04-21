@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.interfaces;
 
 import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface ProductService {
     void deleteThisProduct(Long id);
     //update this product
     ProductDto updateThisProduct(long productId,ProductDto productDto);
+    List<ProductMixDto> fetchAllProductMixesByProductId(long productId);
 }

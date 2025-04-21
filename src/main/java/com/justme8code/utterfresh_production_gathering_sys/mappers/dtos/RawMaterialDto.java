@@ -18,5 +18,6 @@ import java.util.List;
 public class RawMaterialDto implements Serializable {
     Long id;
     String name;
+    String uom;
     List<IngredientDto> ingredients;
 }
