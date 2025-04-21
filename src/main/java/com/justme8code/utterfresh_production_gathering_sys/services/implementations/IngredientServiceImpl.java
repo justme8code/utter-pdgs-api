@@ -9,6 +9,7 @@ import com.justme8code.utterfresh_production_gathering_sys.repository.Ingredient
 import com.justme8code.utterfresh_production_gathering_sys.repository.RawMaterialRepository;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.IngredientService;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,7 @@ public class IngredientServiceImpl implements IngredientService {
        return ingredientMapper.toDto1(ingredient);
     }
 
+    @Cacheable(value = "ingredients", key = "#names")
     @Override
     public List<IngredientDto1> getIngredientsByNames(List<String> names) {
         return ingredientRepository.findByRawMaterials_NameIn(names)
@@ -61,6 +63,7 @@ public class IngredientServiceImpl implements IngredientService {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());
     }
 
+    @Cacheable("ingredients")
     @Override
     public List<IngredientDto1> getAllIngredients() {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());

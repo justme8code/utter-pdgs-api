@@ -16,7 +16,6 @@ public class MaterialToIngredientDto implements Serializable {
     int batch;
     double litresPerKg;
     double costPerLitre;
-    List<IngredientDto2> ingredients;
 
     /**
      * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.PurchaseEntry}

@@ -20,7 +20,7 @@ public class RawMaterial extends BaseEntity {
 
     private String uom;
 
-    @ManyToMany(mappedBy = "rawMaterials")
+    @ManyToMany(mappedBy = "rawMaterials", fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Ingredient> ingredients;
 }

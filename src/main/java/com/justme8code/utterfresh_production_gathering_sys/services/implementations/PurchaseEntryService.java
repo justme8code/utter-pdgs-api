@@ -9,6 +9,7 @@ import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.Purchase
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
 import com.justme8code.utterfresh_production_gathering_sys.models.MaterialToIngredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.PurchaseEntry;
+import com.justme8code.utterfresh_production_gathering_sys.repository.MaterialToIngredientRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.PurchaseEntryRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.ProductionRepository;
 import jakarta.transaction.Transactional;
@@ -33,16 +34,21 @@ public class PurchaseEntryService {
     private final MaterialToIngredientMapper materialToIngredientMapper;
     private final PurchaseEntryMapper purchaseEntryMapper;
     private final PurchaseEntryRepository purchaseEntryRepository;
+    private final MaterialToIngredientRepository materialIngredientRepository; // Inject MaterialIngredientRepository
+
 
     @Autowired
     public PurchaseEntryService(ProductionRepository productionRepository, ProductionMapper productionMapper,
                                 MaterialToIngredientMapper materialToIngredientMapper,
-                                PurchaseEntryMapper purchaseEntryMapper, PurchaseEntryRepository purchaseEntryRepository) {
+                                PurchaseEntryMapper purchaseEntryMapper, PurchaseEntryRepository purchaseEntryRepository,
+                                MaterialToIngredientRepository materialToIngredientRepository
+                                ) {
         this.productionRepository = productionRepository;
         this.productionMapper = productionMapper;
         this.materialToIngredientMapper = materialToIngredientMapper;
         this.purchaseEntryMapper = purchaseEntryMapper;
         this.purchaseEntryRepository = purchaseEntryRepository;
+        this.materialIngredientRepository = materialToIngredientRepository;
     }
 
     public ProductionDtoNew getProductionEntries(long id) {
@@ -164,10 +170,35 @@ public class PurchaseEntryService {
         productionRepository.save(production);
     }
 
+    @Transactional
     public void deletePurchaseEntries(long productionId, List<Long> purchaseEntryIds) {
         Production production = productionRepository.findById(productionId)
                 .orElseThrow(() -> new IllegalArgumentException("Production not found for ID: " + productionId));
-        production.getPurchaseEntries().removeIf(pe -> purchaseEntryIds.contains(pe.getId()));
+
+        // Iterate through the purchase entry IDs to be deleted
+        for (Long purchaseEntryId : purchaseEntryIds) {
+            // Find the purchase entry in the production's list
+            PurchaseEntry purchaseEntryToDelete = production.getPurchaseEntries().stream()
+                    .filter(pe -> pe.getId().equals(purchaseEntryId))
+                    .findFirst()
+                    .orElse(null);
+
+            if (purchaseEntryToDelete != null) {
+                MaterialToIngredient materialToIngredient = purchaseEntryToDelete.getMaterialToIngredient();
+
+                if (materialToIngredient != null) {
+                    // Delete MaterialIngredient entries that reference the MaterialToIngredient
+                    materialIngredientRepository.delete(materialToIngredient);
+
+                    // Remove the materialToIngredient from the production before deleting the purchase entry
+                    production.getMaterialToIngredients().remove(materialToIngredient);
+                }
+
+                //remove purchase entry
+                production.getPurchaseEntries().removeIf(pe -> pe.getId().equals(purchaseEntryId));
+            }
+        }
+
         productionRepository.save(production);
     }
 

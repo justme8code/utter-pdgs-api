@@ -19,7 +19,7 @@ public class PurchaseEntry {
     @JoinColumn(name = "production_id", nullable = false)
     private Production production;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "raw_material_id")
     @ToString.Exclude
     private RawMaterial rawMaterial;

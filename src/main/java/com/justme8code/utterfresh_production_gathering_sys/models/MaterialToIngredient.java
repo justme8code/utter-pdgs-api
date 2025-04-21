@@ -32,7 +32,7 @@ public class MaterialToIngredient {
     @Column(name = "cost_per_litre")
     private double costPerLitre;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+   /* @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "material_ingredient",
             joinColumns = @JoinColumn(name = "material_to_ingredient_id"),
@@ -40,7 +40,7 @@ public class MaterialToIngredient {
     )
     @ToString.Exclude
     private List<Ingredient> ingredients = new ArrayList<>();
-
+*/
     @OneToOne(optional = false)
     @JoinColumn(name = "purchase_entry_id", nullable = false, unique = true)
     private PurchaseEntry purchaseEntry;

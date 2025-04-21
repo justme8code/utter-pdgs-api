@@ -11,6 +11,7 @@ import com.justme8code.utterfresh_production_gathering_sys.repository.RawMateria
 import com.justme8code.utterfresh_production_gathering_sys.services.RecentActivityService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.RawMaterialService;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -68,6 +69,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
     }
 
     @Override
+    @Cacheable("rawMaterials")
     public List<RawMaterialDto> getAllRawMaterials() {
         return rawMaterialRepository.findAll().stream().map(rawMaterialMapper::toDto)
                 .collect(Collectors.toList());

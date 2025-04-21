@@ -50,6 +50,7 @@ public class ProductionDtoNew implements Serializable {
             Long id;
             String name;
             String uom;
+            List<MaterialToIngredientDto.IngredientDto2> ingredients;
         }
     }
 
@@ -65,7 +66,6 @@ public class ProductionDtoNew implements Serializable {
         int batch;
         double litresPerKg;
         double costPerLitre;
-        List<IngredientDto2> ingredients;
 
         /**
          * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial}
