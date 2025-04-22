@@ -49,7 +49,6 @@ public class IngredientServiceImpl implements IngredientService {
        return ingredientMapper.toDto1(ingredient);
     }
 
-    @Cacheable(value = "ingredients", key = "#names")
     @Override
     public List<IngredientDto1> getIngredientsByNames(List<String> names) {
         return ingredientRepository.findByRawMaterials_NameIn(names)
@@ -63,7 +62,6 @@ public class IngredientServiceImpl implements IngredientService {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());
     }
 
-    @Cacheable("ingredients")
     @Override
     public List<IngredientDto1> getAllIngredients() {
         return ingredientRepository.findAll().stream().map(ingredientMapper::toDto1).collect(Collectors.toList());

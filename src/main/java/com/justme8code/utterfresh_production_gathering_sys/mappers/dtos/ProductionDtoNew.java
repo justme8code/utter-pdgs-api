@@ -1,8 +1,11 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers.dtos;
 
+import com.justme8code.utterfresh_production_gathering_sys.models.Production;
 import lombok.Value;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -12,6 +15,14 @@ import java.util.List;
 public class ProductionDtoNew implements Serializable {
 
     Long id;
+    LocalDateTime createdAt;
+
+    String productionNumber;
+    String name;
+    LocalDate startDate;
+    LocalDate endDate;
+    StaffDto staff;
+    Production.ProductionStatus status;
     List<ProductionBatchDto> productionBatches;
     List<PurchaseEntryDto> purchaseEntries;
     List<MaterialToIngredientDto> materialToIngredients;
@@ -62,10 +73,13 @@ public class ProductionDtoNew implements Serializable {
         Long id;
         PurchaseEntryDto purchaseEntry;
         double totalUsable;
-        double productionLost;
+        double litresLost;
+        double usable;
+        int outPutLitres;
         int batch;
         double litresPerKg;
         double costPerLitre;
+        double rawBrix;
 
         /**
          * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial}
@@ -89,6 +103,8 @@ public class ProductionDtoNew implements Serializable {
         public static class PurchaseEntryDto implements Serializable {
             Long id;
             ProductionDtoNew.PurchaseEntryDto.RawMaterialDto1 rawMaterial;
+            double cost;
+
         }
     }
 }

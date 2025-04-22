@@ -69,7 +69,6 @@ public class RawMaterialServiceImpl implements RawMaterialService {
     }
 
     @Override
-    @Cacheable("rawMaterials")
     public List<RawMaterialDto> getAllRawMaterials() {
         return rawMaterialRepository.findAll().stream().map(rawMaterialMapper::toDto)
                 .collect(Collectors.toList());

@@ -12,10 +12,14 @@ public class MaterialToIngredientDto implements Serializable {
     Long id;
     PurchaseEntryDto1 purchaseEntry;
     double totalUsable;
-    double productionLost;
+    double litresLost;
+    int outPutLitres;
+    double usable;
     int batch;
     double litresPerKg;
     double costPerLitre;
+    double rawBrix;
+
 
     /**
      * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.PurchaseEntry}
@@ -24,6 +28,7 @@ public class MaterialToIngredientDto implements Serializable {
     public static class PurchaseEntryDto1 implements Serializable {
         Long id;
         RawMaterialDto1 rawMaterial;
+        double cost;
     }
 
     /**
