@@ -21,8 +21,11 @@ public class ProductMix extends BaseEntity {
     private Production production;
     @ManyToOne
     private Product product;
-    @OneToMany(mappedBy = "productMix", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<IngredientUsage> ingredientUsages = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ProductMixIngredient> productMixIngredients = new ArrayList<>();
+
+
     private Double totalLitersUsed;
     private Integer qty;
     private Double brixOnDiluent;
@@ -32,12 +35,5 @@ public class ProductMix extends BaseEntity {
     private Double initialPH;
     private Double finalPH;
 
-    public void addIngredientUsage(Ingredient ingredient, Double litres) {
-        IngredientUsage usage = new IngredientUsage();
-        usage.setIngredient(ingredient);
-        usage.setLitresUsed(litres);
-        usage.setProductMix(this);
-        this.ingredientUsages.add(usage);
-    }
 
 }

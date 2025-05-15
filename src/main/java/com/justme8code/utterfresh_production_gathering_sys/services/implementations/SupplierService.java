@@ -1,12 +1,10 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
+import com.justme8code.utterfresh_production_gathering_sys.dtos.SupplierDto;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.SupplierMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.SupplierDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Supplier;
-import com.justme8code.utterfresh_production_gathering_sys.models.SupplierDtoPayload;
 import com.justme8code.utterfresh_production_gathering_sys.repository.SupplierRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,22 +23,24 @@ public class SupplierService {
         this.supplierMapper = supplierMapper;
     }
 
-    public List<SupplierDto> createSuppliers(List<SupplierDtoPayload> suppliers){
+    public List<SupplierDto> createSuppliers(List<SupplierDto> suppliers) {
         supplierRepository.saveAll(suppliers.stream().map(supplierMapper::toEntity).collect(Collectors.toList()));
         return getSuppliers();
     }
+
     public List<SupplierDto> getSuppliers() {
         List<Supplier> suppliers = supplierRepository.findAll();
         return suppliers.stream().map(supplierMapper::toDto).collect(Collectors.toList());
     }
+
     // Create a supplier
-    public SupplierDto createSupplier(SupplierDtoPayload newSupplier) {
+    public SupplierDto createSupplier(SupplierDto newSupplier) {
         return supplierMapper.toDto(supplierRepository
                 .save(supplierMapper.toEntity(newSupplier)));
     }
 
     // Update a supplier
-    public SupplierDto updateSupplier(long supplierId,SupplierDtoPayload updateSupplier) {
+    public SupplierDto updateSupplier(long supplierId, SupplierDto updateSupplier) {
         Supplier supplier = supplierRepository.findById(supplierId)
                 .orElseThrow(() -> new EntityException("Supplier not found", HttpStatus.NOT_FOUND));
         supplier.setFullName(updateSupplier.getFullName());

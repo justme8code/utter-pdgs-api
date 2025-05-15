@@ -1,7 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.SupplierDto;
-import com.justme8code.utterfresh_production_gathering_sys.models.SupplierDtoPayload;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.SupplierDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.implementations.SupplierService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +21,15 @@ public class SupplierController {
 
     //Create suppliers
     @PostMapping
-    public ResponseEntity<SupplierDto> createSupplier(@RequestBody  SupplierDtoPayload payload) {
-        SupplierDto savedSupplier = supplierService.createSupplier(payload);
+    public ResponseEntity<SupplierDto> createSupplier(@RequestBody SupplierDto supplierDto) {
+        SupplierDto savedSupplier = supplierService.createSupplier(supplierDto);
         return new ResponseEntity<>(savedSupplier, HttpStatus.CREATED);
     }
 
     // Create a list of suppliers
     @PostMapping("/lists")
-    public ResponseEntity<List<SupplierDto>> createSuppliers(@RequestBody  List<SupplierDtoPayload> payloads) {
-        List<SupplierDto> suppliers = supplierService.createSuppliers(payloads);
+    public ResponseEntity<List<SupplierDto>> createSuppliers(@RequestBody List<SupplierDto> supplierDtos) {
+        List<SupplierDto> suppliers = supplierService.createSuppliers(supplierDtos);
         return new ResponseEntity<>(suppliers, HttpStatus.CREATED);
     }
 
@@ -43,8 +42,8 @@ public class SupplierController {
 
     //update Supplier
     @PutMapping("/{id}")
-    public ResponseEntity<SupplierDto> updateSupplier(@RequestBody SupplierDtoPayload payload, @PathVariable long id) {
-        SupplierDto updatedSupplier = supplierService.updateSupplier(id,payload);
+    public ResponseEntity<SupplierDto> updateSupplier(@RequestBody SupplierDto supplierDto, @PathVariable long id) {
+        SupplierDto updatedSupplier = supplierService.updateSupplier(id, supplierDto);
         return new ResponseEntity<>(updatedSupplier, HttpStatus.OK);
     }
 

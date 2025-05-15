@@ -1,63 +1,33 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDtoNew;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDetailsDto1;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
+import com.justme8code.utterfresh_production_gathering_sys.models.ProductionStore;
 import org.mapstruct.*;
 
-@Mapper(
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {StaffMapper.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {StaffMapper.class, ProductionStoreMapper.class})
 public interface ProductionMapper {
+
     Production toEntity(ProductionDto productionDto);
 
     ProductionDto toDto(Production production);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Production partialUpdate(ProductionDto productionDto, @MappingTarget Production production);
+    Production partialUpdate(@MappingTarget Production production, ProductionDto productionDto);
 
-    Production toEntity(ProductionInfo productionInfo);
-
-    ProductionInfo toDto1(Production production);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Production partialUpdate(ProductionInfo productionInfo, @MappingTarget Production production);
-
-    Production toEntity(ProductionPayload productionPayload);
-
-    ProductionPayload toDto2(Production production);
-
-
-    Production toEntity(ProductionWithDynamicData productionWithDynamicData);
+    Production toEntity(ProductionDetailsDto1 productionDetailsDto1);
 
     @AfterMapping
-    default void linkProductionBatches(@MappingTarget Production production) {
-        production.getProductionBatches().forEach(productionBatch -> productionBatch.setProduction(production));
+    default void linkProductionStore(@MappingTarget Production production) {
+        ProductionStore productionStore = production.getProductionStore();
+        if (productionStore != null) {
+            productionStore.setProduction(production);
+        }
     }
 
-    ProductionWithDynamicData toDto3(Production production);
+    ProductionDetailsDto1 toDto1(Production production);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Production partialUpdate(ProductionWithDynamicData productionWithDynamicData, @MappingTarget Production production);
-
-    Production toEntity(ProductionDtoNew productionDtoNew);
-
-    @AfterMapping
-    default void linkPurchaseEntries(@MappingTarget Production production) {
-        production.getPurchaseEntries().forEach(purchaseEntry -> purchaseEntry.setProduction(production));
-    }
-
-    @AfterMapping
-    default void linkMaterialToIngredients(@MappingTarget Production production) {
-        production.getMaterialToIngredients().forEach(materialToIngredient -> materialToIngredient.setProduction(production));
-    }
-
-    ProductionDtoNew toDto4(Production production);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Production partialUpdate(ProductionDtoNew productionDtoNew, @MappingTarget Production production);
+    Production partialUpdate(ProductionDetailsDto1 productionDetailsDto1, @MappingTarget Production production);
 }

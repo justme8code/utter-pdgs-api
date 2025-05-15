@@ -1,7 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
@@ -14,6 +14,7 @@ public class JsonUtils {
     }
 
     public static Map<String, Object> fromJson(String json) throws Exception {
-        return objectMapper.readValue(json, new TypeReference<>() {});
+        return objectMapper.readValue(json, new TypeReference<>() {
+        });
     }
 }

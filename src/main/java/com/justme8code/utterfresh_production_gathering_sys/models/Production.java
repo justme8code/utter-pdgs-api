@@ -1,6 +1,5 @@
 package com.justme8code.utterfresh_production_gathering_sys.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +24,8 @@ public class Production extends BaseEntity {
 
     private String name;
 
+    private Integer lastBatch;
+
     @Column(nullable = false)
     private LocalDate startDate;
 
@@ -35,24 +36,12 @@ public class Production extends BaseEntity {
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
 
-    @Enumerated(EnumType.STRING)
-    private ProductionStatus status;
+    @OneToOne(mappedBy = "production", cascade = CascadeType.ALL)
+    private ProductionStore productionStore;
 
-    public enum ProductionStatus {
-        RUNNING, COMPLETED, PAUSE
-    }
 
-    @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
-    @JsonManagedReference
-    private List<ProductionBatch> productionBatches = new ArrayList<>();
+    private List<Purchase> purchaseEntries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "production",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<PurchaseEntry> purchaseEntries = new ArrayList<>();
-
-    @OneToMany(mappedBy = "production",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<MaterialToIngredient> materialToIngredients = new ArrayList<>();
-
-    @OneToOne
-    private  DynamicData dynamicData;
 }

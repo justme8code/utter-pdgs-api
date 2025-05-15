@@ -1,6 +1,9 @@
 package com.justme8code.utterfresh_production_gathering_sys.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +27,7 @@ public class RecentActivity extends BaseEntity {
     public boolean isRecent() {
         return isRecent;
     }
+
     public void setRecent(boolean recent) {
         isRecent = recent;
     }

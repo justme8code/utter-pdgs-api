@@ -1,9 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.justme8code.utterfresh_production_gathering_sys.exceptions.ErrorObject;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.ErrorObjectCreator;
-import com.justme8code.utterfresh_production_gathering_sys.exceptions.JWTException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

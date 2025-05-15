@@ -6,7 +6,8 @@ import java.util.Date;
 
 public class ErrorObjectCreator {
 
-    private ErrorObjectCreator() {}
+    private ErrorObjectCreator() {
+    }
 
     public static ErrorObject createErrorObject(HttpStatus status, String message) {
         ErrorObject errorObject = new ErrorObject();

@@ -14,8 +14,10 @@ services:
       - utterfresh_network
 
   utter-pdgs-api:
-    container_name: utter-pdgs-api-container
-    image: utter-pdgs-api:latest
+    container_name: utter-pdgs-api
+    build:
+      context: ./
+    image: utter-pdgs-api:dev-v1.2.7
     depends_on:
       - postgres_db
     ports:

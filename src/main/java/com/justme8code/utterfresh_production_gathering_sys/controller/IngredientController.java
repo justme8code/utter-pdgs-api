@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto1;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.IngredientDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.IngredientDto1;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.IngredientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,8 +50,8 @@ public class IngredientController {
 
     @PutMapping("/{ingredientId}")
     public ResponseEntity<IngredientDto1> updateIngredient(@RequestBody IngredientDto1 ingredient, @PathVariable long ingredientId) {
-        IngredientDto1 ingredientDto1 = ingredientService.updateIngredient(ingredientId,ingredient);
-        return  ResponseEntity.ok(ingredientDto1);
+        IngredientDto1 ingredientDto1 = ingredientService.updateIngredient(ingredientId, ingredient);
+        return ResponseEntity.ok(ingredientDto1);
     }
 
     @DeleteMapping("/{id}")
@@ -59,15 +60,21 @@ public class IngredientController {
         return ResponseEntity.noContent().build();
     }
 
-   /* @PostMapping("/{ingredientId}/raw-materials")
-    public ResponseEntity<Void> updateIngredient(@PathVariable Long ingredientId, @RequestBody RawMaterial rawMaterial) {
-        ingredientService.addRawMaterialToIngredient(ingredientId, rawMaterial);
-        return ResponseEntity.noContent().build();
-    }
-*/
+    /* @PostMapping("/{ingredientId}/raw-materials")
+     public ResponseEntity<Void> updateIngredient(@PathVariable Long ingredientId, @RequestBody RawMaterial rawMaterial) {
+         ingredientService.addRawMaterialToIngredient(ingredientId, rawMaterial);
+         return ResponseEntity.noContent().build();
+     }
+ */
     @DeleteMapping("/{ingredientId}/raw-materials/{rawMaterialId}")
     public ResponseEntity<Void> removeRawMaterialFromIngredient(@PathVariable Long ingredientId, @PathVariable Long rawMaterialId) {
         ingredientService.removeRawMaterialFromIngredient(ingredientId, rawMaterialId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/rawMaterials")
+    public ResponseEntity<List<IngredientDto>> getIngredientsByRawMaterialId(@RequestParam Long rawMaterialId) {
+        List<IngredientDto> ingredients = ingredientService.getIngredientsByRawMaterialId(rawMaterialId);
+        return ingredients.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(ingredients);
     }
 }

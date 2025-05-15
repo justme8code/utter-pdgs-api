@@ -8,8 +8,11 @@ import java.time.Duration;
 
 public class RequestResponseUtil {
 
-    private RequestResponseUtil() {}
     private static final String COOKIE_NAME = "tech-tide-auth-cookie";
+
+    private RequestResponseUtil() {
+    }
+
     public static void addAuthCookieToResponse(HttpServletResponse response, String token) {
         ResponseCookie cookie = ResponseCookie.from(COOKIE_NAME, token)
                 .httpOnly(true)

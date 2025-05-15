@@ -1,8 +1,8 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.LoginRequest;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.LoginResponse;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ResetPasswordRequest;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.LoginResponse;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<Void> requestLogout(HttpServletResponse response){
+    public ResponseEntity<Void> requestLogout(HttpServletResponse response) {
         authService.logout(response);
         return ResponseEntity.ok().build();
     }
@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<String> changePassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
+    public ResponseEntity<String> changePassword(@RequestBody ResetPasswordRequest resetPasswordRequest) {
         authService.changePassword(resetPasswordRequest);
         return ResponseEntity.ok("password changed successful");
     }

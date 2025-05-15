@@ -28,10 +28,6 @@ public class Product extends BaseEntity {
     @ToString.Exclude
     private List<ProductMix> productMixes = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "variant_id", referencedColumnName = "id")
-    private Variant variant;
-
     @Formula("(SELECT COUNT(pm.id) FROM product_mixes pm WHERE pm.product_id = id)")
     private Long totalProductMixCount;
 

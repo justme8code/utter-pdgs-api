@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface RawMaterialRepository extends JpaRepository<RawMaterial, Long>, JpaSpecificationExecutor<RawMaterial> {
     Optional<RawMaterial> findRawMaterialByName(String name);
+
 }

@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityException.class)
     public ResponseEntity<Object> handleEntityException(EntityException e) {
-        return new ResponseEntity<>(e.getMessage(),e.getHttpStatus());
+        return new ResponseEntity<>(e.getMessage(), e.getHttpStatus());
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -48,7 +48,6 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
 
 }

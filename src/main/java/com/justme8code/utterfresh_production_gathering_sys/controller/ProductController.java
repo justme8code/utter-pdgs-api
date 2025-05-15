@@ -1,11 +1,9 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.MaterialToIngredientDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.PurchaseEntryDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixDto;
+import com.justme8code.utterfresh_production_gathering_sys.services.implementations.PurchaseService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductService;
-import com.justme8code.utterfresh_production_gathering_sys.services.implementations.PurchaseEntryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +14,11 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
-    private final PurchaseEntryService purchaseEntryService;
+    private final PurchaseService purchaseService;
 
-    public ProductController(ProductService productService, PurchaseEntryService purchaseEntryService) {
+    public ProductController(ProductService productService, PurchaseService purchaseService) {
         this.productService = productService;
-        this.purchaseEntryService = purchaseEntryService;
+        this.purchaseService = purchaseService;
     }
 
     // fetch this product
@@ -39,14 +37,14 @@ public class ProductController {
 
     // create a product
     @PostMapping
-    public ResponseEntity<ProductDto> create(@RequestBody  ProductDto productDto) {
+    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
         ProductDto p = productService.createANewProduct(productDto);
         return new ResponseEntity<>(p, HttpStatus.CREATED);
     }
 
     // update this product
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductDto> update(@PathVariable  Long productId, @RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> update(@PathVariable Long productId, @RequestBody ProductDto productDto) {
         ProductDto p = productService.updateThisProduct(productId, productDto);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }

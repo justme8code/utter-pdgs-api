@@ -1,15 +1,15 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.UserMapper;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.LoginRequest;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.LoginResponse;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ResetPasswordRequest;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.UnExpectedException;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.UserMapper;
 import com.justme8code.utterfresh_production_gathering_sys.models.Role;
 import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.models.UserRole;
 import com.justme8code.utterfresh_production_gathering_sys.repository.RoleRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.LoginRequest;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ResetPasswordRequest;
+import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.LoginResponse;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.AuthService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JwtAuthorizer;
 import com.justme8code.utterfresh_production_gathering_sys.utils.RequestResponseUtil;
@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
     @Deprecated
     public void addUser(User user, UserRole userRole) {
         // Assign default role (USER)
-        assignRoleToUser(user,userRole);
+        assignRoleToUser(user, userRole);
         saveUser(user);
     }
 
@@ -59,9 +59,9 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setEmail(userLogin.getEmail());
         user.setPwd(userLogin.getPassword());
-        Authentication authentication = SecurityUtils.authenticateUser(user,authenticationManager);
+        Authentication authentication = SecurityUtils.authenticateUser(user, authenticationManager);
         String token = authorizer.generateToken(authentication);
-        RequestResponseUtil.addAuthCookieToResponse(response,token);
+        RequestResponseUtil.addAuthCookieToResponse(response, token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setJwtToken(token);
@@ -97,10 +97,10 @@ public class AuthServiceImpl implements AuthService {
     public void changePassword(ResetPasswordRequest resetPasswordRequest) {
         User user = retreiveUser(resetPasswordRequest);
 
-        if(user.getPwd() != null &&  passwordEncoder.matches(resetPasswordRequest.getPassword(), user.getPwd())){
+        if (user.getPwd() != null && passwordEncoder.matches(resetPasswordRequest.getPassword(), user.getPwd())) {
             user.setPwd(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
             userRepository.save(user);
-        }else{
+        } else {
             throw new UsernameNotFoundException("Password reset not successful");
         }
     }
@@ -119,19 +119,19 @@ public class AuthServiceImpl implements AuthService {
             throw new UnExpectedException("User already exists");
         }
         Role role = roleRepository.findRoleByUserRole(userRole);
-        if(role != null){
+        if (role != null) {
             user.setRoles(new HashSet<>());
             user.getRoles().add(role);
         }
         throw new UnExpectedException("Could not assign role to user");
     }
 
-    private void saveUser(User user){
+    private void saveUser(User user) {
         // Assign the role to the user
         userRepository.save(user);
     }
 
-    private void verifyAdminRole( ){
+    private void verifyAdminRole() {
         // Get the currently logged-in user ID
         String currentUserId = SecurityUtils.getCurrentUserId();
         // Fetch the admin user

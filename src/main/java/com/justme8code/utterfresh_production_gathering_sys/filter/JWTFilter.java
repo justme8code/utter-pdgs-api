@@ -19,16 +19,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import java.io.IOException;
 
 @Component
 public class JWTFilter extends OncePerRequestFilter {
+    private static final Logger JwtFilterLogger = LoggerFactory.getLogger(JWTFilter.class);
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthorizer authorizer;
-    private static final Logger JwtFilterLogger = LoggerFactory.getLogger(JWTFilter.class);
 
 
-    public JWTFilter(CustomUserDetailsService userDetailsService,JwtAuthorizer authorizer) {
+    public JWTFilter(CustomUserDetailsService userDetailsService, JwtAuthorizer authorizer) {
         this.customUserDetailsService = userDetailsService;
         this.authorizer = authorizer;
     }
@@ -38,9 +39,9 @@ public class JWTFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         JwtFilterLogger.debug("JWTFilter doFilter called : {}", request.getRequestURI());
 
-        if(request.getRequestURI().contains("/api/auth")){
+        if (request.getRequestURI().contains("/api/auth")) {
             filterChain.doFilter(request, response);
-            return ;
+            return;
         }
 
         String jwtToken = JwtFilterUtil.tryGetJwtTokenFromAuthorizationHeaderOrCookieListsRequest(request);
@@ -48,7 +49,7 @@ public class JWTFilter extends OncePerRequestFilter {
             try {
                 Claims claims = authorizer.validateToken(jwtToken);
                 JwtFilterUtil.isTokenExpired(claims);
-                setSecurityContextAfterJwtTokenAuthentication(claims,request);
+                setSecurityContextAfterJwtTokenAuthentication(claims, request);
             } catch (JWTException | UsernameNotFoundException e) {
                 throw new JWTAuthenticationException(e.getMessage(), e);
             }
@@ -60,8 +61,8 @@ public class JWTFilter extends OncePerRequestFilter {
     }
 
 
-    private void setSecurityContextAfterJwtTokenAuthentication(Claims claims,HttpServletRequest request){
-        String userId= claims.getSubject();
+    private void setSecurityContextAfterJwtTokenAuthentication(Claims claims, HttpServletRequest request) {
+        String userId = claims.getSubject();
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(userId);
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

@@ -1,7 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
+import com.justme8code.utterfresh_production_gathering_sys.dtos.StaffDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.StaffMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.StaffDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
 import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepository;
@@ -28,7 +28,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
-    public void createStaff(Long userId,Staff staff) {
+    public void createStaff(Long userId, Staff staff) {
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");

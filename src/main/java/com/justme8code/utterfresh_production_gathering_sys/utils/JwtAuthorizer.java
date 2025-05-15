@@ -27,7 +27,7 @@ public class JwtAuthorizer {
     private int jwtExpirationS;
 
 
-    private Key key(){
+    private Key key() {
         return
                 Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
@@ -44,7 +44,6 @@ public class JwtAuthorizer {
     }
 
 
-
     public String generateToken(Authentication authentication) {
         String id = authentication.getName();  // Get the username (or other identifying info)
 
@@ -57,7 +56,7 @@ public class JwtAuthorizer {
                 .subject(id)
                 .claim("roles", roles)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtExpirationS* 1000L))
+                .expiration(new Date(System.currentTimeMillis() + jwtExpirationS * 1000L))
                 .signWith(key())
                 .compact();
     }

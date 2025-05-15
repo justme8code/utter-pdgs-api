@@ -1,7 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RoleMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.UserDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.RoleMapper;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.UserDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.User;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.CreateUserRequestDto;
 import com.justme8code.utterfresh_production_gathering_sys.res_req_models.response.UserResponseDto;

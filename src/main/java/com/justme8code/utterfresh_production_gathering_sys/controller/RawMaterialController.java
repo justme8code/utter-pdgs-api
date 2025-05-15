@@ -1,16 +1,13 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RawMaterialDto;
-import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
-import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.IngredientDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.RawMaterialDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.RawMaterialService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/raw-materials")
@@ -24,7 +21,7 @@ public class RawMaterialController {
     @PostMapping()
     public ResponseEntity<List<RawMaterialDto>> createRawMaterial(@RequestBody List<RawMaterialDto> rawMaterials) {
         List<RawMaterialDto> rawMaterialDtos = rawMaterialService.createRawMaterials(rawMaterials);
-        return new ResponseEntity<>(rawMaterialDtos,HttpStatus.CREATED);
+        return new ResponseEntity<>(rawMaterialDtos, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

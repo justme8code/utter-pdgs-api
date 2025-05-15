@@ -32,13 +32,13 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> {
-                    authorizeRequests.requestMatchers("/health","/api/auth/**","/h2-console/**").permitAll();
+                    authorizeRequests.requestMatchers("/health", "/api/auth/**", "/h2-console/**").permitAll();
                     authorizeRequests.anyRequest().authenticated();
                 }).headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)).sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                        .exceptionHandling(ex -> ex
-                    .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    throw accessDeniedException; // Let GlobalExceptionHandler handle it
-                })).exceptionHandling(ex -> ex
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            throw accessDeniedException; // Let GlobalExceptionHandler handle it
+                        })).exceptionHandling(ex -> ex
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint) // <-- tell Spring to use yours
                 );
 

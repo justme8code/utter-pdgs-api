@@ -1,30 +1,32 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.interfaces;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionInfo;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductionWithDynamicData;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionFullDataDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionStoreDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Production;
-import com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests.ProductionPayload;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ProductionService {
 
-    ProductionDto createProduction(ProductionPayload productionPayload);
-    ProductionDto createProductionWithDynamicData(ProductionPayload productionPayload);
+    ProductionDto createProduction(ProductionDto productionDto);
+
     ProductionDto getProductionById(long id);
-    List<ProductionDto> getProductions(int page,int size);
-    List<ProductionInfo> getProductionsByName(String name);
-    List<ProductionInfo> getProductionsByStartDate(String startDate);
-    ProductionWithDynamicData getProductionWithDynamicData(long id);
-    void createProductionDynamicData(long productionId,  Map<String,Object> dynamicData);
-    void updateProductionDynamicData(long id,  Map<String,Object> dynamicData);
-    void setProductionStatus(long productionId,Production.ProductionStatus productionStatus);
+
+    List<ProductionDto> getProductions(int page, int size);
+
+    List<ProductionDto> getProductionsByName(String name);
+
+    List<ProductionDto> getProductionsByStartDate(String startDate);
+
     void updateProduction(Production production);
+
     void deleteProduction(Long id);
 
     List<ProductMixDto> getProductMix(long productId);
+
+    ProductionStoreDto getProductionStoreByProductionId(long productionId);
+    ProductionFullDataDto getProductionFullDetails(Long productionId);
 
 }

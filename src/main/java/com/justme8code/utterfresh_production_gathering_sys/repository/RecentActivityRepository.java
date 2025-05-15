@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface RecentActivityRepository extends JpaRepository<RecentActivity, Long>, JpaSpecificationExecutor<RecentActivity> {
     List<RecentActivity> findByIsRecentTrue();
+
     List<RecentActivity> findByTimestampBefore(LocalDateTime dateTime);
 }

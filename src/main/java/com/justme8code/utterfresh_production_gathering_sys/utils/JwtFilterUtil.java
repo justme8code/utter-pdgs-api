@@ -15,13 +15,15 @@ import java.util.Date;
 
 public class JwtFilterUtil {
 
-    private JwtFilterUtil() {}
     private static final String BEARER_TOKEN = "Bearer ";
+
+    private JwtFilterUtil() {
+    }
 
     public static String getJwtTokenFromAuthorizationHeader(HttpServletRequest request) {
         final String unModifiedJwtToken = request.getHeader("Authorization");
-        return unModifiedJwtToken!=null && !unModifiedJwtToken.contains(BEARER_TOKEN)
-                ?  BEARER_TOKEN.concat(unModifiedJwtToken):unModifiedJwtToken;
+        return unModifiedJwtToken != null && !unModifiedJwtToken.contains(BEARER_TOKEN)
+                ? BEARER_TOKEN.concat(unModifiedJwtToken) : unModifiedJwtToken;
     }
 
     public static String getJwtTokenFromCookieListRequest(HttpServletRequest request) {
@@ -41,7 +43,7 @@ public class JwtFilterUtil {
 
     public static void isTokenExpired(io.jsonwebtoken.Claims claims) {
         Date expirationDate = claims.getExpiration();
-        if(expirationDate.before(new Date())){
+        if (expirationDate.before(new Date())) {
             throw new JWTException(HttpStatus.NOT_ACCEPTABLE, "JWT token is expired");
         }
     }
@@ -58,7 +60,6 @@ public class JwtFilterUtil {
         ObjectMapper objectMapper = new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(errorObject));
     }
-
 
 
     public static String tryGetJwtTokenFromAuthorizationHeaderOrCookieListsRequest(HttpServletRequest request) {

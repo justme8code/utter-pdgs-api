@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class SecurityUtils {
 
-    private SecurityUtils() {}
+    private SecurityUtils() {
+    }
+
     // Method to fetch the current user's ID
     public static String getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -25,7 +27,7 @@ public class SecurityUtils {
     }
 
 
-    public static  Authentication authenticateUser(User user, AuthenticationManager authenticationManager) {
+    public static Authentication authenticateUser(User user, AuthenticationManager authenticationManager) {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPwd()));
     }
 

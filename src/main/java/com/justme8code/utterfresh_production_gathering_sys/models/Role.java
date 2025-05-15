@@ -1,4 +1,5 @@
 package com.justme8code.utterfresh_production_gathering_sys.models;
+
 import jakarta.persistence.*;
 import lombok.*;
 

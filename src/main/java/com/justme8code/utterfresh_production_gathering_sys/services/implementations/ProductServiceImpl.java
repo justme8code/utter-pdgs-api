@@ -1,10 +1,10 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductDto;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMapper;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMixMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.Product;
 import com.justme8code.utterfresh_production_gathering_sys.models.ProductMix;
@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto fetchThisProduct(long productId) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new EntityException("Product with "+productId+" not found",HttpStatus.NOT_FOUND));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new EntityException("Product with " + productId + " not found", HttpStatus.NOT_FOUND));
         return productMapper.toDto(product);
     }
 
@@ -59,9 +59,9 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
 
         List<Ingredient> existingIngredients;
-        if(product.getIngredients().isEmpty()) {
+        if (product.getIngredients().isEmpty()) {
             existingIngredients = new ArrayList<>();
-        }else{
+        } else {
             // Fetch all existing ingredients in a single query
             existingIngredients = ingredientRepository.findAllById(ingredientIds);
             // Validate that all ingredients exist
@@ -81,9 +81,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
-    public ProductDto updateThisProduct(long productId,ProductDto productDto) {
+    public ProductDto updateThisProduct(long productId, ProductDto productDto) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new EntityException("Product not found", HttpStatus.NOT_FOUND));
-        product = productMapper.partialUpdate(productDto, product );
+        product = productMapper.partialUpdate(productDto, product);
         return productMapper.toDto(productRepository.save(product));
     }
 

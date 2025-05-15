@@ -1,9 +1,9 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
+import com.justme8code.utterfresh_production_gathering_sys.dtos.IngredientDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.RawMaterialDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.IngredientMapper;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.RawMaterialMapper;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.IngredientDto;
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RawMaterialDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
 import com.justme8code.utterfresh_production_gathering_sys.repository.IngredientRepository;
@@ -11,12 +11,10 @@ import com.justme8code.utterfresh_production_gathering_sys.repository.RawMateria
 import com.justme8code.utterfresh_production_gathering_sys.services.RecentActivityService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.RawMaterialService;
 import jakarta.transaction.Transactional;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,7 +61,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
         // Log the recent activity
         recentActivityService.addActivity(
                 "RawMaterial",
-                "Raw Materials  " + rawMaterialDtos.stream().map(RawMaterialDto::getName).toList().toString()+ " created at " + LocalDateTime.now()
+                "Raw Materials  " + rawMaterialDtos.stream().map(RawMaterialDto::getName).toList() + " created at " + LocalDateTime.now()
         );
         return rawMaterialDtos;
     }

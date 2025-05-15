@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 public class JWTException extends RuntimeException {
-    private final HttpStatus  errorCode;
+    private final HttpStatus errorCode;
     private String message;
     private Exception originalException;
 

@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
-import com.justme8code.utterfresh_production_gathering_sys.mappers.dtos.RawMaterialDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.RawMaterialDto;
 import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
 import org.mapstruct.*;
 
