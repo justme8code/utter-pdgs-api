@@ -43,6 +43,7 @@ public class Purchase extends BaseEntity {
     private double cost;
     private double avgCost;
     private double avgWeightPerUOM;
+    private boolean transferred;
 
     @OneToOne(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

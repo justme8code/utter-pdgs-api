@@ -56,6 +56,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest userLogin, HttpServletResponse response, HttpServletRequest request) {
+        System.out.println(userLogin.getEmail());
+        System.out.println(userLogin.getPassword());
         User user = new User();
         user.setEmail(userLogin.getEmail());
         user.setPwd(userLogin.getPassword());

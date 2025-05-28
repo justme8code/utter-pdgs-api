@@ -28,5 +28,6 @@ public class ProductionStore extends BaseEntity {
     private List<IngredientStore> ingredientStores = new ArrayList<>();
 
     @OneToMany(mappedBy = "productionStore",cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<RawMaterialStore> rawMaterialStores = new ArrayList<>();
 }

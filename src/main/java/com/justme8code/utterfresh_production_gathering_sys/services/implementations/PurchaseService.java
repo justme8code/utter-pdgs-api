@@ -9,17 +9,13 @@ import com.justme8code.utterfresh_production_gathering_sys.mappers.PurchaseMappe
 import com.justme8code.utterfresh_production_gathering_sys.models.*;
 import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.services.helpers.PurchaseHelper;
-import com.justme8code.utterfresh_production_gathering_sys.utils.ProductionHelper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -64,7 +60,6 @@ public class PurchaseService {
         RawMaterial rm = rawMaterialRepository.findById(purchaseDto.getRawMaterial().getId())
                 .orElseThrow(() -> new EntityException("Raw material not found", HttpStatus.NOT_FOUND));
 
-
         // Creates a new purchase usage to track the purchase
         PurchaseUsage purchaseUsage = new PurchaseUsage();
         purchaseUsage.setUsableWeightLeft(purchaseDto.getUsableWeight());// sets initial data
@@ -76,8 +71,11 @@ public class PurchaseService {
         // sets purchase production
         purchase.setProduction(production);
 
+        if(rm.getIngredients() == null || rm.getIngredients().isEmpty()) {
+            throw new EntityException("Can't create purchase, because No ingredients found for "+ rm.getName(), HttpStatus.BAD_REQUEST);
+        }
         PurchaseHelper.checkIfIngredientStoreExistOrCreateIngredientStore(purchase, production,rm);
-        ProductionHelper.createOrAddToRawMaterialStore(purchase, production);
+        PurchaseHelper.checkIfPurchaseRawMaterialExistsOrCreateRawMaterialStore(purchase,production.getProductionStore());
 
         ProductionStore ps = productionStoreRepository.save(production.getProductionStore());
         Purchase savedPurchase = purchaseRepository.save(purchase); // save purchase
@@ -89,16 +87,7 @@ public class PurchaseService {
         return purchasePRStoreDto;
     }
 
-
-
-    public List<PurchaseDto> getPurchaseEntriesByProductionId(Long productionId) {
-        Production production = productionRepository.findProductionById(productionId)
-                .orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
-        return production.getPurchaseEntries().stream()
-                .map(purchaseMapper::toDto)
-                .toList();
-    }
-
+ 
 
     // get list of purchases entries by a production where deleted is not true
     public List<PurchaseDto> getNonDeletedPurchaseEntriesByProductionId(Long productionId) {
@@ -163,12 +152,6 @@ public class PurchaseService {
         purchaseRepository.delete(purchase);
     }
 
-    // get list of purchase entries where deleted is not true
-    public List<PurchaseDto> getAllPurchaseEntries() {
-        return purchaseRepository.findAllByDeletedFalse()
-                .stream()
-                .map(purchaseMapper::toDto)
-                .toList();
-    }
+
 
 }

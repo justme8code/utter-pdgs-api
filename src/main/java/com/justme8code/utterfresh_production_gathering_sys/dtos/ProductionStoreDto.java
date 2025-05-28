@@ -1,5 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class ProductionStoreDto implements Serializable {
     Long id;
     Long productionId;
     List<IngredientStoreDto> ingredientStores;
+    List<RawMaterialStoreDto> rawMaterialStores;
 
     /**
      * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.IngredientStore}
@@ -23,4 +26,18 @@ public class ProductionStoreDto implements Serializable {
         IngredientDto ingredient;
         double usableLitresLeft;
     }
+
+    /**
+     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.RawMaterialStore}
+     */
+    @Value
+    public static class RawMaterialStoreDto implements Serializable {
+        Long id;
+        PurchaseDto.RawMaterialDto1 rawMaterial;
+        double totalUsableQuantity;
+        double totalUsedQuantity;
+    }
+
+
+
 }

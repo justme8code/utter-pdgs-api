@@ -4,8 +4,8 @@ import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixIngred
 import com.justme8code.utterfresh_production_gathering_sys.models.ProductMixIngredient;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
-public interface LitersUsedForIngredientMapper {
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {ProductMixIngredientMapper.class} )
+public interface ProductMixIngredientMapper {
     @Mapping(source = "ingredientId", target = "ingredient.id")
     ProductMixIngredient toEntity(ProductMixIngredientDto productMixIngredientDto);
 
@@ -14,5 +14,5 @@ public interface LitersUsedForIngredientMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "ingredientId", target = "ingredient.id")
-    ProductMixIngredient partialUpdate(ProductMixIngredientDto ingredientUsageDto, @MappingTarget ProductMixIngredient productMixIngredient);
+    ProductMixIngredient partialUpdate(ProductMixIngredientDto productMixIngredientDto, @MappingTarget ProductMixIngredient productMixIngredient);
 }

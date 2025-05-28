@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
 import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixProdStoreDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionMixService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,9 @@ public class ProductMixController {
 
     // create a product mix.
     @PostMapping
-    public ResponseEntity<ProductMixDto> createProductMix(@RequestBody ProductMixDto productMixDto, @PathVariable long productionId) {
-        productionMixService.addProductMix(productMixDto, productionId);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<ProductMixProdStoreDto> createProductMix(@RequestBody ProductMixDto productMixDto, @PathVariable long productionId) {
+        ProductMixProdStoreDto data = productionMixService.addProductMix(productMixDto, productionId);
+        return new ResponseEntity<>(data, HttpStatus.CREATED);
     }
 
     // fetch a product mix
@@ -30,6 +31,8 @@ public class ProductMixController {
         ProductMixDto pmx = productionMixService.findThisProductMix(productMixId);
         return new ResponseEntity<>(pmx, HttpStatus.OK);
     }
+
+
 
     @PutMapping("/{productMixId}")
     public ResponseEntity<ProductMixDto> updateProductMix(@RequestBody ProductMixDto productMixDto, @PathVariable long productMixId, @PathVariable String productionId) {

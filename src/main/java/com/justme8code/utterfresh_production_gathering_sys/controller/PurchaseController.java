@@ -3,6 +3,7 @@ package com.justme8code.utterfresh_production_gathering_sys.controller;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.PurchaseDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.PurchasePRStoreDto;
 import com.justme8code.utterfresh_production_gathering_sys.services.implementations.PurchaseService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,9 @@ public class PurchaseController {
     public ResponseEntity<PurchasePRStoreDto> createPurchaseEntry(
             @PathVariable Long productionId,
             @RequestBody PurchaseDto purchaseDto) {
-        return ResponseEntity.ok(purchaseService.createPurchaseEntry(productionId, purchaseDto));
+
+        PurchasePRStoreDto purchasePRStoreDto = purchaseService.createPurchaseEntry(productionId, purchaseDto);
+        return new ResponseEntity<>(purchasePRStoreDto, HttpStatus.CREATED);
     }
 
     @GetMapping

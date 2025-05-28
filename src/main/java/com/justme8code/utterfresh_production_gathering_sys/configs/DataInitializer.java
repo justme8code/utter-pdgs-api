@@ -9,6 +9,7 @@ import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepos
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -19,11 +20,13 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final StaffRepository staffRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(UserRepository userRepository, RoleRepository roleRepository, StaffRepository staffRepository) {
+    public DataInitializer(UserRepository userRepository, RoleRepository roleRepository, StaffRepository staffRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.staffRepository = staffRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -57,6 +60,7 @@ public class DataInitializer implements CommandLineRunner {
         } else {
             User admin = new User();
             admin.setFullName("Bolaji Oretan");
+            admin.setPwd(passwordEncoder.encode("123456"));
             admin.setEmail(ADMIN_EMAIL);
             admin.setRoles(new HashSet<>());
             admin.getRoles().add(adminRole);

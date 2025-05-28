@@ -25,11 +25,10 @@ public class ProductMix extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProductMixIngredient> productMixIngredients = new ArrayList<>();
 
-
+    private Double productCount;
     private Double totalLitersUsed;
     private Integer qty;
     private Double brixOnDiluent;
-
     private Double initialBrix;
     private Double finalBrix;
     private Double initialPH;

@@ -17,5 +17,6 @@ public class ProductionDto implements Serializable {
     LocalDate startDate;
     LocalDate endDate;
     StaffDto staff;
+    boolean finalized;
     ProductionStoreDto productionStore;
 }

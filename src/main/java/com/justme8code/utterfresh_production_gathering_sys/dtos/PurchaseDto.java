@@ -19,6 +19,7 @@ public class PurchaseDto implements Serializable {
     double cost;
     double avgCost;
     double avgWeightPerUOM;
+    boolean transferred;;
     RawMaterialDto1 rawMaterial;
     SupplierDto1 supplier;
     PurchaseUsageDto1 purchaseUsage;

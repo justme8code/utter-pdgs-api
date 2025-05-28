@@ -14,6 +14,8 @@ public interface ProductMixRepository extends JpaRepository<ProductMix, Long>, J
 
     List<ProductMix> findProductMixByProduction_Id(Long productionId);
 
+
+
     @Query("SELECT COUNT(pm) FROM ProductMix pm WHERE DATE(pm.createdAt) = :date")
     long countByCreatedDate(LocalDate date);
 

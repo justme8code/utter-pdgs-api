@@ -1,9 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionFullDataDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionStoreDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.*;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.ProductionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +58,13 @@ public class ProductionController {
         return ResponseEntity.ok(productMixDtos);
     }
 
+    @GetMapping("/{productionId}/product-mix-outputs")
+    public ResponseEntity<List<ProductMixOutputDto>> fetchProductMixOutputs(@PathVariable long productionId) {
+        List<ProductMixOutputDto> productMixOutputs = productionService.getProductMixOutput(productionId);
+        System.out.println(productMixOutputs);
+        return ResponseEntity.ok(productMixOutputs);
+    }
+
     @GetMapping("/{productionId}/stores")
     public ResponseEntity<ProductionStoreDto> getProductionStoreByProductionId(@PathVariable long productionId) {
         return ResponseEntity.ok(productionService.getProductionStoreByProductionId(productionId));
@@ -76,6 +80,12 @@ public class ProductionController {
     public ResponseEntity<ProductionFullDataDto> getProductionFullData(@PathVariable Long productionId) {
         ProductionFullDataDto pfdDto = productionService.getProductionFullDetails(productionId);
         return ResponseEntity.ok(pfdDto);
+    }
+
+    @PostMapping("/{productionId}/finalize")
+    public ResponseEntity<Void> finalizeProduction(@PathVariable Long productionId) {
+        productionService.finalizeProduction(productionId);
+        return ResponseEntity.noContent().build();
     }
 }
 

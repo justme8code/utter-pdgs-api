@@ -26,6 +26,8 @@ public class Production extends BaseEntity {
 
     private Integer lastBatch;
 
+    private boolean finalized = false;
+
     @Column(nullable = false)
     private LocalDate startDate;
 
@@ -43,5 +45,11 @@ public class Production extends BaseEntity {
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Purchase> purchaseEntries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "fromProduction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<PurchaseTransfer> outgoingTransfers = new ArrayList<>();
+
+
 
 }

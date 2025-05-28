@@ -1,8 +1,11 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations;
 
 import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixDto;
-import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixIngredientDto;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductMixMapper;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductMixProdStoreDto;
+import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductionStoreMapper;
 import com.justme8code.utterfresh_production_gathering_sys.models.*;
 import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.repository.ProductMixIngredientRepository;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductionMixImpl implements ProductionMixService {
@@ -29,8 +33,10 @@ public class ProductionMixImpl implements ProductionMixService {
     private final IngredientRepository ingredientRepository;
     private final ProductMixIngredientRepository productMixIngredientRepository;
     private final ProductionStoreRepository productionStoreRepository;
+    private final ProductionStoreMapper productionStoreMapper;
 
-    public ProductionMixImpl(ProductMixRepository productMixRepository, ProductMixMapper productMixMapper, ProductRepository productRepository, ProductionRepository productionRepository, RecentActivityService recentActivityService, IngredientRepository ingredientRepository, ProductMixIngredientRepository productMixIngredientRepository, ProductionStoreRepository productionStoreRepository) {
+    public ProductionMixImpl(ProductMixRepository productMixRepository, ProductMixMapper productMixMapper, ProductRepository productRepository, ProductionRepository productionRepository, RecentActivityService recentActivityService, IngredientRepository ingredientRepository, ProductMixIngredientRepository productMixIngredientRepository, ProductionStoreRepository productionStoreRepository,
+                             ProductionStoreMapper productionStoreMapper) {
         this.productMixRepository = productMixRepository;
         this.productMixMapper = productMixMapper;
         this.productRepository = productRepository;
@@ -39,13 +45,16 @@ public class ProductionMixImpl implements ProductionMixService {
         this.ingredientRepository = ingredientRepository;
         this.productMixIngredientRepository = productMixIngredientRepository;
         this.productionStoreRepository = productionStoreRepository;
+        this.productionStoreMapper = productionStoreMapper;
     }
 
     @Override
     @Transactional
-    public void addProductMix(ProductMixDto pmxdto, long prID) {
+    public ProductMixProdStoreDto addProductMix(ProductMixDto pmxdto, long prID) {
+        System.out.println(pmxdto.toString());
         // Convert DTO to entity
         ProductMix productMix = productMixMapper.toEntity(pmxdto);
+        
 
         // Load required entities to ensure they are managed
         ProductionStore ps = productionStoreRepository.findProductionStoreByProduction_Id(prID)
@@ -56,16 +65,39 @@ public class ProductionMixImpl implements ProductionMixService {
 
         productMix.setProduct(product);
         productMix.setProduction(ps.getProduction());
+        Set<Long> ingredientIds = pmxdto.getProductMixIngredients().stream().map(ProductMixIngredientDto::getIngredientId).collect(Collectors.toSet());
+        List<Ingredient> ingredients = ingredientRepository.findAllById(ingredientIds);
+        System.out.println(ingredients);
+        productMix.getProductMixIngredients().clear();
+        for (ProductMixIngredientDto productMixIngredientDto : pmxdto.getProductMixIngredients()) {
+            for (Ingredient ingredient : ingredients) {
+                if(Objects.equals(ingredient.getId(), productMixIngredientDto.getIngredientId())) {
+                    ProductMixIngredient productMixIngredient = new ProductMixIngredient();
+                    productMixIngredient.setIngredient(ingredient);
+                    productMixIngredient.setLitresUsed(productMixIngredientDto.getLitresUsed());
+                    productMix.getProductMixIngredients().add(productMixIngredient);
+                }
+            }
+        }
 
         // Allocate ingredient usage and calculate total liters used
         allocateIngredientUsage(productMix.getProductMixIngredients(), ps.getIngredientStores());
+
+
+
         productMix.setTotalLitersUsed(calculateSum(productMix));
 
         // Save the updated ProductionStore if ingredient stores were modified
-        productionStoreRepository.save(ps);
+        ProductionStore savedStore = productionStoreRepository.save(ps);
 
         // Save ProductMix — cascade will handle LitersUsedForIngredient
-        productMixRepository.save(productMix);
+        ProductMix savedProductMix = productMixRepository.save(productMix);
+
+        ProductMixProdStoreDto mixProdStoreDto = new ProductMixProdStoreDto();
+        mixProdStoreDto.setProductMix(productMixMapper.toDto(savedProductMix));
+        mixProdStoreDto.setProductionStore(productionStoreMapper.toDto(savedStore));
+
+        return mixProdStoreDto;
     }
 
 
@@ -188,8 +220,8 @@ public class ProductionMixImpl implements ProductionMixService {
     }
 
 
-    private void allocateIngredientUsage(List<com.justme8code.utterfresh_production_gathering_sys.models.ProductMixIngredient> usages, List<IngredientStore> store) {
-        for (com.justme8code.utterfresh_production_gathering_sys.models.ProductMixIngredient used : usages) {
+    private void allocateIngredientUsage(List<ProductMixIngredient> usages, List<IngredientStore> store) {
+        for (ProductMixIngredient used : usages) {
             double amountToUse = used.getLitresUsed();
             boolean found = false;
 
@@ -216,8 +248,8 @@ public class ProductionMixImpl implements ProductionMixService {
     }
 
 
-    private void onDeleteDeallocateIngredientUsageFromProductMix(List<com.justme8code.utterfresh_production_gathering_sys.models.ProductMixIngredient> usages, List<IngredientStore> store) {
-        for (com.justme8code.utterfresh_production_gathering_sys.models.ProductMixIngredient used : usages) {
+    private void onDeleteDeallocateIngredientUsageFromProductMix(List<ProductMixIngredient> usages, List<IngredientStore> store) {
+        for (ProductMixIngredient used : usages) {
             double amountToUse = used.getLitresUsed();
             boolean found = false;
 

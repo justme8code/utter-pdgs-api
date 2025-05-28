@@ -37,11 +37,13 @@ public class ProductionServiceImpl implements ProductionService {
     private final ProductionStoreMapper productionStoreMapper;
     private final PurchaseMapper purchaseMapper;
     private final ConversionMapper conversionMapper;
+    private final ProductMixOutputMapper productMixOutputMapper;
 
     public ProductionServiceImpl(ProductionRepository productionRepository,
                                  ProductionMapper productionMapper, UserRepository userRepository, ProductMixRepository productMixRepository,
                                  ProductMixMapper productMixMapper,
-                                 ProductionStoreMapper productionStoreMapper, PurchaseMapper purchaseMapper, ConversionMapper conversionMapper) {
+                                 ProductionStoreMapper productionStoreMapper, PurchaseMapper purchaseMapper, ConversionMapper conversionMapper,
+                                 ProductMixOutputMapper productMixOutputMapper) {
         this.productionRepository = productionRepository;
         this.productionMapper = productionMapper;
         this.userRepository = userRepository;
@@ -50,6 +52,7 @@ public class ProductionServiceImpl implements ProductionService {
         this.productionStoreMapper = productionStoreMapper;
         this.purchaseMapper = purchaseMapper;
         this.conversionMapper = conversionMapper;
+        this.productMixOutputMapper = productMixOutputMapper;
     }
 
     @Override
@@ -65,6 +68,7 @@ public class ProductionServiceImpl implements ProductionService {
 
         production.setProductionNumber(productionNumberGenerator());
         production.setStaff(staff);
+        production.setFinalized(false);
         ProductionStore productionStore = new ProductionStore();
         productionStore.setProduction(production);
         production.setProductionStore(productionStore);
@@ -134,6 +138,13 @@ public class ProductionServiceImpl implements ProductionService {
     }
 
     @Override
+    public List<ProductMixOutputDto> getProductMixOutput(long productionId) {
+        return productMixRepository.findProductMixByProduction_Id(productionId)
+                .stream().map(productMixOutputMapper::toDto).collect(Collectors.toList());
+    }
+
+
+    @Override
     public ProductionFullDataDto getProductionFullDetails(Long productionId) {
         Production production = productionRepository.findById(productionId)
                 .orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
@@ -162,4 +173,30 @@ public class ProductionServiceImpl implements ProductionService {
         String randomPart = String.format("%04d", random.nextInt(10000)); // Ensures a 4-digit number
         return "PROD-" + datePart + "-" + randomPart;
     }
+
+
+    private void createANonTransferredPurchaseTransfer(Purchase purchase, Production production) {
+        var usage = purchase.getPurchaseUsage();
+        if (usage != null && usage.getUsableWeightLeft() > 0) {
+            System.out.println("Printing and debuging "  + usage.getUsableWeightLeft());
+            var pt = new PurchaseTransfer();
+            pt.setPurchase(purchase);
+            pt.setFromProduction(production);
+            production.getOutgoingTransfers().add(pt);
+        }
+    }
+
+    @Override
+    public void finalizeProduction(Long productionId) {
+        var production = productionRepository.findProductionById(productionId)
+                .orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
+        var purchases = production.getPurchaseEntries();
+        for (var purchase : purchases) {
+            createANonTransferredPurchaseTransfer(purchase, production);
+        }
+        production.setFinalized(true);
+        productionRepository.save(production);
+    }
+
+
 }

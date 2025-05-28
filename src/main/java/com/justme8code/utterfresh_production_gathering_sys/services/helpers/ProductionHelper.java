@@ -1,4 +1,4 @@
-package com.justme8code.utterfresh_production_gathering_sys.utils;
+package com.justme8code.utterfresh_production_gathering_sys.services.helpers;
 
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.models.*;
