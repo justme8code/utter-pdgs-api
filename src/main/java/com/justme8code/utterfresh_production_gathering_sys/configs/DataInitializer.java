@@ -1,9 +1,9 @@
 package com.justme8code.utterfresh_production_gathering_sys.configs;
 
-import com.justme8code.utterfresh_production_gathering_sys.models.Role;
-import com.justme8code.utterfresh_production_gathering_sys.models.Staff;
-import com.justme8code.utterfresh_production_gathering_sys.models.User;
-import com.justme8code.utterfresh_production_gathering_sys.models.UserRole;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.Role;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.Staff;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.User;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.UserRole;
 import com.justme8code.utterfresh_production_gathering_sys.repository.RoleRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.StaffRepository;
 import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;

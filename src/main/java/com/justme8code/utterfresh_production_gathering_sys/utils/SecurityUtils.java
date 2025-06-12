@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.utils;
 
-import com.justme8code.utterfresh_production_gathering_sys.models.User;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.User;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -29,7 +29,6 @@ public class SecurityUtils {
     }
 
 
-
     public static Authentication authenticateUser(User user, AuthenticationManager authenticationManager) {
         try {
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPwd()));
@@ -40,7 +39,6 @@ public class SecurityUtils {
             throw new InternalAuthenticationServiceException("Authentication failed", ex);
         }
     }
-
 
 
 }

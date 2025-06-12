@@ -1,9 +1,10 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDetailsDto1;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.models.Production;
-import com.justme8code.utterfresh_production_gathering_sys.models.ProductionStore;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.dashboard.ProdDashboardData;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDetailsDto1;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDto;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.Production;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.ProductionStore;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {StaffMapper.class, ProductionStoreMapper.class})
@@ -30,4 +31,11 @@ public interface ProductionMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Production partialUpdate(ProductionDetailsDto1 productionDetailsDto1, @MappingTarget Production production);
+
+    Production toEntity(ProdDashboardData prodDashboardData);
+
+    ProdDashboardData toDto2(Production production);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Production partialUpdate(ProdDashboardData prodDashboardData, @MappingTarget Production production);
 }

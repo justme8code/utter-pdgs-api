@@ -1,8 +1,8 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ConversionDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ConversionPayload;
-import com.justme8code.utterfresh_production_gathering_sys.models.Conversion;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionPayload;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.Conversion;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

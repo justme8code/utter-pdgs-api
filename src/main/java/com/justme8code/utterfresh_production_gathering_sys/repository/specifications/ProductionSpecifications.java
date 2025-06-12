@@ -1,7 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.repository.specifications;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.models.Production;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.Production;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;

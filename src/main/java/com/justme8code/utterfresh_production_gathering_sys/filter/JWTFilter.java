@@ -2,7 +2,7 @@ package com.justme8code.utterfresh_production_gathering_sys.filter;
 
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.JWTAuthenticationException;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.JWTException;
-import com.justme8code.utterfresh_production_gathering_sys.services.implementations.CustomUserDetailsService;
+import com.justme8code.utterfresh_production_gathering_sys.services.implementations.users.CustomUserDetailsService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JwtAuthorizer;
 import com.justme8code.utterfresh_production_gathering_sys.utils.JwtFilterUtil;
 import io.jsonwebtoken.Claims;

@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.configs;
 
-import com.justme8code.utterfresh_production_gathering_sys.services.RecentActivityService;
+import com.justme8code.utterfresh_production_gathering_sys.services.implementations.activity.RecentActivityService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

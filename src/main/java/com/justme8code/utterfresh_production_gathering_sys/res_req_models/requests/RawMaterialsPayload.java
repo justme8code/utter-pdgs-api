@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.res_req_models.requests;
 
-import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
+import com.justme8code.utterfresh_production_gathering_sys.models.inventory.RawMaterial;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

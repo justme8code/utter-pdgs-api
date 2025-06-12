@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.res_req_models.response;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.UserDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.users.UserDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

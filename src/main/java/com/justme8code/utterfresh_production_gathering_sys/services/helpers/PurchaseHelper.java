@@ -1,10 +1,15 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.helpers;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.PurchaseDto;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.PurchaseMapper;
-import com.justme8code.utterfresh_production_gathering_sys.models.*;
-import com.justme8code.utterfresh_production_gathering_sys.repository.RawMaterialRepository;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.Production;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.ProductionStore;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.Purchase;
+import com.justme8code.utterfresh_production_gathering_sys.models.event.PurchaseUsage;
+import com.justme8code.utterfresh_production_gathering_sys.models.inventory.Ingredient;
+import com.justme8code.utterfresh_production_gathering_sys.models.inventory.IngredientStore;
+import com.justme8code.utterfresh_production_gathering_sys.models.inventory.RawMaterial;
+import com.justme8code.utterfresh_production_gathering_sys.models.inventory.RawMaterialStore;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
@@ -55,7 +60,7 @@ public class PurchaseHelper {
 
         List<RawMaterialStore> newRawMaterialStores = new ArrayList<>();
 
-        if(!existingRawMaterialIds.contains(purchase.getRawMaterial().getId())) {
+        if (!existingRawMaterialIds.contains(purchase.getRawMaterial().getId())) {
             RawMaterialStore newStore = new RawMaterialStore();
             newStore.setRawMaterial(purchase.getRawMaterial());
             newStore.setTotalUsableQuantity(purchase.getPurchaseUsage().getUsableWeightLeft());
@@ -64,7 +69,7 @@ public class PurchaseHelper {
             newRawMaterialStores.add(newStore);
             store.getRawMaterialStores().addAll(newRawMaterialStores);
             System.out.println("Always running here.");
-        }else{
+        } else {
             System.out.println("Contains");
             addToRawMaterialStore(purchase, store);
         }
@@ -79,7 +84,7 @@ public class PurchaseHelper {
                 ));
     }
 
-    public static void createPurchaseUsage (Purchase purchase, Production production, RawMaterial rm, PurchaseMapper purchaseMapper) {
+    public static void createPurchaseUsage(Purchase purchase, Production production, RawMaterial rm, PurchaseMapper purchaseMapper) {
         // Creates a new purchase usage to track the purchase
         PurchaseUsage purchaseUsage = new PurchaseUsage();
         purchaseUsage.setUsableWeightLeft(purchase.getUsableWeight());// sets initial data
@@ -90,7 +95,7 @@ public class PurchaseHelper {
         // sets purchase production
         purchase.setProduction(production);
 
-        PurchaseHelper.checkIfIngredientStoreExistOrCreateIngredientStore(purchase, production,rm);
-        PurchaseHelper.checkIfPurchaseRawMaterialExistsOrCreateRawMaterialStore(purchase,production.getProductionStore());
+        PurchaseHelper.checkIfIngredientStoreExistOrCreateIngredientStore(purchase, production, rm);
+        PurchaseHelper.checkIfPurchaseRawMaterialExistsOrCreateRawMaterialStore(purchase, production.getProductionStore());
     }
 }

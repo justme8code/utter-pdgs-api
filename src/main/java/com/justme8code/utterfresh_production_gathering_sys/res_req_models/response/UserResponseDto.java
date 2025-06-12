@@ -1,13 +1,15 @@
 package com.justme8code.utterfresh_production_gathering_sys.res_req_models.response;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.RoleDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.users.RoleDto;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.Staff;
+import com.justme8code.utterfresh_production_gathering_sys.models.users.User;
 import lombok.Value;
 
 import java.io.Serializable;
 import java.util.Set;
 
 /**
- * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.User}
+ * DTO for {@link User}
  */
 @Value
 public class UserResponseDto implements Serializable {
@@ -18,7 +20,7 @@ public class UserResponseDto implements Serializable {
     Set<RoleDto> roles;
 
     /**
-     * DTO for {@link com.justme8code.utterfresh_production_gathering_sys.models.Staff}
+     * DTO for {@link Staff}
      */
     @Value
     public static class StaffDto implements Serializable {

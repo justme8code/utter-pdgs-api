@@ -1,7 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.mappers;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.RawMaterialDto;
-import com.justme8code.utterfresh_production_gathering_sys.models.RawMaterial;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.inventory.RawMaterialDto;
+import com.justme8code.utterfresh_production_gathering_sys.models.inventory.RawMaterial;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {IngredientMapper.class})
