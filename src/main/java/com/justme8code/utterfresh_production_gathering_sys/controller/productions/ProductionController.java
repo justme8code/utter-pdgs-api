@@ -3,6 +3,7 @@ package com.justme8code.utterfresh_production_gathering_sys.controller.productio
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionFullDataDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionStoreDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.PMOutputLessDetail;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.ProductMixOutputDto;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.EvaluationService;
@@ -73,6 +74,13 @@ public class ProductionController {
         return ResponseEntity.ok(productMixOutputs);
     }
 
+    @GetMapping("/{productionId}/pm-outputs-less")
+    public ResponseEntity<List<PMOutputLessDetail>> fetchProductMixOutputsLessDetail(@PathVariable long productionId) {
+        List<PMOutputLessDetail> productMixOutputs = productionService.getProductMixOutputLessDetail(productionId);
+        System.out.println(productMixOutputs);
+        return ResponseEntity.ok(productMixOutputs);
+    }
+
     @GetMapping("/{productionId}/stores")
     public ResponseEntity<ProductionStoreDto> getProductionStoreByProductionId(@PathVariable long productionId) {
         return ResponseEntity.ok(productionService.getProductionStoreByProductionId(productionId));
@@ -94,6 +102,11 @@ public class ProductionController {
     public ResponseEntity<Void> finalizeProduction(@PathVariable Long productionId) {
         productionService.finalizeProduction(productionId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/non-finalized")
+    public ResponseEntity<List<ProductionDto>> getNonFinalizedProductions() {
+        return new ResponseEntity<>(productionService.getNonFinalizedProductions(),HttpStatus.OK);
     }
 
     @GetMapping("/{productionId}/evaluations")

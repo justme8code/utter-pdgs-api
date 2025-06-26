@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.models.event;
 
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.ProductEvaluation;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.ProductionEvaluation;
 import com.justme8code.utterfresh_production_gathering_sys.models.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,7 +49,7 @@ public class ProductMix extends BaseEntity {
             orphanRemoval = true       // Optional but recommended
     )
     @ToString.Exclude
-    private List<ProductEvaluation> productEvaluations = new ArrayList<>();
+    private List<ProductionEvaluation> productionEvaluations = new ArrayList<>();
 
 
 }

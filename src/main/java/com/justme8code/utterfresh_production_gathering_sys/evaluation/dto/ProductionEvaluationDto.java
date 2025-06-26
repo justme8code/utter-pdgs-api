@@ -1,21 +1,21 @@
 package com.justme8code.utterfresh_production_gathering_sys.evaluation.dto;
 
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.ProductEvaluation;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.ProductionEvaluation;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.Taste;
 import lombok.Value;
 
 import java.io.Serializable;
 
 /**
- * DTO for {@link ProductEvaluation}
+ * DTO for {@link ProductionEvaluation}
  */
 @Value
-public class ProductEvaluationDto implements Serializable {
+public class ProductionEvaluationDto implements Serializable {
     Long id;
     ProductMixDto productMix;
     Taste taste;
     Taste afterTaste;
-    String viscosity;
+    Taste viscosity;
     String comment;
     boolean release;
 

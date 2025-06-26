@@ -18,9 +18,10 @@ public class EvaluationInfoDto implements Serializable {
     LocalDateTime createdAt;
     Long id;
     Long productionId;
+    String batchRange;
     StaffDto staff;
     LocalDate manufacturedDate;
     EvaluationType evaluationType;
     LocalDate expirationDate;
-    List<ProductEvaluationDto> productEvaluations;
+    List<ProductionEvaluationDto> productEvaluations;
 }

@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Entity
-public class ProductEvaluation {
+public class ProductionEvaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -31,7 +31,7 @@ public class ProductEvaluation {
 
     private Taste afterTaste;
 
-    private String viscosity;
+    private Taste viscosity;
     private String comment;
 
     private boolean release;

@@ -79,6 +79,7 @@ public class ProductionMixImpl implements ProductionMixService {
                     productMixIngredient.setIngredient(ingredient);
                     productMixIngredient.setLitresUsed(productMixIngredientDto.getLitresUsed());
                     productMix.getProductMixIngredients().add(productMixIngredient);
+                    productMixIngredient.setProductMix(productMix);
                 }
             }
         }

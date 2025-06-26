@@ -30,6 +30,7 @@ public class EvaluationService {
     private final ProductionRepository productionRepository;
     private final ProductMixRepository productMixRepository;
 
+
     public EvaluationService(EvaluationRepository evaluationRepository, StaffRepository staffRepository,
                              EvaluationMapper evaluationMapper, ProductionRepository productionRepository, ProductMixRepository productMixRepository) {
         this.evaluationRepository = evaluationRepository;
@@ -37,6 +38,7 @@ public class EvaluationService {
         this.evaluationMapper = evaluationMapper;
         this.productionRepository = productionRepository;
         this.productMixRepository = productMixRepository;
+
     }
 
 
@@ -45,15 +47,17 @@ public class EvaluationService {
         if(production.isFinalized() && evaluationType.equals(EvaluationType.IN_PROCESS)){
             throw new EntityException("Production already finalized, Can't create in process sensory.",HttpStatus.FORBIDDEN);
         }
-
+/*
         if(!production.isFinalized() && evaluationType.equals(EvaluationType.POST_PROCESS)){
             throw new EntityException("Production must be finalized before creating a post process sensory.",HttpStatus.FORBIDDEN);
-        }
+        }*/
 
     }
     // Create evaluation;
     @Transactional
     public EvaluationDto createEvaluation(Long productionId,EvaluationPayload payload) {
+        System.out.println("printing evaluation payload");
+        System.out.println(payload);
         // 1. Fetch the main related entity: Production
         Production production = ProductionHelper.findProductionByIdHelper(productionRepository,productionId);
         verifyEvaluationAction(production, payload.getEvaluationType());// verify type of evaluation on this production
@@ -66,8 +70,8 @@ public class EvaluationService {
         // --- OPTIMIZATION START ---
 
         // 3. Collect all unique ProductMix IDs from the payload
-        Set<Long> productMixIds = payload.getProductEvaluations().stream()
-                .map(EvaluationPayload.ProductEvaluationDto1::getProductMixId)
+        Set<Long> productMixIds = payload.getProductionEvaluations().stream()
+                .map(EvaluationPayload.ProductionEvaluationDto1::getProductMixId)
                 .collect(Collectors.toSet());
 
         // 4. Fetch all required ProductMix entities in a SINGLE database query
@@ -88,20 +92,25 @@ public class EvaluationService {
 
         // 7. Assemble the parent and child entities
         Evaluation evaluation = evaluationMapper.toEntity(payload);
+        evaluation.setEvaluationType(payload.getEvaluationType());
         evaluation.setProduction(production);
         evaluation.setStaff(staff);
-        List<ProductEvaluation> productEvaluations = payload.getProductEvaluations().stream()
+        List<ProductionEvaluation> productionEvaluations = payload.getProductionEvaluations().stream()
                 .map(dto -> {
                     // Get the ProductMix from our pre-fetched map (no DB call)
                     ProductMix productMix = productMixMap.get(dto.getProductMixId());
-                    ProductEvaluation productEvaluation = evaluationMapper.toEntity(dto);
-                    productEvaluation.setProductMix(productMix);
-                    productEvaluation.setEvaluation(evaluation);
-                    return productEvaluation;
+                    ProductionEvaluation productionEvaluation = new ProductionEvaluation();
+                    productionEvaluation.setRelease(dto.isRelease());
+                    productionEvaluation.setComment(dto.getComment());
+                    productionEvaluation.setTaste(dto.getTaste());
+                    productionEvaluation.setViscosity(dto.getViscosity());
+                    productionEvaluation.setProductMix(productMix);
+                    productionEvaluation.setEvaluation(evaluation);
+                    return productionEvaluation;
                 })
                 .collect(Collectors.toList());
 
-        evaluation.setProductEvaluations(productEvaluations);
+        evaluation.setProductionEvaluations(productionEvaluations);
 
         // 8. Save the parent. Cascade will save all children.
         return evaluationMapper.toDto(evaluationRepository.save(evaluation));
@@ -123,7 +132,7 @@ public class EvaluationService {
         Evaluation evaluation = evaluationRepository.findEvaluationById(evaluationId)
                 .orElseThrow(() -> new EntityException("Evaluation not found", HttpStatus.NOT_FOUND));
 
-        System.out.println(evaluation.getProductEvaluations());
+        System.out.println(evaluation.getProductionEvaluations());
         return evaluationMapper.toDto2(evaluation);
     }
     // Delete evaluation

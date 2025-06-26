@@ -5,13 +5,13 @@ import com.justme8code.utterfresh_production_gathering_sys.dtos.production.Produ
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionFullDataDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionStoreDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.PMOutputLessDetail;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.ProductMixOutputDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.purchase.PurchaseDto;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.EvaluationRepository;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationDto;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationMapper;
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.ProductEvaluationDto;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.*;
 import com.justme8code.utterfresh_production_gathering_sys.models.event.*;
@@ -156,12 +156,14 @@ public class ProductionServiceImpl implements ProductionService {
 
     @Override
     public List<ProductMixOutputDto> getProductMixOutput(long productionId) {
-         List<ProductMixOutputDto> out = productMixRepository.findProductMixByProduction_Id(productionId)
-                .stream().map(productMixOutputMapper::toDto).collect(Collectors.toList());
+        return productMixRepository.findProductMixByProduction_Id(productionId)
+               .stream().map(productMixOutputMapper::toDto).collect(Collectors.toList());
+    }
 
-        System.out.println(out);
-
-         return out;
+    @Override
+    public List<PMOutputLessDetail> getProductMixOutputLessDetail(long productionId) {
+        return productMixRepository.findProductMixByProduction_Id(productionId)
+                .stream().map(productMixOutputMapper::toDto1).toList();
     }
 
 
@@ -217,6 +219,11 @@ public class ProductionServiceImpl implements ProductionService {
         }
         production.setFinalized(true);
         productionRepository.save(production);
+    }
+    @Override
+    public List<ProductionDto> getNonFinalizedProductions() {
+        List<Production> nonFinalizedProductions = productionRepository.findProductionsByFinalizedIsFalse();
+        return nonFinalizedProductions.stream().map(productionMapper::toDto).collect(Collectors.toList());
     }
 
     @Override

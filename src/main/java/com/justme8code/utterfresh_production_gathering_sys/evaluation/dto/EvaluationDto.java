@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class EvaluationDto implements Serializable {
     Long id;
     LocalDateTime createdAt;
+    String batchRange;
     StaffDto staff;
     LocalDate manufacturedDate;
     LocalDate expirationDate;

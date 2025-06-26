@@ -1,6 +1,5 @@
 package com.justme8code.utterfresh_production_gathering_sys.repository;
 
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.ProductEvaluation;
 import com.justme8code.utterfresh_production_gathering_sys.models.event.Production;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

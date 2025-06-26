@@ -2,8 +2,6 @@ package com.justme8code.utterfresh_production_gathering_sys.evaluation;
 
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationDto;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationInfoDto;
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationPayload;
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationsAndTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

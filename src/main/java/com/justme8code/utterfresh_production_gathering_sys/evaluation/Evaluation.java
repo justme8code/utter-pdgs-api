@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -22,6 +21,8 @@ public class Evaluation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
+
+    private String batchRange;
 
     @ManyToOne
     @JoinColumn(name = "production_id", nullable = false)
@@ -37,11 +38,12 @@ public class Evaluation extends BaseEntity {
     @Column
     private LocalDate expirationDate;
 
+    @Enumerated(EnumType.STRING)
     private EvaluationType evaluationType;
 
     @OneToMany(mappedBy = "evaluation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude // You correctly added this, which solves the toString() loop in this direction.
     @JsonManagedReference // <--- SOLUTION: This is the "forward" part of the reference for JSON
-    private List<ProductEvaluation> productEvaluations;
+    private List<ProductionEvaluation> productionEvaluations;
 
 }
