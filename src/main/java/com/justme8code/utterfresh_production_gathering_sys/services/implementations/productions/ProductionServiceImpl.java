@@ -104,7 +104,7 @@ public class ProductionServiceImpl implements ProductionService {
     @Override
     public List<ProductionDto> getProductions(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Production> productionPage = productionRepository.findAll(pageable);
+        Page<Production> productionPage =  productionRepository.findProductionByDeletedIsFalse(pageable);
         return productionPage.getContent().stream().distinct().map(productionMapper::toDto).collect(Collectors.toList());
     }
 
@@ -133,9 +133,11 @@ public class ProductionServiceImpl implements ProductionService {
     @Override
     @Transactional
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
-    public void deleteProduction(Long id) {
-        productionRepository.findProductionById(id).orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
-        productionRepository.deleteById(id);
+    public void softDeleteProduction(Long id) {
+        Production production = productionRepository.findProductionById(id).orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
+        production.setDeleted(true);
+        productionRepository.save(production);
+        finalizeProduction(production.getId());
     }
 
 

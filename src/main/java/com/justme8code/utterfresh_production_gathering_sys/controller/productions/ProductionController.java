@@ -45,6 +45,12 @@ public class ProductionController {
         return new ResponseEntity<>(productionService.getProductions(page, size), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{productionId}")
+    public ResponseEntity<Void> softDeleteProduction(@PathVariable long productionId) {
+        productionService.softDeleteProduction(productionId);
+        return new  ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @GetMapping("/search")
     public ResponseEntity<List<ProductionDto>> searchProductions(@RequestParam String name) {
@@ -86,11 +92,6 @@ public class ProductionController {
         return ResponseEntity.ok(productionService.getProductionStoreByProductionId(productionId));
     }
 
-    @DeleteMapping("/{productionId}")
-    public ResponseEntity<Void> deleteProduction(@PathVariable long productionId) {
-        productionService.deleteProduction(productionId);
-        return ResponseEntity.noContent().build();
-    }
 
     @GetMapping("/{productionId}/complete")
     public ResponseEntity<ProductionFullDataDto> getProductionFullData(@PathVariable Long productionId) {

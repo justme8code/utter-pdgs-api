@@ -1,6 +1,7 @@
 package com.justme8code.utterfresh_production_gathering_sys.repository;
 
 import com.justme8code.utterfresh_production_gathering_sys.models.event.Production;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -20,6 +21,8 @@ public interface ProductionRepository extends JpaRepository<Production, Long>, J
     Optional<Production> findProductionById(long id);
 
     List<Production> findProductionsByFinalizedIsFalse();
+
+    Page<Production> findProductionByDeletedIsFalse(Pageable pageable);
 
     @Query("SELECT p FROM Production p WHERE p.createdAt BETWEEN :start AND :end ORDER BY p.createdAt DESC")
     List<Production> findTop5ProductionsCreatedAtBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, Pageable pageable);

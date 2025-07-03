@@ -25,7 +25,7 @@ public interface ProductionService {
 
     void updateProduction(Production production);
 
-    void deleteProduction(Long id);
+    void softDeleteProduction(Long id);
 
     List<ProductMixDto> getProductMix(long productId);
 
