@@ -1,0 +1,31 @@
+# Common settings for all profiles
+server:
+  port: 8080 # Default port, can be overridden by profiles
+
+spring:
+  # It's good practice to define the application name here and override if needed
+  application:
+    name: utterfresh-gathering-sys
+
+  jpa:
+    # These performance settings are generally good for all environments
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+    # Common JPA settings, can be overridden by profiles
+    show-sql: false
+    hibernate:
+      ddl-auto: none # Safest default. 'update' for dev, 'validate' for prod.
+
+  # JWT Configuration - Secrets should ALWAYS be externalized via environment variables
+  app:
+    jwtSecret: ${PDGSJWTSECRETE}
+    jwtExpirationS: 36000
+
+  # By default, activate the 'dev' profile if no other profile is specified
+  # You can remove this line if you prefer to always specify the profile manually
+  profiles:
+    active: dev

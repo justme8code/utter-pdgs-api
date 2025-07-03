@@ -1,0 +1,27 @@
+#
+# PRODUCTION specific settings (activates when 'prod' profile is set)
+#
+spring:
+  application:
+    name: utterfresh_production_gathering_sys
+
+  datasource:
+    # Using Azure SQL Server for production
+    # These credentials MUST be set as environment variables in your production environment
+    url: ${AZURE_SQLSERVER_URL}
+    username: ${AZURE_SQLSERVER_USERNAME}
+    password: ${AZURE_SQLSERVER_PASSWORD}
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      # IMPORTANT: Use 'validate' in production. 'update' is very risky as it
+      # can alter your production schema and lead to data loss. 'validate'
+      # simply checks if the schema matches the entities and fails on startup if not.
+      ddl-auto: validate
+    # Keep SQL logging off in production for performance and security
+    show-sql: false
+
+# You can override server port for production if needed, e.g., if running behind a proxy
+# server:
+#   port: 80

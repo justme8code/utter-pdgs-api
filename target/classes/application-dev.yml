@@ -1,0 +1,36 @@
+#
+# DEVELOPMENT specific settings (activates when 'dev' profile is set)
+#
+spring:
+  application:
+    name: utterfresh_dev_gathering_sys
+
+  datasource:
+    # Using local PostgreSQL for development
+    url: jdbc:postgresql://postgres_db:5432/utterfresh_db
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    # 'update' is great for dev, it auto-creates/updates the schema
+    hibernate:
+      ddl-auto: update
+    # Show and format SQL in the logs for easy debugging
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  # JWT Configuration - Secrets should ALWAYS be externalized via environment variables
+  app:
+    jwtSecret: MYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHEREMYSECRETEISHERE
+    jwtExpirationS: 36000
+
+# Enable detailed SQL logging for development
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+# Dev port the application should run on
+server:
+  port: 8083

@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplicationTests" time="13.707" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/thompson/IdeaProjects/utter-pdgs-api/target/test-classes:/home/thompson/IdeaProjects/utter-pdgs-api/target/classes:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-batch/3.4.3/spring-boot-starter-batch-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter/3.4.3/spring-boot-starter-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.4.3/spring-boot-starter-logging-3.4.3.jar:/home/thompson/.m2/repository/ch/qos/logback/logback-classic/1.5.16/logback-classic-1.5.16.jar:/home/thompson/.m2/repository/ch/qos/logback/logback-core/1.5.16/logback-core-1.5.16.jar:/home/thompson/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/home/thompson/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/home/thompson/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/home/thompson/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/home/thompson/.m2/repository/org/yaml/snakeyaml/2.3/snakeyaml-2.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.4.3/spring-boot-starter-jdbc-3.4.3.jar:/home/thompson/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/home/thompson/.m2/repository/org/springframework/batch/spring-batch-core/5.2.1/spring-batch-core-5.2.1.jar:/home/thompson/.m2/repository/org/springframework/batch/spring-batch-infrastructure/5.2.1/spring-batch-infrastructure-5.2.1.jar:/home/thompson/.m2/repository/org/springframework/retry/spring-retry/2.0.11/spring-retry-2.0.11.jar:/home/thompson/.m2/repository/org/springframework/spring-beans/6.2.3/spring-beans-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-context/6.2.3/spring-context-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-tx/6.2.3/spring-tx-6.2.3.jar:/home/thompson/.m2/repository/io/micrometer/micrometer-core/1.14.4/micrometer-core-1.14.4.jar:/home/thompson/.m2/repository/io/micrometer/micrometer-commons/1.14.4/micrometer-commons-1.14.4.jar:/home/thompson/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/home/thompson/.m2/repository/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar:/home/thompson/.m2/repository/io/micrometer/micrometer-observation/1.14.4/micrometer-observation-1.14.4.jar:/home/thompson/.m2/repository/org/springframework/data/spring-data-commons/3.4.3/spring-data-commons-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.4.3/spring-boot-starter-data-jpa-3.4.3.jar:/home/thompson/.m2/repository/org/hibernate/orm/hibernate-core/6.6.8.Final/hibernate-core-6.6.8.Final.jar:/home/thompson/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/home/thompson/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/home/thompson/.m2/repository/org/jboss/logging/jboss-logging/3.6.1.Final/jboss-logging-3.6.1.Final.jar:/home/thompson/.m2/repository/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.jar:/home/thompson/.m2/repository/io/smallrye/jandex/3.2.0/jandex-3.2.0.jar:/home/thompson/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/home/thompson/.m2/repository/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar:/home/thompson/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/home/thompson/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/home/thompson/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/home/thompson/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/home/thompson/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/home/thompson/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/home/thompson/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/home/thompson/.m2/repository/org/springframework/data/spring-data-jpa/3.4.3/spring-data-jpa-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-orm/6.2.3/spring-orm-6.2.3.jar:/home/thompson/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/home/thompson/.m2/repository/org/springframework/spring-aspects/6.2.3/spring-aspects-6.2.3.jar:/home/thompson/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.4.3/spring-boot-starter-security-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-aop/6.2.3/spring-aop-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-config/6.4.3/spring-security-config-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-web/6.4.3/spring-security-web-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-expression/6.2.3/spring-expression-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.4.3/spring-boot-starter-web-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.4.3/spring-boot-starter-json-3.4.3.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.18.2/jackson-datatype-jdk8-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.18.2/jackson-datatype-jsr310-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.18.2/jackson-module-parameter-names-2.18.2.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.4.3/spring-boot-starter-tomcat-3.4.3.jar:/home/thompson/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.36/tomcat-embed-core-10.1.36.jar:/home/thompson/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.36/tomcat-embed-el-10.1.36.jar:/home/thompson/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.36/tomcat-embed-websocket-10.1.36.jar:/home/thompson/.m2/repository/org/springframework/spring-web/6.2.3/spring-web-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-webmvc/6.2.3/spring-webmvc-6.2.3.jar:/home/thompson/.m2/repository/org/testcontainers/postgresql/1.20.0/postgresql-1.20.0.jar:/home/thompson/.m2/repository/org/testcontainers/jdbc/1.20.5/jdbc-1.20.5.jar:/home/thompson/.m2/repository/org/testcontainers/database-commons/1.20.5/database-commons-1.20.5.jar:/home/thompson/.m2/repository/org/testcontainers/junit-jupiter/1.20.2/junit-jupiter-1.20.2.jar:/home/thompson/.m2/repository/org/testcontainers/testcontainers/1.20.5/testcontainers-1.20.5.jar:/home/thompson/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/home/thompson/.m2/repository/org/hamcrest/hamcrest-core/2.2/hamcrest-core-2.2.jar:/home/thompson/.m2/repository/org/apache/commons/commons-compress/1.24.0/commons-compress-1.24.0.jar:/home/thompson/.m2/repository/org/rnorth/duct-tape/duct-tape/1.0.8/duct-tape-1.0.8.jar:/home/thompson/.m2/repository/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar:/home/thompson/.m2/repository/com/github/docker-java/docker-java-api/3.4.1/docker-java-api-3.4.1.jar:/home/thompson/.m2/repository/com/github/docker-java/docker-java-transport-zerodep/3.4.1/docker-java-transport-zerodep-3.4.1.jar:/home/thompson/.m2/repository/com/github/docker-java/docker-java-transport/3.4.1/docker-java-transport-3.4.1.jar:/home/thompson/.m2/repository/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar:/home/thompson/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-devtools/3.4.3/spring-boot-devtools-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot/3.4.3/spring-boot-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.4.3/spring-boot-autoconfigure-3.4.3.jar:/home/thompson/.m2/repository/org/postgresql/postgresql/42.7.5/postgresql-42.7.5.jar:/home/thompson/.m2/repository/org/checkerframework/checker-qual/3.48.3/checker-qual-3.48.3.jar:/home/thompson/.m2/repository/io/jsonwebtoken/jjwt-api/0.12.6/jjwt-api-0.12.6.jar:/home/thompson/.m2/repository/io/jsonwebtoken/jjwt-impl/0.12.6/jjwt-impl-0.12.6.jar:/home/thompson/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.12.6/jjwt-jackson-0.12.6.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.18.2/jackson-databind-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.18.2/jackson-annotations-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.18.2/jackson-core-2.18.2.jar:/home/thompson/.m2/repository/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar:/home/thompson/.m2/repository/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.4.3/spring-boot-starter-test-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-test/3.4.3/spring-boot-test-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.4.3/spring-boot-test-autoconfigure-3.4.3.jar:/home/thompson/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/home/thompson/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/home/thompson/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar:/home/thompson/.m2/repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/home/thompson/.m2/repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/home/thompson/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/home/thompson/.m2/repository/org/assertj/assertj-core/3.26.3/assertj-core-3.26.3.jar:/home/thompson/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/home/thompson/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter/5.11.4/junit-jupiter-5.11.4.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.4/junit-jupiter-api-5.11.4.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.4/junit-jupiter-params-5.11.4.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.4/junit-jupiter-engine-5.11.4.jar:/home/thompson/.m2/repository/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar:/home/thompson/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar:/home/thompson/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/thompson/.m2/repository/org/mockito/mockito-junit-jupiter/5.14.2/mockito-junit-jupiter-5.14.2.jar:/home/thompson/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/home/thompson/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/home/thompson/.m2/repository/org/springframework/spring-core/6.2.3/spring-core-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-jcl/6.2.3/spring-jcl-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-test/6.2.3/spring-test-6.2.3.jar:/home/thompson/.m2/repository/org/xmlunit/xmlunit-core/2.10.0/xmlunit-core-2.10.0.jar:/home/thompson/.m2/repository/org/springframework/batch/spring-batch-test/5.2.1/spring-batch-test-5.2.1.jar:/home/thompson/.m2/repository/org/springframework/spring-jdbc/6.2.3/spring-jdbc-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-test/6.4.3/spring-security-test-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-core/6.4.3/spring-security-core-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-crypto/6.4.3/spring-security-crypto-6.4.3.jar:/home/thompson/.m2/repository/org/junit/platform/junit-platform-launcher/1.11.4/junit-platform-launcher-1.11.4.jar:/home/thompson/.m2/repository/org/junit/platform/junit-platform-engine/1.11.4/junit-platform-engine-1.11.4.jar:/home/thompson/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/thompson/.m2/repository/org/junit/platform/junit-platform-commons/1.11.4/junit-platform-commons-1.11.4.jar:/home/thompson/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/thompson/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/12.8.1.jre11/mssql-jdbc-12.8.1.jre11.jar:/home/thompson/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.0/caffeine-3.2.0.jar:/home/thompson/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/thompson/.m2/repository/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-cache/3.4.3/spring-boot-starter-cache-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-context-support/6.2.3/spring-context-support-6.2.3.jar:"/>
+    <property name="java.vm.vendor" value="JetBrains s.r.o."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://openjdk.org/"/>
+    <property name="user.timezone" value="Africa/Lagos"/>
+    <property name="org.jboss.logging.provider" value="slf4j"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="APPLICATION_NAME" value="utterfresh_dev_gathering_sys"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/home/thompson/hot_swap_jdks/jbr21/lib"/>
+    <property name="sun.java.command" value="/home/thompson/IdeaProjects/utter-pdgs-api/target/surefire/surefirebooter-20250703114137684_3.jar /home/thompson/IdeaProjects/utter-pdgs-api/target/surefire 2025-07-03T11-41-37_593-jvmRun1 surefire-20250703114137684_1tmp surefire_0-20250703114137684_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/thompson/IdeaProjects/utter-pdgs-api/target/test-classes:/home/thompson/IdeaProjects/utter-pdgs-api/target/classes:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-batch/3.4.3/spring-boot-starter-batch-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter/3.4.3/spring-boot-starter-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.4.3/spring-boot-starter-logging-3.4.3.jar:/home/thompson/.m2/repository/ch/qos/logback/logback-classic/1.5.16/logback-classic-1.5.16.jar:/home/thompson/.m2/repository/ch/qos/logback/logback-core/1.5.16/logback-core-1.5.16.jar:/home/thompson/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/home/thompson/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/home/thompson/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/home/thompson/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/home/thompson/.m2/repository/org/yaml/snakeyaml/2.3/snakeyaml-2.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.4.3/spring-boot-starter-jdbc-3.4.3.jar:/home/thompson/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/home/thompson/.m2/repository/org/springframework/batch/spring-batch-core/5.2.1/spring-batch-core-5.2.1.jar:/home/thompson/.m2/repository/org/springframework/batch/spring-batch-infrastructure/5.2.1/spring-batch-infrastructure-5.2.1.jar:/home/thompson/.m2/repository/org/springframework/retry/spring-retry/2.0.11/spring-retry-2.0.11.jar:/home/thompson/.m2/repository/org/springframework/spring-beans/6.2.3/spring-beans-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-context/6.2.3/spring-context-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-tx/6.2.3/spring-tx-6.2.3.jar:/home/thompson/.m2/repository/io/micrometer/micrometer-core/1.14.4/micrometer-core-1.14.4.jar:/home/thompson/.m2/repository/io/micrometer/micrometer-commons/1.14.4/micrometer-commons-1.14.4.jar:/home/thompson/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/home/thompson/.m2/repository/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar:/home/thompson/.m2/repository/io/micrometer/micrometer-observation/1.14.4/micrometer-observation-1.14.4.jar:/home/thompson/.m2/repository/org/springframework/data/spring-data-commons/3.4.3/spring-data-commons-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.4.3/spring-boot-starter-data-jpa-3.4.3.jar:/home/thompson/.m2/repository/org/hibernate/orm/hibernate-core/6.6.8.Final/hibernate-core-6.6.8.Final.jar:/home/thompson/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/home/thompson/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/home/thompson/.m2/repository/org/jboss/logging/jboss-logging/3.6.1.Final/jboss-logging-3.6.1.Final.jar:/home/thompson/.m2/repository/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.jar:/home/thompson/.m2/repository/io/smallrye/jandex/3.2.0/jandex-3.2.0.jar:/home/thompson/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/home/thompson/.m2/repository/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar:/home/thompson/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/home/thompson/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/home/thompson/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/home/thompson/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/home/thompson/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/home/thompson/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/home/thompson/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/home/thompson/.m2/repository/org/springframework/data/spring-data-jpa/3.4.3/spring-data-jpa-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-orm/6.2.3/spring-orm-6.2.3.jar:/home/thompson/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/home/thompson/.m2/repository/org/springframework/spring-aspects/6.2.3/spring-aspects-6.2.3.jar:/home/thompson/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.4.3/spring-boot-starter-security-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-aop/6.2.3/spring-aop-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-config/6.4.3/spring-security-config-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-web/6.4.3/spring-security-web-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-expression/6.2.3/spring-expression-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.4.3/spring-boot-starter-web-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.4.3/spring-boot-starter-json-3.4.3.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.18.2/jackson-datatype-jdk8-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.18.2/jackson-datatype-jsr310-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.18.2/jackson-module-parameter-names-2.18.2.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.4.3/spring-boot-starter-tomcat-3.4.3.jar:/home/thompson/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.36/tomcat-embed-core-10.1.36.jar:/home/thompson/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.36/tomcat-embed-el-10.1.36.jar:/home/thompson/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.36/tomcat-embed-websocket-10.1.36.jar:/home/thompson/.m2/repository/org/springframework/spring-web/6.2.3/spring-web-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-webmvc/6.2.3/spring-webmvc-6.2.3.jar:/home/thompson/.m2/repository/org/testcontainers/postgresql/1.20.0/postgresql-1.20.0.jar:/home/thompson/.m2/repository/org/testcontainers/jdbc/1.20.5/jdbc-1.20.5.jar:/home/thompson/.m2/repository/org/testcontainers/database-commons/1.20.5/database-commons-1.20.5.jar:/home/thompson/.m2/repository/org/testcontainers/junit-jupiter/1.20.2/junit-jupiter-1.20.2.jar:/home/thompson/.m2/repository/org/testcontainers/testcontainers/1.20.5/testcontainers-1.20.5.jar:/home/thompson/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/home/thompson/.m2/repository/org/hamcrest/hamcrest-core/2.2/hamcrest-core-2.2.jar:/home/thompson/.m2/repository/org/apache/commons/commons-compress/1.24.0/commons-compress-1.24.0.jar:/home/thompson/.m2/repository/org/rnorth/duct-tape/duct-tape/1.0.8/duct-tape-1.0.8.jar:/home/thompson/.m2/repository/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar:/home/thompson/.m2/repository/com/github/docker-java/docker-java-api/3.4.1/docker-java-api-3.4.1.jar:/home/thompson/.m2/repository/com/github/docker-java/docker-java-transport-zerodep/3.4.1/docker-java-transport-zerodep-3.4.1.jar:/home/thompson/.m2/repository/com/github/docker-java/docker-java-transport/3.4.1/docker-java-transport-3.4.1.jar:/home/thompson/.m2/repository/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar:/home/thompson/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-devtools/3.4.3/spring-boot-devtools-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot/3.4.3/spring-boot-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.4.3/spring-boot-autoconfigure-3.4.3.jar:/home/thompson/.m2/repository/org/postgresql/postgresql/42.7.5/postgresql-42.7.5.jar:/home/thompson/.m2/repository/org/checkerframework/checker-qual/3.48.3/checker-qual-3.48.3.jar:/home/thompson/.m2/repository/io/jsonwebtoken/jjwt-api/0.12.6/jjwt-api-0.12.6.jar:/home/thompson/.m2/repository/io/jsonwebtoken/jjwt-impl/0.12.6/jjwt-impl-0.12.6.jar:/home/thompson/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.12.6/jjwt-jackson-0.12.6.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.18.2/jackson-databind-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.18.2/jackson-annotations-2.18.2.jar:/home/thompson/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.18.2/jackson-core-2.18.2.jar:/home/thompson/.m2/repository/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar:/home/thompson/.m2/repository/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.4.3/spring-boot-starter-test-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-test/3.4.3/spring-boot-test-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.4.3/spring-boot-test-autoconfigure-3.4.3.jar:/home/thompson/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/home/thompson/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/home/thompson/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar:/home/thompson/.m2/repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/home/thompson/.m2/repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/home/thompson/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/home/thompson/.m2/repository/org/assertj/assertj-core/3.26.3/assertj-core-3.26.3.jar:/home/thompson/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/home/thompson/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter/5.11.4/junit-jupiter-5.11.4.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.4/junit-jupiter-api-5.11.4.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.4/junit-jupiter-params-5.11.4.jar:/home/thompson/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.4/junit-jupiter-engine-5.11.4.jar:/home/thompson/.m2/repository/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar:/home/thompson/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar:/home/thompson/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/thompson/.m2/repository/org/mockito/mockito-junit-jupiter/5.14.2/mockito-junit-jupiter-5.14.2.jar:/home/thompson/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/home/thompson/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/home/thompson/.m2/repository/org/springframework/spring-core/6.2.3/spring-core-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-jcl/6.2.3/spring-jcl-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/spring-test/6.2.3/spring-test-6.2.3.jar:/home/thompson/.m2/repository/org/xmlunit/xmlunit-core/2.10.0/xmlunit-core-2.10.0.jar:/home/thompson/.m2/repository/org/springframework/batch/spring-batch-test/5.2.1/spring-batch-test-5.2.1.jar:/home/thompson/.m2/repository/org/springframework/spring-jdbc/6.2.3/spring-jdbc-6.2.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-test/6.4.3/spring-security-test-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-core/6.4.3/spring-security-core-6.4.3.jar:/home/thompson/.m2/repository/org/springframework/security/spring-security-crypto/6.4.3/spring-security-crypto-6.4.3.jar:/home/thompson/.m2/repository/org/junit/platform/junit-platform-launcher/1.11.4/junit-platform-launcher-1.11.4.jar:/home/thompson/.m2/repository/org/junit/platform/junit-platform-engine/1.11.4/junit-platform-engine-1.11.4.jar:/home/thompson/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/thompson/.m2/repository/org/junit/platform/junit-platform-commons/1.11.4/junit-platform-commons-1.11.4.jar:/home/thompson/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/thompson/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/12.8.1.jre11/mssql-jdbc-12.8.1.jre11.jar:/home/thompson/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.0/caffeine-3.2.0.jar:/home/thompson/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/thompson/.m2/repository/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.jar:/home/thompson/.m2/repository/org/springframework/boot/spring-boot-starter-cache/3.4.3/spring-boot-starter-cache-3.4.3.jar:/home/thompson/.m2/repository/org/springframework/spring-context-support/6.2.3/spring-context-support-6.2.3.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/thompson"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.home" value="/home/thompson/hot_swap_jdks/jbr21"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/thompson/IdeaProjects/utter-pdgs-api"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="intellij.os.virtualization" value="none"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="jbr.virtualization.information" value="No virtualization detected"/>
+    <property name="surefire.real.class.path" value="/home/thompson/IdeaProjects/utter-pdgs-api/target/surefire/surefirebooter-20250703114137684_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.7+6-b1038.54"/>
+    <property name="user.name" value="thompson"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="awt.toolkit.name" value="XToolkit"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.11.0-29-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="jnidispatch.path" value="/home/thompson/.cache/JNA/temp/jna4404023641529062477.tmp"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib64:/lib64:/usr/lib:/lib:/lib/i386-linux-gnu:/usr/lib/x86_64-linux-gnu/libfakeroot"/>
+    <property name="java.vendor.version" value="JBR-21.0.7+6-1038.54-nomod"/>
+    <property name="localRepository" value="/home/thompson/.m2/repository"/>
+    <property name="jna.loaded" value="true"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="idea.version" value="2025.1.3"/>
+    <property name="com.zaxxer.hikari.pool_number" value="1"/>
+    <property name="java.version" value="21.0.7"/>
+    <property name="user.dir" value="/home/thompson/IdeaProjects/utter-pdgs-api"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="112450"/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="JetBrains s.r.o."/>
+    <property name="java.vm.version" value="21.0.7+6-b1038.54"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+    <property name="LOGGED_APPLICATION_NAME" value="[utterfresh_dev_gathering_sys] "/>
+  </properties>
+  <testcase name="contextLoads" classname="com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplicationTests" time="0.702">
+    <system-out><![CDATA[11:41:38.507 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplicationTests]: UtterfreshProductionGatheringSysApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:41:38.641 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplication for test class com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplicationTests
+11:41:38.776 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+11:41:38.780 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+11:41:38.815 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 1.20.5
+11:41:39.127 [main] WARN org.testcontainers.dockerclient.DockerClientProviderStrategy -- DOCKER_HOST unix:///var/run/docker.sock is not listening
+java.net.BindException: Permission denied
+	at java.base/sun.nio.ch.UnixDomainSockets.connect0(Native Method)
+	at java.base/sun.nio.ch.UnixDomainSockets.connect(UnixDomainSockets.java:166)
+	at java.base/sun.nio.ch.UnixDomainSockets.connect(UnixDomainSockets.java:162)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:878)
+	at java.base/java.nio.channels.SocketChannel.open(SocketChannel.java:285)
+	at com.github.dockerjava.transport.UnixSocket.<init>(UnixSocket.java:45)
+	at com.github.dockerjava.transport.UnixSocket.get(UnixSocket.java:27)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$test$2(DockerClientProviderStrategy.java:194)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.test(DockerClientProviderStrategy.java:208)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.tryOutStrategy(DockerClientProviderStrategy.java:284)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$getFirstValidStrategy$5(DockerClientProviderStrategy.java:263)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:178)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:264)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:109)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:321)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$null$4(TestcontainersExtension.java:83)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore.lambda$getOrComputeIfAbsent$5(NamespacedHierarchicalStore.java:182)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore$MemoizingSupplier.computeValue(NamespacedHierarchicalStore.java:422)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore$MemoizingSupplier.get(NamespacedHierarchicalStore.java:411)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore$StoredValue.evaluate(NamespacedHierarchicalStore.java:358)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore$StoredValue.access$200(NamespacedHierarchicalStore.java:337)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore.getOrComputeIfAbsent(NamespacedHierarchicalStore.java:185)
+	at org.junit.jupiter.engine.execution.NamespaceAwareStore.lambda$getOrComputeIfAbsent$2(NamespaceAwareStore.java:57)
+	at org.junit.jupiter.engine.execution.NamespaceAwareStore.accessStore(NamespaceAwareStore.java:90)
+	at org.junit.jupiter.engine.execution.NamespaceAwareStore.getOrComputeIfAbsent(NamespaceAwareStore.java:57)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeBeforeAllCallbacks$13(ClassBasedTestDescriptor.java:396)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeBeforeAllCallbacks(ClassBasedTestDescriptor.java:396)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:212)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:85)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:153)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+11:41:39.346 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with Docker accessed via Unix socket (/home/thompson/.docker/desktop/docker.sock)
+11:41:39.348 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+11:41:39.371 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 3759 MB
+  Labels: 
+    com.docker.desktop.address=unix:///home/thompson/.docker/desktop/docker-cli.sock
+11:41:39.644 [main] INFO tc.testcontainers/ryuk:0.11.0 -- Creating container for image: testcontainers/ryuk:0.11.0
+11:41:39.668 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+11:41:39.870 [main] INFO tc.testcontainers/ryuk:0.11.0 -- Container testcontainers/ryuk:0.11.0 is starting: 7d0d7fca426268f179219789fdef662feacaf3a5d1a257f924c8e26c7c8cefe8
+11:41:40.303 [main] INFO tc.testcontainers/ryuk:0.11.0 -- Container testcontainers/ryuk:0.11.0 started in PT0.658670824S
+11:41:40.310 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+11:41:40.310 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+11:41:40.311 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+11:41:40.312 [main] INFO tc.postgres:15-alpine -- Creating container for image: postgres:15-alpine
+11:41:40.413 [main] INFO tc.postgres:15-alpine -- Container postgres:15-alpine is starting: 0676d9062139b173ec55f978bccec3af279637dab25a8364c60a245b31f77a76
+11:41:42.738 [main] INFO tc.postgres:15-alpine -- Container postgres:15-alpine started in PT2.4264847S
+11:41:42.739 [main] INFO tc.postgres:15-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:36943/test?loggerLevel=OFF)
+11:41:42.802 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2025-07-03T11:41:43.130+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] shProductionGatheringSysApplicationTests : Starting UtterfreshProductionGatheringSysApplicationTests using Java 21.0.7 with PID 112450 (started by thompson in /home/thompson/IdeaProjects/utter-pdgs-api)
+2025-07-03T11:41:43.132+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] shProductionGatheringSysApplicationTests : The following 1 profile is active: "dev"
+2025-07-03T11:41:44.053+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-03T11:41:44.219+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 157 ms. Found 21 JPA repository interfaces.
+2025-07-03T11:41:44.707+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-03T11:41:44.967+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6fa2a006
+2025-07-03T11:41:44.968+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-03T11:41:45.084+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-03T11:41:45.129+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-07-03T11:41:45.160+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-03T11:41:45.452+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-03T11:41:45.514+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-03T11:41:45.530+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.13
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-03T11:41:47.002+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-03T11:41:47.057+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table conversion (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        batch integer not null,
+        production_id bigint not null,
+        purchase_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table conversion (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        batch integer not null,
+        production_id bigint not null,
+        purchase_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.063+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table conversion_field (
+        id bigint generated by default as identity,
+        cost_per_litre float(53),
+        kg_used float(53),
+        litres_per_kg float(53),
+        out_put_litres float(53) not null,
+        production_litres_lost float(53) not null,
+        raw_brix float(53) not null,
+        usable_litres float(53) not null,
+        conversion_id bigint,
+        ingredient_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table conversion_field (
+        id bigint generated by default as identity,
+        cost_per_litre float(53),
+        kg_used float(53),
+        litres_per_kg float(53),
+        out_put_litres float(53) not null,
+        production_litres_lost float(53) not null,
+        raw_brix float(53) not null,
+        usable_litres float(53) not null,
+        conversion_id bigint,
+        ingredient_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.069+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table evaluation (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        batch_range varchar(255),
+        evaluation_type varchar(255) check (evaluation_type in ('IN_PROCESS','POST_PROCESS')),
+        expiration_date date,
+        manufactured_date date,
+        production_id bigint not null,
+        staff_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table evaluation (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        batch_range varchar(255),
+        evaluation_type varchar(255) check (evaluation_type in ('IN_PROCESS','POST_PROCESS')),
+        expiration_date date,
+        manufactured_date date,
+        production_id bigint not null,
+        staff_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.078+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table ingredient_raw_material (
+        ingredient_id bigint not null,
+        raw_material_id bigint not null
+    )
+Hibernate: 
+    create table ingredient_raw_material (
+        ingredient_id bigint not null,
+        raw_material_id bigint not null
+    )
+2025-07-03T11:41:47.082+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table ingredients (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        name varchar(255),
+        uom varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table ingredients (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        name varchar(255),
+        uom varchar(255),
+        primary key (id)
+    )
+2025-07-03T11:41:47.087+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table ingredient_store (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        usable_litres_left float(53) not null,
+        ingredient_id bigint not null,
+        production_store_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table ingredient_store (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        usable_litres_left float(53) not null,
+        ingredient_id bigint not null,
+        production_store_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.091+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table product_ingredients (
+        product_id bigint not null,
+        ingredient_id bigint not null
+    )
+Hibernate: 
+    create table product_ingredients (
+        product_id bigint not null,
+        ingredient_id bigint not null
+    )
+2025-07-03T11:41:47.094+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table product_mixes (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        brix_on_diluent float(53),
+        final_brix float(53),
+        finalph float(53),
+        initial_brix float(53),
+        initialph float(53),
+        product_count float(53),
+        qty integer,
+        total_liters_used float(53),
+        product_id bigint,
+        production_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table product_mixes (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        brix_on_diluent float(53),
+        final_brix float(53),
+        finalph float(53),
+        initial_brix float(53),
+        initialph float(53),
+        product_count float(53),
+        qty integer,
+        total_liters_used float(53),
+        product_id bigint,
+        production_id bigint,
+        primary key (id)
+    )
+2025-07-03T11:41:47.099+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table production_batches (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        name varchar(255) not null,
+        production_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table production_batches (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        name varchar(255) not null,
+        production_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.103+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table production_store (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        production_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table production_store (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        production_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.107+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table production_evaluation (
+        id bigint generated by default as identity,
+        after_taste smallint check (after_taste between 0 and 1),
+        comment varchar(255),
+        release boolean not null,
+        taste smallint check (taste between 0 and 1),
+        viscosity smallint check (viscosity between 0 and 1),
+        evaluation_id bigint,
+        product_mix_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table production_evaluation (
+        id bigint generated by default as identity,
+        after_taste smallint check (after_taste between 0 and 1),
+        comment varchar(255),
+        release boolean not null,
+        taste smallint check (taste between 0 and 1),
+        viscosity smallint check (viscosity between 0 and 1),
+        evaluation_id bigint,
+        product_mix_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.112+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table productions (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        end_date date not null,
+        finalized boolean not null,
+        last_batch integer,
+        name varchar(255),
+        production_number varchar(40) not null,
+        start_date date not null,
+        staff_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table productions (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        end_date date not null,
+        finalized boolean not null,
+        last_batch integer,
+        name varchar(255),
+        production_number varchar(40) not null,
+        start_date date not null,
+        staff_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.118+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table product_mix_ingredient (
+        id bigint generated by default as identity,
+        litres_used float(53),
+        ingredient_id bigint not null,
+        product_mix_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table product_mix_ingredient (
+        id bigint generated by default as identity,
+        litres_used float(53),
+        ingredient_id bigint not null,
+        product_mix_id bigint,
+        primary key (id)
+    )
+2025-07-03T11:41:47.122+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table products (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        category varchar(255),
+        description varchar(255),
+        name varchar(255) not null,
+        unit_of_measure varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table products (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        category varchar(255),
+        description varchar(255),
+        name varchar(255) not null,
+        unit_of_measure varchar(255),
+        primary key (id)
+    )
+2025-07-03T11:41:47.127+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table purchase (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        avg_cost float(53) not null,
+        avg_weight_peruom float(53) not null,
+        cost float(53) not null,
+        production_lost_weight float(53) not null,
+        transferred boolean not null,
+        uom_qty float(53) not null,
+        usable_weight float(53) not null,
+        weight float(53) not null,
+        production_id bigint not null,
+        raw_material_id bigint,
+        supplier_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table purchase (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        avg_cost float(53) not null,
+        avg_weight_peruom float(53) not null,
+        cost float(53) not null,
+        production_lost_weight float(53) not null,
+        transferred boolean not null,
+        uom_qty float(53) not null,
+        usable_weight float(53) not null,
+        weight float(53) not null,
+        production_id bigint not null,
+        raw_material_id bigint,
+        supplier_id bigint,
+        primary key (id)
+    )
+2025-07-03T11:41:47.132+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table purchase_transfer (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        transfer_notes varchar(255),
+        transferred boolean not null,
+        transferred_at timestamp(6),
+        from_production_id bigint not null,
+        purchase_id bigint not null,
+        resulting_purchase_id bigint,
+        to_production_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table purchase_transfer (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        transfer_notes varchar(255),
+        transferred boolean not null,
+        transferred_at timestamp(6),
+        from_production_id bigint not null,
+        purchase_id bigint not null,
+        resulting_purchase_id bigint,
+        to_production_id bigint,
+        primary key (id)
+    )
+2025-07-03T11:41:47.137+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table purchase_usage (
+        id bigint not null,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        total_kg_used float(53) not null,
+        usable_weight_left float(53) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table purchase_usage (
+        id bigint not null,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        total_kg_used float(53) not null,
+        usable_weight_left float(53) not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.142+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table raw_materials (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        name varchar(255),
+        uom varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table raw_materials (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        name varchar(255),
+        uom varchar(255),
+        primary key (id)
+    )
+2025-07-03T11:41:47.155+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table raw_material_store (
+        id bigint not null,
+        total_usable_quantity float(53) not null,
+        total_used_quantity float(53) not null,
+        production_store_id bigint not null,
+        raw_material_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table raw_material_store (
+        id bigint not null,
+        total_usable_quantity float(53) not null,
+        total_used_quantity float(53) not null,
+        production_store_id bigint not null,
+        raw_material_id bigint not null,
+        primary key (id)
+    )
+2025-07-03T11:41:47.161+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table recent_activity (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        activity_type varchar(255),
+        is_recent boolean not null,
+        message varchar(255),
+        timestamp timestamp(6),
+        primary key (id)
+    )
+Hibernate: 
+    create table recent_activity (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        activity_type varchar(255),
+        is_recent boolean not null,
+        message varchar(255),
+        timestamp timestamp(6),
+        primary key (id)
+    )
+2025-07-03T11:41:47.166+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table roles (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        user_role smallint check (user_role between 0 and 2),
+        primary key (id)
+    )
+Hibernate: 
+    create table roles (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        user_role smallint check (user_role between 0 and 2),
+        primary key (id)
+    )
+2025-07-03T11:41:47.171+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table staffs (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        company_role varchar(255),
+        profession varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table staffs (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        company_role varchar(255),
+        profession varchar(255),
+        primary key (id)
+    )
+2025-07-03T11:41:47.176+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table supplier (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        address varchar(255),
+        email_address varchar(255),
+        full_name varchar(255),
+        phone_number varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table supplier (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        address varchar(255),
+        email_address varchar(255),
+        full_name varchar(255),
+        phone_number varchar(255),
+        primary key (id)
+    )
+2025-07-03T11:41:47.182+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table unit_of_measurement (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        abbrev varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table unit_of_measurement (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        abbrev varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+2025-07-03T11:41:47.187+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table user_roles (
+        user_id bigint not null,
+        role_id bigint not null,
+        primary key (user_id, role_id)
+    )
+Hibernate: 
+    create table user_roles (
+        user_id bigint not null,
+        role_id bigint not null,
+        primary key (user_id, role_id)
+    )
+2025-07-03T11:41:47.191+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create table users (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        created_by bigint,
+        email varchar(255),
+        full_name varchar(255),
+        phone varchar(255),
+        pwd varchar(255),
+        staff_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table users (
+        id bigint generated by default as identity,
+        created_at timestamp(6) not null,
+        deleted boolean,
+        updated_at timestamp(6) not null,
+        created_by bigint,
+        email varchar(255),
+        full_name varchar(255),
+        phone varchar(255),
+        pwd varchar(255),
+        staff_id bigint,
+        primary key (id)
+    )
+2025-07-03T11:41:47.197+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists production_store 
+       drop constraint if exists UKu7bfhgbc1ogt5y6sqhx0tpao
+Hibernate: 
+    alter table if exists production_store 
+       drop constraint if exists UKu7bfhgbc1ogt5y6sqhx0tpao
+2025-07-03T11:41:47.200+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-07-03T11:41:47.200+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uku7bfhgbc1ogt5y6sqhx0tpao" of relation "production_store" does not exist, skipping
+2025-07-03T11:41:47.200+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists production_store 
+       add constraint UKu7bfhgbc1ogt5y6sqhx0tpao unique (production_id)
+Hibernate: 
+    alter table if exists production_store 
+       add constraint UKu7bfhgbc1ogt5y6sqhx0tpao unique (production_id)
+2025-07-03T11:41:47.203+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists productions 
+       drop constraint if exists UKlxjhtd9r7wh0i0yjpdxk230dn
+Hibernate: 
+    alter table if exists productions 
+       drop constraint if exists UKlxjhtd9r7wh0i0yjpdxk230dn
+2025-07-03T11:41:47.204+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-07-03T11:41:47.205+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uklxjhtd9r7wh0i0yjpdxk230dn" of relation "productions" does not exist, skipping
+2025-07-03T11:41:47.205+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists productions 
+       add constraint UKlxjhtd9r7wh0i0yjpdxk230dn unique (production_number)
+Hibernate: 
+    alter table if exists productions 
+       add constraint UKlxjhtd9r7wh0i0yjpdxk230dn unique (production_number)
+2025-07-03T11:41:47.208+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_transfer 
+       drop constraint if exists UK40fsjagbuhsepm55l9q7yvfng
+Hibernate: 
+    alter table if exists purchase_transfer 
+       drop constraint if exists UK40fsjagbuhsepm55l9q7yvfng
+2025-07-03T11:41:47.209+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-07-03T11:41:47.210+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk40fsjagbuhsepm55l9q7yvfng" of relation "purchase_transfer" does not exist, skipping
+2025-07-03T11:41:47.210+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_transfer 
+       add constraint UK40fsjagbuhsepm55l9q7yvfng unique (resulting_purchase_id)
+Hibernate: 
+    alter table if exists purchase_transfer 
+       add constraint UK40fsjagbuhsepm55l9q7yvfng unique (resulting_purchase_id)
+2025-07-03T11:41:47.212+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       drop constraint if exists UKhijqejqge8g6evxs6j44rny9k
+Hibernate: 
+    alter table if exists users 
+       drop constraint if exists UKhijqejqge8g6evxs6j44rny9k
+2025-07-03T11:41:47.214+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-07-03T11:41:47.214+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "ukhijqejqge8g6evxs6j44rny9k" of relation "users" does not exist, skipping
+2025-07-03T11:41:47.214+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       add constraint UKhijqejqge8g6evxs6j44rny9k unique (staff_id)
+Hibernate: 
+    alter table if exists users 
+       add constraint UKhijqejqge8g6evxs6j44rny9k unique (staff_id)
+2025-07-03T11:41:47.220+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    create sequence raw_material_store_seq start with 1 increment by 50
+Hibernate: 
+    create sequence raw_material_store_seq start with 1 increment by 50
+2025-07-03T11:41:47.222+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists conversion 
+       add constraint FKblr5wxng5dnnvjfxtcula1rnp 
+       foreign key (production_id) 
+       references productions
+Hibernate: 
+    alter table if exists conversion 
+       add constraint FKblr5wxng5dnnvjfxtcula1rnp 
+       foreign key (production_id) 
+       references productions
+2025-07-03T11:41:47.226+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists conversion 
+       add constraint FKqc7wp7ps5hux4b2cb6enymaf9 
+       foreign key (purchase_id) 
+       references purchase
+Hibernate: 
+    alter table if exists conversion 
+       add constraint FKqc7wp7ps5hux4b2cb6enymaf9 
+       foreign key (purchase_id) 
+       references purchase
+2025-07-03T11:41:47.230+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists conversion_field 
+       add constraint FK3lkcoq0q0m7v16cuouw13uenx 
+       foreign key (conversion_id) 
+       references conversion
+Hibernate: 
+    alter table if exists conversion_field 
+       add constraint FK3lkcoq0q0m7v16cuouw13uenx 
+       foreign key (conversion_id) 
+       references conversion
+2025-07-03T11:41:47.233+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists conversion_field 
+       add constraint FKd8hqh2i8uvj15rlkrprtu4p0x 
+       foreign key (ingredient_id) 
+       references ingredients
+Hibernate: 
+    alter table if exists conversion_field 
+       add constraint FKd8hqh2i8uvj15rlkrprtu4p0x 
+       foreign key (ingredient_id) 
+       references ingredients
+2025-07-03T11:41:47.241+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists evaluation 
+       add constraint FKntnm526dgptss08p5tgcob7bb 
+       foreign key (production_id) 
+       references productions
+Hibernate: 
+    alter table if exists evaluation 
+       add constraint FKntnm526dgptss08p5tgcob7bb 
+       foreign key (production_id) 
+       references productions
+2025-07-03T11:41:47.260+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists evaluation 
+       add constraint FK3qsn326h0xybxnu768jhroni4 
+       foreign key (staff_id) 
+       references staffs
+Hibernate: 
+    alter table if exists evaluation 
+       add constraint FK3qsn326h0xybxnu768jhroni4 
+       foreign key (staff_id) 
+       references staffs
+2025-07-03T11:41:47.270+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists ingredient_raw_material 
+       add constraint FK6k284isppot6sf26wcb0xme9d 
+       foreign key (raw_material_id) 
+       references raw_materials
+Hibernate: 
+    alter table if exists ingredient_raw_material 
+       add constraint FK6k284isppot6sf26wcb0xme9d 
+       foreign key (raw_material_id) 
+       references raw_materials
+2025-07-03T11:41:47.278+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists ingredient_raw_material 
+       add constraint FK2cjitvso74cyuyx814yr4lq0k 
+       foreign key (ingredient_id) 
+       references ingredients
+Hibernate: 
+    alter table if exists ingredient_raw_material 
+       add constraint FK2cjitvso74cyuyx814yr4lq0k 
+       foreign key (ingredient_id) 
+       references ingredients
+2025-07-03T11:41:47.286+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists ingredient_store 
+       add constraint FK99ciw4nqa2de4s1g6bga9n2x2 
+       foreign key (ingredient_id) 
+       references ingredients
+Hibernate: 
+    alter table if exists ingredient_store 
+       add constraint FK99ciw4nqa2de4s1g6bga9n2x2 
+       foreign key (ingredient_id) 
+       references ingredients
+2025-07-03T11:41:47.292+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists ingredient_store 
+       add constraint FK7vr8r3db2nah8sg3rak0qpfue 
+       foreign key (production_store_id) 
+       references production_store
+Hibernate: 
+    alter table if exists ingredient_store 
+       add constraint FK7vr8r3db2nah8sg3rak0qpfue 
+       foreign key (production_store_id) 
+       references production_store
+2025-07-03T11:41:47.297+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists product_ingredients 
+       add constraint FKgwkoppq4tgrpjn63yi9gpeg9p 
+       foreign key (ingredient_id) 
+       references ingredients
+Hibernate: 
+    alter table if exists product_ingredients 
+       add constraint FKgwkoppq4tgrpjn63yi9gpeg9p 
+       foreign key (ingredient_id) 
+       references ingredients
+2025-07-03T11:41:47.301+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists product_ingredients 
+       add constraint FKa69i4fo6fys3gt2cbrxsrbn4 
+       foreign key (product_id) 
+       references products
+Hibernate: 
+    alter table if exists product_ingredients 
+       add constraint FKa69i4fo6fys3gt2cbrxsrbn4 
+       foreign key (product_id) 
+       references products
+2025-07-03T11:41:47.307+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists product_mixes 
+       add constraint FK3911ufbx57ekmyt0hyu4041kd 
+       foreign key (product_id) 
+       references products
+Hibernate: 
+    alter table if exists product_mixes 
+       add constraint FK3911ufbx57ekmyt0hyu4041kd 
+       foreign key (product_id) 
+       references products
+2025-07-03T11:41:47.311+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists product_mixes 
+       add constraint FK8irwg1hgu855toiqgvxpf6n2c 
+       foreign key (production_id) 
+       references productions
+Hibernate: 
+    alter table if exists product_mixes 
+       add constraint FK8irwg1hgu855toiqgvxpf6n2c 
+       foreign key (production_id) 
+       references productions
+2025-07-03T11:41:47.315+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists production_batches 
+       add constraint FK2osa81m3cnu1m804etng4b2ga 
+       foreign key (production_id) 
+       references productions
+Hibernate: 
+    alter table if exists production_batches 
+       add constraint FK2osa81m3cnu1m804etng4b2ga 
+       foreign key (production_id) 
+       references productions
+2025-07-03T11:41:47.320+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists production_store 
+       add constraint FKmm54p2ni3pjpw5xvbm2hqb6jr 
+       foreign key (production_id) 
+       references productions
+Hibernate: 
+    alter table if exists production_store 
+       add constraint FKmm54p2ni3pjpw5xvbm2hqb6jr 
+       foreign key (production_id) 
+       references productions
+2025-07-03T11:41:47.324+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists production_evaluation 
+       add constraint FKhgpojpafvqpvpw9h63eoxca87 
+       foreign key (evaluation_id) 
+       references evaluation
+Hibernate: 
+    alter table if exists production_evaluation 
+       add constraint FKhgpojpafvqpvpw9h63eoxca87 
+       foreign key (evaluation_id) 
+       references evaluation
+2025-07-03T11:41:47.330+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists production_evaluation 
+       add constraint FKb5s46v87j8o4bp7nqkdj79lp8 
+       foreign key (product_mix_id) 
+       references product_mixes
+Hibernate: 
+    alter table if exists production_evaluation 
+       add constraint FKb5s46v87j8o4bp7nqkdj79lp8 
+       foreign key (product_mix_id) 
+       references product_mixes
+2025-07-03T11:41:47.334+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists productions 
+       add constraint FKpkn8cupe9rbkb5wf2b5ocah7f 
+       foreign key (staff_id) 
+       references staffs
+Hibernate: 
+    alter table if exists productions 
+       add constraint FKpkn8cupe9rbkb5wf2b5ocah7f 
+       foreign key (staff_id) 
+       references staffs
+2025-07-03T11:41:47.340+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists product_mix_ingredient 
+       add constraint FK8bkaim89k8nfwgmy5c0fkm4o 
+       foreign key (ingredient_id) 
+       references ingredients
+Hibernate: 
+    alter table if exists product_mix_ingredient 
+       add constraint FK8bkaim89k8nfwgmy5c0fkm4o 
+       foreign key (ingredient_id) 
+       references ingredients
+2025-07-03T11:41:47.356+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists product_mix_ingredient 
+       add constraint FKb871p2d8gf0uqvjh0gbn086ok 
+       foreign key (product_mix_id) 
+       references product_mixes
+Hibernate: 
+    alter table if exists product_mix_ingredient 
+       add constraint FKb871p2d8gf0uqvjh0gbn086ok 
+       foreign key (product_mix_id) 
+       references product_mixes
+2025-07-03T11:41:47.360+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase 
+       add constraint FKm73xo7lssk9347i1mn9e356fj 
+       foreign key (production_id) 
+       references productions
+Hibernate: 
+    alter table if exists purchase 
+       add constraint FKm73xo7lssk9347i1mn9e356fj 
+       foreign key (production_id) 
+       references productions
+2025-07-03T11:41:47.363+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase 
+       add constraint FKnnqw6ahcm803haffb0gpn2y0c 
+       foreign key (raw_material_id) 
+       references raw_materials
+Hibernate: 
+    alter table if exists purchase 
+       add constraint FKnnqw6ahcm803haffb0gpn2y0c 
+       foreign key (raw_material_id) 
+       references raw_materials
+2025-07-03T11:41:47.366+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase 
+       add constraint FK8omm6fki86s9oqk0o9s6w43h5 
+       foreign key (supplier_id) 
+       references supplier
+Hibernate: 
+    alter table if exists purchase 
+       add constraint FK8omm6fki86s9oqk0o9s6w43h5 
+       foreign key (supplier_id) 
+       references supplier
+2025-07-03T11:41:47.370+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_transfer 
+       add constraint FKpbqq254obx7bhci8iky7n8o9q 
+       foreign key (from_production_id) 
+       references productions
+Hibernate: 
+    alter table if exists purchase_transfer 
+       add constraint FKpbqq254obx7bhci8iky7n8o9q 
+       foreign key (from_production_id) 
+       references productions
+2025-07-03T11:41:47.373+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_transfer 
+       add constraint FKplh2nmpigada2xi12sdxopl6o 
+       foreign key (purchase_id) 
+       references purchase
+Hibernate: 
+    alter table if exists purchase_transfer 
+       add constraint FKplh2nmpigada2xi12sdxopl6o 
+       foreign key (purchase_id) 
+       references purchase
+2025-07-03T11:41:47.376+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_transfer 
+       add constraint FK1bv12wq9ktiggfosysfpyrw42 
+       foreign key (resulting_purchase_id) 
+       references purchase
+Hibernate: 
+    alter table if exists purchase_transfer 
+       add constraint FK1bv12wq9ktiggfosysfpyrw42 
+       foreign key (resulting_purchase_id) 
+       references purchase
+2025-07-03T11:41:47.379+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_transfer 
+       add constraint FKphe85g7tk9pf391b5dcedmb5c 
+       foreign key (to_production_id) 
+       references productions
+Hibernate: 
+    alter table if exists purchase_transfer 
+       add constraint FKphe85g7tk9pf391b5dcedmb5c 
+       foreign key (to_production_id) 
+       references productions
+2025-07-03T11:41:47.383+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists purchase_usage 
+       add constraint FKaplicy3wfr4vvfxo8juhc7kx 
+       foreign key (id) 
+       references purchase
+Hibernate: 
+    alter table if exists purchase_usage 
+       add constraint FKaplicy3wfr4vvfxo8juhc7kx 
+       foreign key (id) 
+       references purchase
+2025-07-03T11:41:47.386+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists raw_material_store 
+       add constraint FKtlivai87tovnht5xjjxfc0okt 
+       foreign key (production_store_id) 
+       references production_store
+Hibernate: 
+    alter table if exists raw_material_store 
+       add constraint FKtlivai87tovnht5xjjxfc0okt 
+       foreign key (production_store_id) 
+       references production_store
+2025-07-03T11:41:47.389+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists raw_material_store 
+       add constraint FKfms9xgjmis8j3gh8ugko6yt8k 
+       foreign key (raw_material_id) 
+       references raw_materials
+Hibernate: 
+    alter table if exists raw_material_store 
+       add constraint FKfms9xgjmis8j3gh8ugko6yt8k 
+       foreign key (raw_material_id) 
+       references raw_materials
+2025-07-03T11:41:47.393+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists user_roles 
+       add constraint FKh8ciramu9cc9q3qcqiv4ue8a6 
+       foreign key (role_id) 
+       references roles
+Hibernate: 
+    alter table if exists user_roles 
+       add constraint FKh8ciramu9cc9q3qcqiv4ue8a6 
+       foreign key (role_id) 
+       references roles
+2025-07-03T11:41:47.396+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+Hibernate: 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+2025-07-03T11:41:47.400+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       add constraint FK1sikw0vt59jx7n41o797ooiv5 
+       foreign key (staff_id) 
+       references staffs
+Hibernate: 
+    alter table if exists users 
+       add constraint FK1sikw0vt59jx7n41o797ooiv5 
+       foreign key (staff_id) 
+       references staffs
+2025-07-03T11:41:47.404+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-03T11:41:47.987+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-07-03T11:41:48.098+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-03T11:41:49.562+01:00  WARN 112450 --- [utterfresh_dev_gathering_sys] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-03T11:41:50.437+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] shProductionGatheringSysApplicationTests : Started UtterfreshProductionGatheringSysApplicationTests in 7.656 seconds (process running for 12.667)
+2025-07-03T11:41:50.441+01:00  INFO 112450 --- [utterfresh_dev_gathering_sys] [           main] o.s.b.a.b.JobLauncherApplicationRunner   : Running default command line with: []
+2025-07-03T11:41:50.508+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+2025-07-03T11:41:50.529+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+2025-07-03T11:41:50.532+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+2025-07-03T11:41:50.554+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        roles
+        (created_at, deleted, updated_at, user_role) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        roles
+        (created_at, deleted, updated_at, user_role) 
+    values
+        (?, ?, ?, ?)
+2025-07-03T11:41:50.569+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        roles
+        (created_at, deleted, updated_at, user_role) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        roles
+        (created_at, deleted, updated_at, user_role) 
+    values
+        (?, ?, ?, ?)
+2025-07-03T11:41:50.572+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        roles
+        (created_at, deleted, updated_at, user_role) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        roles
+        (created_at, deleted, updated_at, user_role) 
+    values
+        (?, ?, ?, ?)
+2025-07-03T11:41:50.580+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.created_at,
+        r1_0.deleted,
+        r1_0.updated_at,
+        r1_0.user_role 
+    from
+        roles r1_0 
+    where
+        r1_0.user_role=?
+2025-07-03T11:41:50.585+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.created_by,
+        u1_0.deleted,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.phone,
+        u1_0.pwd,
+        u1_0.staff_id,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.created_by,
+        u1_0.deleted,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.phone,
+        u1_0.pwd,
+        u1_0.staff_id,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-07-03T11:41:50.717+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        users
+        (created_at, created_by, deleted, email, full_name, phone, pwd, staff_id, updated_at) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, created_by, deleted, email, full_name, phone, pwd, staff_id, updated_at) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-03T11:41:50.724+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        staffs
+        (company_role, created_at, deleted, profession, updated_at) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        staffs
+        (company_role, created_at, deleted, profession, updated_at) 
+    values
+        (?, ?, ?, ?, ?)
+2025-07-03T11:41:50.746+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    update
+        users 
+    set
+        created_by=?,
+        deleted=?,
+        email=?,
+        full_name=?,
+        phone=?,
+        pwd=?,
+        staff_id=?,
+        updated_at=? 
+    where
+        id=?
+Hibernate: 
+    update
+        users 
+    set
+        created_by=?,
+        deleted=?,
+        email=?,
+        full_name=?,
+        phone=?,
+        pwd=?,
+        staff_id=?,
+        updated_at=? 
+    where
+        id=?
+2025-07-03T11:41:50.758+01:00 DEBUG 112450 --- [utterfresh_dev_gathering_sys] [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        user_roles
+        (user_id, role_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        user_roles
+        (user_id, role_id) 
+    values
+        (?, ?)
+✅ Context loaded successfully with Testcontainers!
+]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/home/thompson/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+</testsuite>
