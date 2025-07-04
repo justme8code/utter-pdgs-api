@@ -17,7 +17,7 @@ services:
     container_name: utter-pdgs-api
     build:
       context: ./
-    image: utter-pdgs-api
+    image: utter-pdgs-api:dev
     depends_on:
       - postgres_db
     ports:

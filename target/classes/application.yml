@@ -3,6 +3,9 @@ server:
   port: 8080 # Default port, can be overridden by profiles
 
 spring:
+  threads:
+    virtual:
+      enabled: true
   # It's good practice to define the application name here and override if needed
   application:
     name: utterfresh-gathering-sys
