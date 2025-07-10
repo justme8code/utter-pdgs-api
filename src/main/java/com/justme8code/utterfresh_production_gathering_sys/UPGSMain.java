@@ -6,9 +6,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class UtterfreshProductionGatheringSysApplication {
+public class UPGSMain {
 
     public static void main(String[] args) {
-        SpringApplication.run(UtterfreshProductionGatheringSysApplication.class, args);
+        SpringApplication.run(UPGSMain.class, args);
     }
 }

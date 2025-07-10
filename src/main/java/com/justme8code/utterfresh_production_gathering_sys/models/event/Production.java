@@ -27,8 +27,6 @@ public class Production extends BaseEntity {
 
     private String name;
 
-    private Integer lastBatch;
-
     private boolean finalized = false;
 
     @Column(nullable = false)
@@ -41,9 +39,8 @@ public class Production extends BaseEntity {
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
 
-    @OneToOne(mappedBy = "production", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
     private ProductionStore productionStore;
-
 
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -54,7 +51,7 @@ public class Production extends BaseEntity {
     private List<PurchaseTransfer> outgoingTransfers = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "production", cascade =  CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Evaluation> evaluations = new ArrayList<>();
 

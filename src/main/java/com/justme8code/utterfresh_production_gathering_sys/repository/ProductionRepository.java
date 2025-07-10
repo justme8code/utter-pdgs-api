@@ -27,4 +27,8 @@ public interface ProductionRepository extends JpaRepository<Production, Long>, J
     @Query("SELECT p FROM Production p WHERE p.createdAt BETWEEN :start AND :end ORDER BY p.createdAt DESC")
     List<Production> findTop5ProductionsCreatedAtBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, Pageable pageable);
 
+    @Query("SELECT p FROM Production p WHERE p.id = :id")
+    Optional<Production> shallowLoadById(@Param("id") Long id);
+
+
 }

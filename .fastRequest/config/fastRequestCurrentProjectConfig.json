@@ -14,6 +14,10 @@
 				{
 					"env":"remote-server",
 					"url":"http://172.28.151.210:8080"
+				},
+				{
+					"env":"dev",
+					"url":"http://localhost:8080"
 				}
 			],
 			"name":"utter-pdgs-api"
@@ -21,7 +25,8 @@
 	],
 	"envList":[
 		"local",
-		"remote-server"
+		"remote-server",
+		"dev"
 	],
 	"headerList":[],
 	"ignoreParseFieldList":[],

@@ -1,7 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.dtos.production;
 
 import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.purchase.PurchaseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductionFullDataDto {
-    private ProductionDetailsDto1 production;
-    private List<PurchaseDto> purchases;
+public class ProductionBatchWithConversionsDto {
+    private Long id;
+    private String name;
+    private boolean active;
     private List<ConversionDto> conversions;
-    private List<ProductionBatchWithConversionsDto> conversionsByBatch;
 }

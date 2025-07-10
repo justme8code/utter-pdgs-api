@@ -1,7 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.evaluation.dto;
 
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.Evaluation;
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.ProductionEvaluation;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.StaffMapper;
 import org.mapstruct.*;
 

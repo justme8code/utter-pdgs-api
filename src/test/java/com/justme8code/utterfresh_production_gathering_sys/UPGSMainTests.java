@@ -10,7 +10,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers // This annotation activates Testcontainers support for JUnit 5
-class UtterfreshProductionGatheringSysApplicationTests {
+class UPGSMainTests {
 
     // This creates and manages a PostgreSQL Docker container.
     // The `static` keyword means the container is started only ONCE for all tests in this class.

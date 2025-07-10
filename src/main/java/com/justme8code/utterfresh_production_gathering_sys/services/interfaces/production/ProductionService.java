@@ -41,6 +41,9 @@ public interface ProductionService {
 
     ProductionFullDataDto getProductionFullDetails(Long productionId);
 
+    ProductionFullDataDto getProductionFullDetails2(Long productionId);
+
     List<EvaluationDto> getProductionEvaluations(Long productionId);
 
+    void deepDeleteProduction(Long id);
 }

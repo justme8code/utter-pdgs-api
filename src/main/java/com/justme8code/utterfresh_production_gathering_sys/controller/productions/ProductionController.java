@@ -1,6 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller.productions;
 
-import com.justme8code.utterfresh_production_gathering_sys.csvrecords.CsvExportService;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.ProductionBatchDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionFullDataDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionStoreDto;
@@ -10,10 +10,9 @@ import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.Produ
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.EvaluationService;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationDto;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationPayload;
+import com.justme8code.utterfresh_production_gathering_sys.services.implementations.productions.ProductionBatchService;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.production.ProductionService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +23,12 @@ import java.util.List;
 public class ProductionController {
     private final ProductionService productionService;
     private final EvaluationService evaluationService;
-    private final CsvExportService csvExportService;
-    public ProductionController(ProductionService productionService, EvaluationService evaluationService, CsvExportService csvExportService) {
+    private final ProductionBatchService productionBatchService;
+
+    public ProductionController(ProductionService productionService, EvaluationService evaluationService, ProductionBatchService productionBatchService) {
         this.productionService = productionService;
         this.evaluationService = evaluationService;
-        this.csvExportService = csvExportService;
+        this.productionBatchService = productionBatchService;
     }
 
 
@@ -52,8 +52,8 @@ public class ProductionController {
 
     @DeleteMapping("/{productionId}")
     public ResponseEntity<Void> softDeleteProduction(@PathVariable long productionId) {
-        productionService.softDeleteProduction(productionId);
-        return new  ResponseEntity<>(HttpStatus.OK);
+        productionService.deepDeleteProduction(productionId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
@@ -100,9 +100,11 @@ public class ProductionController {
 
     @GetMapping("/{productionId}/complete")
     public ResponseEntity<ProductionFullDataDto> getProductionFullData(@PathVariable Long productionId) {
-        ProductionFullDataDto pfdDto = productionService.getProductionFullDetails(productionId);
+        ProductionFullDataDto pfdDto = productionService.getProductionFullDetails2(productionId);
         return ResponseEntity.ok(pfdDto);
     }
+
+
 
     @PostMapping("/{productionId}/finalize")
     public ResponseEntity<Void> finalizeProduction(@PathVariable Long productionId) {
@@ -112,21 +114,25 @@ public class ProductionController {
 
     @GetMapping("/non-finalized")
     public ResponseEntity<List<ProductionDto>> getNonFinalizedProductions() {
-        return new ResponseEntity<>(productionService.getNonFinalizedProductions(),HttpStatus.OK);
+        return new ResponseEntity<>(productionService.getNonFinalizedProductions(), HttpStatus.OK);
     }
 
     @GetMapping("/{productionId}/evaluations")
     public ResponseEntity<List<EvaluationDto>> getEvaluations(@PathVariable long productionId) {
         List<EvaluationDto> evaluations = evaluationService.getEvaluationsByProductionId(productionId);
-        return new  ResponseEntity<>(evaluations, HttpStatus.OK);
+        return new ResponseEntity<>(evaluations, HttpStatus.OK);
     }
 
     @PostMapping("/{productionId}/evaluations")
     public ResponseEntity<EvaluationDto> createEvaluation(@PathVariable long productionId, @RequestBody EvaluationPayload evaluationPayload) {
-        EvaluationDto evaluation = evaluationService.createEvaluation(productionId,evaluationPayload);
+        EvaluationDto evaluation = evaluationService.createEvaluation(productionId, evaluationPayload);
         return new ResponseEntity<>(evaluation, HttpStatus.CREATED);
     }
 
-
+    @PostMapping("/{productionId}/batches")
+    public ResponseEntity<ProductionBatchDto> createProductionBatch(@PathVariable  Long productionId) {
+        ProductionBatchDto pbd = productionBatchService.createProductionBatch(productionId);
+        return new ResponseEntity<>(pbd,HttpStatus.CREATED);
+    }
 }
 

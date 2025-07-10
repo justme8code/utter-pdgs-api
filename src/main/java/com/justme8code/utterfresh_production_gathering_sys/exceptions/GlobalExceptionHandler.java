@@ -1,5 +1,6 @@
 package com.justme8code.utterfresh_production_gathering_sys.exceptions;
 
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -47,6 +48,15 @@ public class GlobalExceptionHandler {
         response.put("timestamp", Instant.now().toEpochMilli());
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("statusCode", HttpStatus.BAD_REQUEST.value());
+        response.put("message", ex.getMessage());
+        response.put("timestamp", Instant.now().toEpochMilli());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 

@@ -1,17 +1,20 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations.productions;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.CPDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionFullDetail;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionFullDetailWithBatchInfo;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionPayload;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.purchase.PurchaseDto;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.ConversionMapper;
+import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductionBatchMapper;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.ProductionStoreMapper;
 import com.justme8code.utterfresh_production_gathering_sys.mappers.PurchaseMapper;
 import com.justme8code.utterfresh_production_gathering_sys.models.event.*;
 import com.justme8code.utterfresh_production_gathering_sys.models.inventory.Ingredient;
 import com.justme8code.utterfresh_production_gathering_sys.models.inventory.IngredientStore;
 import com.justme8code.utterfresh_production_gathering_sys.repository.*;
+import com.justme8code.utterfresh_production_gathering_sys.services.helpers.ProductionBatchHelper;
 import com.justme8code.utterfresh_production_gathering_sys.services.helpers.ProductionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,12 +39,15 @@ public class ConversionService {
     private final PurchaseMapper purchaseMapper;
     private final ConversionRepository conversionRepository;
     private final ProductionStoreMapper productionStoreMapper;
+    private final ProductionBatchRepository productionBatchRepository;
+    private final ProductionBatchMapper productionBatchMapper;
 
     @Autowired
     public ConversionService(ConversionMapper conversionMapper,
                              PurchaseRepository purchaseRepository,
                              PurchaseMapper purchaseMapper, IngredientRepository ingredientRepository, ConversionFieldRepository mTIField, ProductionStoreRepository productionStoreRepository, ProductionRepository productionRepository, ConversionRepository conversionRepository,
-                             ProductionStoreMapper productionStoreMapper) {
+                             ProductionStoreMapper productionStoreMapper, ProductionBatchRepository productionBatchRepository,
+                             ProductionBatchMapper productionBatchMapper) {
         this.conversionMapper = conversionMapper;
         this.purchaseRepository = purchaseRepository;
 
@@ -53,6 +59,8 @@ public class ConversionService {
         this.productionRepository = productionRepository;
         this.conversionRepository = conversionRepository;
         this.productionStoreMapper = productionStoreMapper;
+        this.productionBatchRepository = productionBatchRepository;
+        this.productionBatchMapper = productionBatchMapper;
     }
 
 
@@ -95,27 +103,43 @@ public class ConversionService {
      * RawMaterial Store.
      **/
 
+
     @Transactional
-    public CPDto createMaterialToIngredient(ConversionPayload dto, long purchaseId, long productionId) {
+    public ConversionFullDetailWithBatchInfo createMaterialToIngredient(ConversionPayload dto, long purchaseId, long productionId) {
         Purchase purchase = verifyBeforeCreation(dto, purchaseId, productionId);
         Production production = getProduction(productionId);
         List<Ingredient> peIngredients = purchase.getRawMaterial().getIngredients();
+        ProductionBatch productionBatch = ProductionBatchHelper.getOrCreateActiveBatch(production,productionBatchRepository);
 
+        // 1. Create the main transient Conversion object
         Conversion conversion = conversionMapper.toEntity(dto);
 
-        List<ConversionField> conversionFieldsToSave = new ArrayList<>();
+        // 2. Set its relationships to OTHER PERSISTENT objects
+        conversion.setProduction(production);
+        conversion.setPurchase(purchase); // The back-reference is important!
+        conversion.setBatch(productionBatch);
+
+        // 3. Create the transient ConversionField children and link them to the transient Conversion
         List<IngredientStore> ingredientStores = production.getProductionStore().getIngredientStores();
         int index = 0;
 
-        for (ConversionField conversionField : conversion.getFields()) {
+        // IMPORTANT: Clear the list from the mapper if it's not empty,
+        // as we are manually building it now with the correct relationships.
+        List<ConversionField> fieldsFromDto = new ArrayList<>(conversion.getFields());
+        conversion.getFields().clear();
+
+        for (ConversionField conversionField : fieldsFromDto) {
+
             double usableLitres = conversionField.getOutPutLitres() - conversionField.getProductionLitresLost();
             conversionField.setUsableLitres(usableLitres);
 
             Ingredient ingredient = peIngredients.get(index);
             conversionField.setIngredient(ingredient);
-            conversionFieldsToSave.add(conversionField);
 
-            // Update IngredientStore's usableLitresLeft
+            // Use the helper method to link the child to the parent (Conversion)
+            conversion.getFields().add(conversionField); // This sets both sides of the link!
+
+            // Update IngredientStore's usableLitresLeft...
             for (IngredientStore store : ingredientStores) {
                 if (store.getIngredient().getId().equals(ingredient.getId())) {
                     double updatedLitres = store.getUsableLitresLeft() + usableLitres;
@@ -123,33 +147,30 @@ public class ConversionService {
                     break;
                 }
             }
-
             index++;
         }
 
-        List<ConversionField> savedFields = mTIField.saveAll(conversionFieldsToSave);
-        conversion.setFields(savedFields); // associate them
-
-        int val = production.getLastBatch()==null?1:production.getLastBatch()+1;// increment batch for next conversion
-        purchase.getProduction().setLastBatch(val);
-        conversion.setBatch(val); // Since only one MaterialToIngredient is allowed, batch is always 1
-        conversion.setPurchase(purchase);
-        conversion.setProduction(purchase.getProduction());
+        // 4. Add the fully-formed (but still transient) Conversion to the Purchase's collection
         purchase.getConversions().add(conversion);
 
-        /*ProductionHelper.tempRemoveFromRawMaterialStore(purchase,production);*/
+        // Perform other logic
         removeFromPEUsage(purchase.getPurchaseUsage());
         ProductionHelper.createOrAddToRawMaterialStore(purchase, production);
+
+        // 5. Save the PARENT object. Cascading will handle saving the new Conversion AND its new ConversionFields.
         Purchase updatedPurchase = purchaseRepository.save(purchase);
+
+        // ... build and return your DTO ...
         PurchaseDto purchaseDto = purchaseMapper.toDto(updatedPurchase);
         ProductionStore productionStore = purchase.getProduction().getProductionStore();
-        CPDto cpDto = new CPDto();
-        cpDto.setPurchase(purchaseDto);
+        ConversionFullDetail conversionFullDetail = new ConversionFullDetail();
+        conversionFullDetail.setPurchase(purchaseDto);
+        // Get the newly saved conversion, which is the last one in the list
         ConversionDto conversionDto = conversionMapper.toDto(updatedPurchase.getConversions().getLast());
-        cpDto.setConversion(conversionDto);
-        cpDto.setProductionStore(productionStoreMapper.toDto(productionStore));
+        conversionFullDetail.setConversion(conversionDto);
+        conversionFullDetail.setProductionStore(productionStoreMapper.toDto(productionStore));
 
-        return cpDto;
+        return new ConversionFullDetailWithBatchInfo(productionBatchMapper.toDto(productionBatch),conversionFullDetail);
     }
 
     // fetch list of material to ingredient by purchase entry id
@@ -186,5 +207,4 @@ public class ConversionService {
         // Update the PEUsage
         return purchaseMapper.toDto(purchaseRepository.save(purchase));
     }
-
 }

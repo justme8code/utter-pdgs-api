@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CPDto {
+public class ConversionFullDetail {
     private ProductionStoreDto productionStore;
     private PurchaseDto purchase;
     private ConversionDto conversion;

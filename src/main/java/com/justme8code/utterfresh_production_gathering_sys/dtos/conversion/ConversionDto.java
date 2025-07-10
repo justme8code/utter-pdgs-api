@@ -15,7 +15,6 @@ import java.util.List;
 @Value
 public class ConversionDto implements Serializable {
     Long id;
-    int batch;
     Long productionId;
     Long purchaseId;
     List<ConversionFieldDto> fields;
@@ -37,4 +36,5 @@ public class ConversionDto implements Serializable {
         double rawBrix;
         IngredientDto ingredient;
     }
+
 }

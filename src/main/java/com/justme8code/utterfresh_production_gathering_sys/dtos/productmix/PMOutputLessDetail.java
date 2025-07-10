@@ -11,5 +11,5 @@ import java.io.Serializable;
 @Value
 public class PMOutputLessDetail implements Serializable {
     Long id;
-    String  productName;
+    String productName;
 }
