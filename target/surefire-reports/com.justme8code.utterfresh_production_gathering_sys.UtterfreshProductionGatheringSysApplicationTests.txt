@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.10 s -- in com.justme8code.utterfresh_production_gathering_sys.UtterfreshProductionGatheringSysApplicationTests
