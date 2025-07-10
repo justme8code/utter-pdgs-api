@@ -32,7 +32,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> {
-                    authorizeRequests.requestMatchers("/health", "/api/auth/**", "/h2-console/**").permitAll();
+                    authorizeRequests.requestMatchers("/api/health**", "/api/auth/**", "/h2-console/**").permitAll();
                     authorizeRequests.anyRequest().authenticated();
                 }).headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)).sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> ex

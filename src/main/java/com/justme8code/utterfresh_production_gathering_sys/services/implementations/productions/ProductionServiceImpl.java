@@ -1,14 +1,12 @@
 package com.justme8code.utterfresh_production_gathering_sys.services.implementations.productions;
 
 import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDetailsDto1;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionFullDataDto;
-import com.justme8code.utterfresh_production_gathering_sys.dtos.production.ProductionStoreDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.production.*;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.PMOutputLessDetail;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.ProductMixDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.productmix.ProductMixOutputDto;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.purchase.PurchaseDto;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.Evaluation;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.EvaluationRepository;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationDto;
 import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationMapper;
@@ -16,9 +14,7 @@ import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityExce
 import com.justme8code.utterfresh_production_gathering_sys.mappers.*;
 import com.justme8code.utterfresh_production_gathering_sys.models.event.*;
 import com.justme8code.utterfresh_production_gathering_sys.models.users.Staff;
-import com.justme8code.utterfresh_production_gathering_sys.repository.ProductMixRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.ProductionRepository;
-import com.justme8code.utterfresh_production_gathering_sys.repository.UserRepository;
+import com.justme8code.utterfresh_production_gathering_sys.repository.*;
 import com.justme8code.utterfresh_production_gathering_sys.repository.specifications.ProductionSpecifications;
 import com.justme8code.utterfresh_production_gathering_sys.services.interfaces.production.ProductionService;
 import com.justme8code.utterfresh_production_gathering_sys.utils.SecurityUtils;
@@ -33,10 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,13 +45,15 @@ public class ProductionServiceImpl implements ProductionService {
     private final ProductMixOutputMapper productMixOutputMapper;
     private final EvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
+    private final ProductionBatchRepository productionBatchRepository;
+    private final ProductionStoreRepository productionStoreRepository;
 
     public ProductionServiceImpl(ProductionRepository productionRepository,
                                  ProductionMapper productionMapper, UserRepository userRepository, ProductMixRepository productMixRepository,
                                  ProductMixMapper productMixMapper,
                                  ProductionStoreMapper productionStoreMapper, PurchaseMapper purchaseMapper, ConversionMapper conversionMapper,
                                  ProductMixOutputMapper productMixOutputMapper, EvaluationRepository evaluationRepository,
-                                 EvaluationMapper evaluationMapper) {
+                                 EvaluationMapper evaluationMapper, ProductionBatchRepository productionBatchRepository, ProductionStoreRepository productionStoreRepository) {
         this.productionRepository = productionRepository;
         this.productionMapper = productionMapper;
         this.userRepository = userRepository;
@@ -70,6 +65,8 @@ public class ProductionServiceImpl implements ProductionService {
         this.productMixOutputMapper = productMixOutputMapper;
         this.evaluationRepository = evaluationRepository;
         this.evaluationMapper = evaluationMapper;
+        this.productionBatchRepository = productionBatchRepository;
+        this.productionStoreRepository = productionStoreRepository;
     }
 
     @Override
@@ -104,7 +101,7 @@ public class ProductionServiceImpl implements ProductionService {
     @Override
     public List<ProductionDto> getProductions(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Production> productionPage =  productionRepository.findProductionByDeletedIsFalse(pageable);
+        Page<Production> productionPage = productionRepository.findProductionByDeletedIsFalse(pageable);
         return productionPage.getContent().stream().distinct().map(productionMapper::toDto).collect(Collectors.toList());
     }
 
@@ -135,9 +132,10 @@ public class ProductionServiceImpl implements ProductionService {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PRODUCTION_MANAGER')")
     public void softDeleteProduction(Long id) {
         Production production = productionRepository.findProductionById(id).orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
-        production.setDeleted(true);
-        productionRepository.save(production);
-        finalizeProduction(production.getId());
+       /* production.setDeleted(true);*/
+       /* productionRepository.save(production)*/;
+        /*finalizeProduction(production.getId());*/
+        productionRepository.delete(production);
     }
 
 
@@ -159,7 +157,7 @@ public class ProductionServiceImpl implements ProductionService {
     @Override
     public List<ProductMixOutputDto> getProductMixOutput(long productionId) {
         return productMixRepository.findProductMixByProduction_Id(productionId)
-               .stream().map(productMixOutputMapper::toDto).collect(Collectors.toList());
+                .stream().map(productMixOutputMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -189,8 +187,63 @@ public class ProductionServiceImpl implements ProductionService {
         List<ConversionDto> mtiDtos = material.stream()
                 .map(conversionMapper::toDto).toList();
 
-        return new ProductionFullDataDto(prdto, peDtos, mtiDtos);
+        return new ProductionFullDataDto(prdto, peDtos, mtiDtos, null);
     }
+
+
+    @Override
+    public ProductionFullDataDto getProductionFullDetails2(Long productionId) {
+        Production production = productionRepository.findById(productionId)
+                .orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
+
+        List<Purchase> purchases = production.getPurchaseEntries();
+
+        List<Conversion> allConversions = purchases.stream()
+                .map(Purchase::getConversions)
+                .flatMap(Collection::stream)
+                .toList();
+
+        // Fetch all batches for this production
+        List<ProductionBatch> batches = productionBatchRepository.findProductionBatchByProduction_Id(productionId)
+                .orElse(new ArrayList<>());
+
+        // Find the active batch (if any)
+        Long activeBatchId = batches.stream()
+                .filter(ProductionBatch::isActive)
+                .findFirst()
+                .map(ProductionBatch::getId)
+                .orElse(null);
+
+        // Group conversions by batch
+        Map<ProductionBatch, List<Conversion>> batchGroupedConversions = allConversions.stream()
+                .filter(conversion -> conversion.getBatch() != null)
+                .collect(Collectors.groupingBy(Conversion::getBatch));
+
+        // Go through ALL batches, even ones with no conversions
+        List<ProductionBatchWithConversionsDto> conversionsByBatch = batches.stream()
+                .map(batch -> {
+                    List<ConversionDto> conversionDtos = batchGroupedConversions
+                            .getOrDefault(batch, Collections.emptyList())
+                            .stream()
+                            .map(conversionMapper::toDto)
+                            .toList();
+
+                    return new ProductionBatchWithConversionsDto(
+                            batch.getId(),
+                            batch.getName(),
+                            Objects.equals(batch.getId(), activeBatchId),
+                            conversionDtos
+                    );
+                })
+                .toList();
+
+        ProductionDetailsDto1 prdto = productionMapper.toDto1(production);
+        List<PurchaseDto> peDtos = purchases.stream().map(purchaseMapper::toDto).toList();
+
+        return new ProductionFullDataDto(prdto, peDtos, null, conversionsByBatch);
+    }
+
+
 
     private String productionNumberGenerator() {
         Random random = new Random();
@@ -222,6 +275,7 @@ public class ProductionServiceImpl implements ProductionService {
         production.setFinalized(true);
         productionRepository.save(production);
     }
+
     @Override
     public List<ProductionDto> getNonFinalizedProductions() {
         List<Production> nonFinalizedProductions = productionRepository.findProductionsByFinalizedIsFalse();
@@ -233,6 +287,64 @@ public class ProductionServiceImpl implements ProductionService {
         return evaluationRepository.findEvaluationByProduction_Id(productionId)
                 .stream().map(evaluationMapper::toDto).collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public void deepDeleteProduction(Long id) {
+        Production production = productionRepository.shallowLoadById(id)
+                .orElseThrow(() -> new EntityException("Production not found", HttpStatus.NOT_FOUND));
+
+        // Clear evaluations
+        for (Evaluation eval : production.getEvaluations()) {
+            eval.setProduction(null);
+        }
+        production.getEvaluations().clear();
+
+        // Clear purchases and conversions
+        for (Purchase purchase : production.getPurchaseEntries()) {
+            for (Conversion conversion : purchase.getConversions()) {
+                conversion.setPurchase(null);
+            }
+            purchase.getConversions().clear();
+            purchase.setProduction(null);
+        }
+        production.getPurchaseEntries().clear();
+
+        // Clear outgoing transfers
+        for (PurchaseTransfer transfer : production.getOutgoingTransfers()) {
+            transfer.setFromProduction(null);
+        }
+        production.getOutgoingTransfers().clear();
+
+        // Delete ProductionStore
+        if (production.getProductionStore() != null) {
+            productionStoreRepository.delete(production.getProductionStore());
+            production.setProductionStore(null);
+        }
+
+        // Delete ProductionBatches
+        List<ProductionBatch> batches = productionBatchRepository
+                .findProductionBatchByProduction_Id(production.getId())
+                .orElse(new ArrayList<>());
+        for (ProductionBatch batch : batches) {
+            batch.setProduction(null);
+        }
+        productionBatchRepository.deleteAll(batches);
+
+        // 💥 Delete ProductMixes
+        List<ProductMix> mixes = productMixRepository
+                .findProductMixByProduction_Id(production.getId());
+        for (ProductMix mix : mixes) {
+            mix.setProduction(null);
+        }
+        productMixRepository.deleteAll(mixes);
+      /*  productMixRepository.flush(); // ⬅️ force DB to process deletion before deleting production
+*/
+
+        // 🧹 Final clean-up
+        productionRepository.delete(production);
+    }
+
 
 
 }

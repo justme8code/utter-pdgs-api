@@ -15,7 +15,7 @@ public class AppCorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true); // Allow credentials (cookies, tokens)
-        config.setAllowedOrigins(List.of("http://localhost:3000","https://utter-pdgs-web.vercel.app")); // Allowed origins
+        config.setAllowedOrigins(List.of("http://localhost:3000", "https://utter-pdgs-web.vercel.app")); // Allowed origins
         config.setAllowedHeaders(List.of("*")); // Allow all headers
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // HTTP Methods allowed
 

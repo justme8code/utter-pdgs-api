@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-03T19:52:50+0100",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.7 (JetBrains s.r.o.)"
+    date = "2025-07-07T10:25:27+0100",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class ProductionMapperImpl implements ProductionMapper {
@@ -37,7 +37,6 @@ public class ProductionMapperImpl implements ProductionMapper {
         production.setId( productionDto.getId() );
         production.setProductionNumber( productionDto.getProductionNumber() );
         production.setName( productionDto.getName() );
-        production.setLastBatch( productionDto.getLastBatch() );
         production.setFinalized( productionDto.isFinalized() );
         production.setStartDate( productionDto.getStartDate() );
         production.setEndDate( productionDto.getEndDate() );
@@ -58,7 +57,6 @@ public class ProductionMapperImpl implements ProductionMapper {
         Long id = null;
         String productionNumber = null;
         String name = null;
-        Integer lastBatch = null;
         LocalDate startDate = null;
         LocalDate endDate = null;
         StaffDto staff = null;
@@ -68,12 +66,13 @@ public class ProductionMapperImpl implements ProductionMapper {
         id = production.getId();
         productionNumber = production.getProductionNumber();
         name = production.getName();
-        lastBatch = production.getLastBatch();
         startDate = production.getStartDate();
         endDate = production.getEndDate();
         staff = staffMapper.toDto( production.getStaff() );
         finalized = production.isFinalized();
         productionStore = productionStoreMapper.toDto( production.getProductionStore() );
+
+        Integer lastBatch = null;
 
         ProductionDto productionDto = new ProductionDto( id, productionNumber, name, lastBatch, startDate, endDate, staff, finalized, productionStore );
 
@@ -94,9 +93,6 @@ public class ProductionMapperImpl implements ProductionMapper {
         }
         if ( productionDto.getName() != null ) {
             production.setName( productionDto.getName() );
-        }
-        if ( productionDto.getLastBatch() != null ) {
-            production.setLastBatch( productionDto.getLastBatch() );
         }
         production.setFinalized( productionDto.isFinalized() );
         if ( productionDto.getStartDate() != null ) {
@@ -134,7 +130,6 @@ public class ProductionMapperImpl implements ProductionMapper {
         production.setId( productionDetailsDto1.getId() );
         production.setProductionNumber( productionDetailsDto1.getProductionNumber() );
         production.setName( productionDetailsDto1.getName() );
-        production.setLastBatch( productionDetailsDto1.getLastBatch() );
         production.setFinalized( productionDetailsDto1.isFinalized() );
         production.setStartDate( productionDetailsDto1.getStartDate() );
         production.setEndDate( productionDetailsDto1.getEndDate() );
@@ -155,7 +150,6 @@ public class ProductionMapperImpl implements ProductionMapper {
         Long id = null;
         String productionNumber = null;
         String name = null;
-        Integer lastBatch = null;
         LocalDate startDate = null;
         LocalDate endDate = null;
         StaffDto staff = null;
@@ -165,12 +159,13 @@ public class ProductionMapperImpl implements ProductionMapper {
         id = production.getId();
         productionNumber = production.getProductionNumber();
         name = production.getName();
-        lastBatch = production.getLastBatch();
         startDate = production.getStartDate();
         endDate = production.getEndDate();
         staff = staffMapper.toDto( production.getStaff() );
         finalized = production.isFinalized();
         productionStore = productionStoreMapper.toDto( production.getProductionStore() );
+
+        Integer lastBatch = null;
 
         ProductionDetailsDto1 productionDetailsDto1 = new ProductionDetailsDto1( id, productionNumber, name, lastBatch, startDate, endDate, staff, finalized, productionStore );
 
@@ -191,9 +186,6 @@ public class ProductionMapperImpl implements ProductionMapper {
         }
         if ( productionDetailsDto1.getName() != null ) {
             production.setName( productionDetailsDto1.getName() );
-        }
-        if ( productionDetailsDto1.getLastBatch() != null ) {
-            production.setLastBatch( productionDetailsDto1.getLastBatch() );
         }
         production.setFinalized( productionDetailsDto1.isFinalized() );
         if ( productionDetailsDto1.getStartDate() != null ) {

@@ -17,4 +17,5 @@ public class ProductionFullDataDto {
     private ProductionDetailsDto1 production;
     private List<PurchaseDto> purchases;
     private List<ConversionDto> conversions;
+    private List<ProductionBatchWithConversionsDto> conversionsByBatch;
 }

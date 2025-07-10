@@ -19,7 +19,6 @@ public class Conversion extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int batch;
 
     @ManyToOne
     @JoinColumn(name = "production_id", nullable = false)
@@ -33,6 +32,10 @@ public class Conversion extends BaseEntity {
     @OneToMany(mappedBy = "conversion", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<ConversionField> fields = new ArrayList<>();
+
+    @ManyToOne(optional = false) // optional=false is a good hint for Hibernate
+    @JoinColumn(name = "batch_id", nullable = false) // Be explicit about the column name and constraint
+    private ProductionBatch batch;
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
     public interface ProductMixIngredientMapper {

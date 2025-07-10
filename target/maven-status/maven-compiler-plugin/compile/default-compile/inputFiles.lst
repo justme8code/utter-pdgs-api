@@ -14,7 +14,6 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/productmix/ProductMixIngredientDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/dashboard/ProductionOverView.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/inventory/UnitOfMeasurement.java
-/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/UtterfreshProductionGatheringSysApplication.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/ProductionStoreMapper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/productmix/ProductMixDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/users/UserController.java
@@ -51,6 +50,7 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/evaluation/dto/EvaluationDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/utils/JwtFilterUtil.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/BaseEntity.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/ProductionBatchDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/dashboard/IngredientStoreDashboard.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/dashboard/ProdDashboardData.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/implementations/inventory/IngredientServiceImpl.java
@@ -72,6 +72,7 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/inventory/IngredientDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/exceptions/UnExpectedException.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/purchase/PurchasePRStoreDto.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/helpers/ProductionBatchHelper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/helpers/PurchaseHelper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/implementations/productions/ProductionServiceImpl.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/users/UserRole.java
@@ -81,6 +82,7 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/inventory/RawMaterialController.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/inventory/IngredientStore.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/ProductMixOutputMapper.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/implementations/productions/ProductionBatchService.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/inventory/Ingredient.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/dashboard/ProductMixDashboardData.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/evaluation/dto/EvaluationMapper1.java
@@ -91,6 +93,8 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/productions/ProductionController.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/exceptions/GlobalExceptionHandler.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/SupplierMapper.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/conversion/ConversionFullDetail.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/production/ProductionBatchWithConversionsDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/users/Staff.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/implementations/productions/ProductionMixImpl.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/evaluation/dto/ProductionEvaluationDto.java
@@ -102,6 +106,7 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/ProductMixMapper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/dashboard/inventory_usage/IngredientTotalProjection.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/ProductMapper.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/UPGSMain.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/configs/RecentActivityScheduler.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/StaffMapper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/implementations/dashboard/IngredientUsageOverviewImpl.java
@@ -136,8 +141,10 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/implementations/productions/PurchaseService.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/configs/DataInitializer.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/inventory/UnitOfMeasurementDto.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/ProductionBatchMapper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/interfaces/dashboard/ProductMixOverviewService.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/productions/ProductController.java
+/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/conversion/ConversionFullDetailWithBatchInfo.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/mappers/ConversionMapper.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/users/SupplierController.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/HealthController.java
@@ -187,7 +194,6 @@
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/models/dashboard/inventory_usage/IngredientInStore.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/services/interfaces/dashboard/ProductionOverviewService.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/dashboard/InventoryDashboardData.java
-/home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/conversion/CPDto.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/dtos/dashboard/RUDashboardData.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/controller/auth/AuthController.java
 /home/thompson/IdeaProjects/utter-pdgs-api/src/main/java/com/justme8code/utterfresh_production_gathering_sys/res_req_models/requests/ResetPasswordRequest.java

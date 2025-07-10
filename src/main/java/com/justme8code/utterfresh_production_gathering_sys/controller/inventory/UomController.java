@@ -23,8 +23,9 @@ public class UomController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UnitOfMeasurementDto> getById(@PathVariable long id) {
-        return new ResponseEntity<>(unitOfMeasurementService.getUnitOfMeasurementById(id),HttpStatus.OK);
+        return new ResponseEntity<>(unitOfMeasurementService.getUnitOfMeasurementById(id), HttpStatus.OK);
     }
+
     // get unit of measurements
     @GetMapping
     public ResponseEntity<List<UnitOfMeasurementDto>> getUnitOfMeasurements() {

@@ -17,6 +17,8 @@ public class ProductionBatch extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private boolean active;
+
     @Column(nullable = false)
     private String name;
 
@@ -24,4 +26,6 @@ public class ProductionBatch extends BaseEntity {
     @JoinColumn(name = "production_id", nullable = false)
     @JsonBackReference
     private Production production;
+
+    private Long createdBy;
 }

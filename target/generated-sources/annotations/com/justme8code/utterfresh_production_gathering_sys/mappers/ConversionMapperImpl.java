@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-03T19:52:50+0100",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.7 (JetBrains s.r.o.)"
+    date = "2025-07-07T10:25:27+0100",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class ConversionMapperImpl implements ConversionMapper {
@@ -34,7 +34,6 @@ public class ConversionMapperImpl implements ConversionMapper {
         conversion.setProduction( conversionDtoToProduction( conversionDto ) );
         conversion.setCreatedAt( conversionDto.getCreatedAt() );
         conversion.setId( conversionDto.getId() );
-        conversion.setBatch( conversionDto.getBatch() );
         conversion.setFields( conversionFieldDtoListToConversionFieldList( conversionDto.getFields() ) );
 
         linkFields( conversion );
@@ -52,17 +51,15 @@ public class ConversionMapperImpl implements ConversionMapper {
         Long productionId = null;
         List<ConversionDto.ConversionFieldDto> fields = null;
         Long id = null;
-        int batch = 0;
         LocalDateTime createdAt = null;
 
         purchaseId = conversionPurchaseId( conversion );
         productionId = conversionProductionId( conversion );
         fields = conversionFieldListToConversionFieldDtoList( conversion.getFields() );
         id = conversion.getId();
-        batch = conversion.getBatch();
         createdAt = conversion.getCreatedAt();
 
-        ConversionDto conversionDto = new ConversionDto( id, batch, productionId, purchaseId, fields, createdAt );
+        ConversionDto conversionDto = new ConversionDto( id, productionId, purchaseId, fields, createdAt );
 
         return conversionDto;
     }
@@ -87,7 +84,6 @@ public class ConversionMapperImpl implements ConversionMapper {
         if ( conversionDto.getId() != null ) {
             conversion.setId( conversionDto.getId() );
         }
-        conversion.setBatch( conversionDto.getBatch() );
         if ( conversion.getFields() != null ) {
             List<ConversionField> list = conversionFieldDtoListToConversionFieldList( conversionDto.getFields() );
             if ( list != null ) {

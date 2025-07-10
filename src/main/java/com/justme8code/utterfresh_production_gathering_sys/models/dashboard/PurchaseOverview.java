@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PurchaseOverview {
-    private long totalPurchases;
     private final Map<String, Double> rawMaterialQty = new HashMap<>();
+    private long totalPurchases;
 
 }

@@ -1,6 +1,9 @@
 package com.justme8code.utterfresh_production_gathering_sys.evaluation;
 
-import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.*;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationDto;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationInfoDto;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationMapper;
+import com.justme8code.utterfresh_production_gathering_sys.evaluation.dto.EvaluationPayload;
 import com.justme8code.utterfresh_production_gathering_sys.exceptions.EntityException;
 import com.justme8code.utterfresh_production_gathering_sys.models.event.ProductMix;
 import com.justme8code.utterfresh_production_gathering_sys.models.event.Production;
@@ -42,10 +45,9 @@ public class EvaluationService {
     }
 
 
-
-    public void verifyEvaluationAction(Production production, EvaluationType evaluationType){
-        if(production.isFinalized() && evaluationType.equals(EvaluationType.IN_PROCESS)){
-            throw new EntityException("Production already finalized, Can't create in process sensory.",HttpStatus.FORBIDDEN);
+    public void verifyEvaluationAction(Production production, EvaluationType evaluationType) {
+        if (production.isFinalized() && evaluationType.equals(EvaluationType.IN_PROCESS)) {
+            throw new EntityException("Production already finalized, Can't create in process sensory.", HttpStatus.FORBIDDEN);
         }
 /*
         if(!production.isFinalized() && evaluationType.equals(EvaluationType.POST_PROCESS)){
@@ -53,13 +55,14 @@ public class EvaluationService {
         }*/
 
     }
+
     // Create evaluation;
     @Transactional
-    public EvaluationDto createEvaluation(Long productionId,EvaluationPayload payload) {
+    public EvaluationDto createEvaluation(Long productionId, EvaluationPayload payload) {
         System.out.println("printing evaluation payload");
         System.out.println(payload);
         // 1. Fetch the main related entity: Production
-        Production production = ProductionHelper.findProductionByIdHelper(productionRepository,productionId);
+        Production production = ProductionHelper.findProductionByIdHelper(productionRepository, productionId);
         verifyEvaluationAction(production, payload.getEvaluationType());// verify type of evaluation on this production
         // 2. Fetch the staff member
         Staff staff = staffRepository.findStaffByUser_Email(SecurityUtils.getCurrentUserId());
@@ -115,7 +118,6 @@ public class EvaluationService {
         // 8. Save the parent. Cascade will save all children.
         return evaluationMapper.toDto(evaluationRepository.save(evaluation));
     }
-
 
 
     public List<String> evaluationTypes() {

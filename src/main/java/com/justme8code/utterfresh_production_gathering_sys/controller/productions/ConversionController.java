@@ -1,7 +1,8 @@
 package com.justme8code.utterfresh_production_gathering_sys.controller.productions;
 
-import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.CPDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionFullDetail;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionDto;
+import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionFullDetailWithBatchInfo;
 import com.justme8code.utterfresh_production_gathering_sys.dtos.conversion.ConversionPayload;
 import com.justme8code.utterfresh_production_gathering_sys.services.implementations.productions.ConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class ConversionController {
     }
 
     @PostMapping
-    public ResponseEntity<CPDto> createMTI(@RequestBody ConversionPayload conversionPayload, @PathVariable int purchaseId, @PathVariable long productionId) {
-        CPDto mti = conversionService.createMaterialToIngredient(conversionPayload, purchaseId, productionId);
+    public ResponseEntity<ConversionFullDetailWithBatchInfo> createMTI(@RequestBody ConversionPayload conversionPayload, @PathVariable int purchaseId, @PathVariable long productionId) {
+        ConversionFullDetailWithBatchInfo mti = conversionService.createMaterialToIngredient(conversionPayload, purchaseId, productionId);
         return new ResponseEntity<>(mti, HttpStatus.CREATED);
     }
 

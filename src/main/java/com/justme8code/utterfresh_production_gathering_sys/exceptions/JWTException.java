@@ -21,4 +21,5 @@ public class JWTException extends RuntimeException {
         this.message = message;
         this.originalException = exception;
     }
+
 }
